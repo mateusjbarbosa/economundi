@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="6480" viewBox="0 0 1920 6480">
+  <defs>
+    <clipPath id="clip-economundi-med">
+      <rect width="1920" height="6480"/>
+    </clipPath>
+  </defs>
+  <g id="economundi-med" clip-path="url(#clip-economundi-med)">
+    <rect width="1920" height="6480" fill="#fff"/>
+    <rect id="Retângulo_10" data-name="Retângulo 10" width="1700" height="1080" transform="translate(220 1080)" fill="#ddd"/>
+    <rect id="Retângulo_14" data-name="Retângulo 14" width="1700" height="1080" transform="translate(220 2160)" fill="#ddd"/>
+    <rect id="Retângulo_22" data-name="Retângulo 22" width="1700" height="1080" transform="translate(220 4320)" fill="#ddd"/>
+    <rect id="Retângulo_18" data-name="Retângulo 18" width="1700" height="1080" transform="translate(220 3240)" fill="#ddd"/>
+    <rect id="Retângulo_20" data-name="Retângulo 20" width="1700" height="880" transform="translate(220 5400)" fill="#ddd"/>
+    <rect id="Retângulo_24" data-name="Retângulo 24" width="1700" height="200" transform="translate(220 6280)" fill="#707070"/>
+    <g id="Grupo_4" data-name="Grupo 4">
+      <rect id="Retângulo_1" data-name="Retângulo 1" width="1700" height="1080" transform="translate(220)" fill="#707070"/>
+      <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit." data-name="Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit." transform="translate(250 765)" fill="#fff" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="58">Lorem ipsum dolor sit amet, consectetur </tspan><tspan x="0" y="131">adipiscing elit.</tspan></text>
+      <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit._Duis_nec_consequat_nisi_vitae_porta_lacus._Maecenas_placerat_finibus_ex_eget_iaculis_quam_porta_quis._Nullam_at_dolor_vel_ipsum_vestibulum..." data-name="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec consequat nisi, vitae porta lacus. Maecenas placerat finibus ex, eget iaculis quam porta quis. Nullam at dolor vel ipsum vestibulum..." transform="translate(250 940)" fill="#fff" font-size="30" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="29">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec consequat nisi, vitae porta lacus. </tspan><tspan x="0" y="66">Maecenas placerat finibus ex, eget iaculis quam porta quis. Nullam at dolor vel ipsum vestibulum...</tspan></text>
+    </g>
+    <rect id="Retângulo_4" data-name="Retângulo 4" width="220" height="1080" fill="#ddd"/>
+    <g id="Retângulo_9" data-name="Retângulo 9" transform="translate(0 1080)" fill="none" stroke="#707070" stroke-width="5" stroke-dasharray="20">
+      <rect width="220" height="1080" stroke="none"/>
+      <rect x="2.5" y="2.5" width="215" height="1075" fill="none"/>
+    </g>
+    <g id="Retângulo_15" data-name="Retângulo 15" transform="translate(0 2160)" fill="none" stroke="#707070" stroke-width="5" stroke-dasharray="20">
+      <rect width="220" height="1080" stroke="none"/>
+      <rect x="2.5" y="2.5" width="215" height="1075" fill="none"/>
+    </g>
+    <g id="Retângulo_23" data-name="Retângulo 23" transform="translate(0 4320)" fill="none" stroke="#707070" stroke-width="5" stroke-dasharray="20">
+      <rect width="220" height="1080" stroke="none"/>
+      <rect x="2.5" y="2.5" width="215" height="1075" fill="none"/>
+    </g>
+    <g id="Retângulo_19" data-name="Retângulo 19" transform="translate(0 3240)" fill="none" stroke="#707070" stroke-width="5" stroke-dasharray="20">
+      <rect width="220" height="1080" stroke="none"/>
+      <rect x="2.5" y="2.5" width="215" height="1075" fill="none"/>
+    </g>
+    <g id="Retângulo_21" data-name="Retângulo 21" transform="translate(0 5400)" fill="none" stroke="#707070" stroke-width="5" stroke-dasharray="20">
+      <rect width="220" height="1080" stroke="none"/>
+      <rect x="2.5" y="2.5" width="215" height="1075" fill="none"/>
+    </g>
+    <g id="Retângulo_3" data-name="Retângulo 3" transform="translate(50 40)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_5" data-name="Retângulo 5" transform="translate(50 180)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_6" data-name="Retângulo 6" transform="translate(50 320)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_7" data-name="Retângulo 7" transform="translate(50 460)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_8" data-name="Retângulo 8" transform="translate(50 600)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_16" data-name="Retângulo 16" transform="translate(50 740)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Retângulo_17" data-name="Retângulo 17" transform="translate(50 740)" fill="#ddd" stroke="#707070" stroke-width="5">
+      <rect width="120" height="100" stroke="none"/>
+      <rect x="2.5" y="2.5" width="115" height="95" fill="none"/>
+    </g>
+    <g id="Grupo_5" data-name="Grupo 5" transform="translate(0 47)">
+      <g id="Elipse_1" data-name="Elipse 1" transform="translate(60 846)" fill="none" stroke="#707070" stroke-width="5">
+        <circle cx="50" cy="50" r="50" stroke="none"/>
+        <circle cx="50" cy="50" r="47.5" fill="none"/>
+      </g>
+      <text id="LOREM" transform="translate(53 985)" fill="#707070" font-size="30" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="0" y="0">LOREM</tspan></text>
+    </g>
+    <text id="LOREM-2" data-name="LOREM" transform="translate(956 1178)" fill="#707070" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="0">LOREM</tspan></text>
+    <text id="LOREM-3" data-name="LOREM" transform="translate(956 2258)" fill="#707070" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="0">LOREM</tspan></text>
+    <text id="LOREM-4" data-name="LOREM" transform="translate(956 4418)" fill="#707070" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="0">LOREM</tspan></text>
+    <text id="LOREM-5" data-name="LOREM" transform="translate(956 3338)" fill="#707070" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="0">LOREM</tspan></text>
+    <text id="LOREM-6" data-name="LOREM" transform="translate(956 5498)" fill="#707070" font-size="60" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="0">LOREM</tspan></text>
+    <g id="Grupo_3" data-name="Grupo 3">
+      <rect id="Retângulo_11" data-name="Retângulo 11" width="500" height="500" transform="translate(250 1370)" fill="#707070"/>
+      <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit.-2" data-name="Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit." transform="translate(263 1660)" fill="#fff" font-size="40" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="39">Lorem ipsum dolor sit </tspan><tspan x="0" y="88">amet, consectetur </tspan><tspan x="0" y="137">adipiscing elit.</tspan></text>
+    </g>
+    <g id="Grupo_2" data-name="Grupo 2">
+      <rect id="Retângulo_13" data-name="Retângulo 13" width="500" height="500" transform="translate(820 1370)" fill="#707070"/>
+      <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit.-3" data-name="Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit." transform="translate(833 1660)" fill="#fff" font-size="40" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="39">Lorem ipsum dolor sit </tspan><tspan x="0" y="88">amet, consectetur </tspan><tspan x="0" y="137">adipiscing elit.</tspan></text>
+    </g>
+    <g id="Grupo_1" data-name="Grupo 1">
+      <rect id="Retângulo_12" data-name="Retângulo 12" width="500" height="500" transform="translate(1390 1370)" fill="#707070"/>
+      <text id="Lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit.-4" data-name="Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit." transform="translate(1403 1660)" fill="#fff" font-size="40" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800"><tspan x="0" y="39">Lorem ipsum dolor sit </tspan><tspan x="0" y="88">amet, consectetur </tspan><tspan x="0" y="137">adipiscing elit.</tspan></text>
+    </g>
+  </g>
+</svg>
