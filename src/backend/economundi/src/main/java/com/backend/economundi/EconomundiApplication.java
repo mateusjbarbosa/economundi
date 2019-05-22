@@ -1,5 +1,7 @@
 package com.backend.economundi;
 
+import com.backend.consumer.ApiNewsConsumer;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.boot.SpringApplication;
@@ -21,11 +23,12 @@ public class EconomundiApplication {
     
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
-
     }
 
     @Scheduled(fixedDelay = MINUTO)
-    public void reportCurrentTime() {
-        System.out.println("The time is now " + dateFormat.format(new Date()));
+    public void reportCurrentTime() throws IOException {
+        ApiNewsConsumer api = new ApiNewsConsumer();
+        
+        api.getNews();
     }
 }
