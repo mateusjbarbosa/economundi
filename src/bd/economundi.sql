@@ -33,4 +33,54 @@ create table comentario (
     usuario_reacao_id integer references usuario(id) on update cascade NOT NULL,
     noticia_id integer references noticia(id) on update cascade NOT NULL,
     comentario_pai_id integer references comentario(id) on update cascade on delete
+    unique (noticia_id, usuario_escritor_id)
+);
+
+create table usuario_curte_noticia (
+    id serial primary key,
+    tipo_curtida character varying (2) check in ('C', 'NC') NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    noticia_id integer references noticia(id) on update cascade on delete NOT NULL
+    unique (usuario_id, noticia_id)
+);
+
+create table palavra (
+    id serial primary key,
+    nome character varying (50) unique NOT NULL,
+    descricao text NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL
+);
+
+create table usuario_pesquisa_palavra (
+    id serial primary key,
+    data_hora timestamp without timezone NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    palavra_id integer references palavra(id) on update cascade NOT NULL
+    unique (usuario_id, palavra_id)
+);
+
+create table usuario_edita_palavra (
+    
+);
+
+create table usuario_cadastra_palavra (
+
+);
+
+create table investimento (
+    id serial primary key,
+    nome character varying (50) unique NOT NULL,
+    descricao text NOT NULL,
+    grupo character varying (50) NOT NULL -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IRÃO EXISTIR
+    periodo integer NOT NULL,
+    rendimento double precision NOT NULL
+);
+
+create table simulacao (
+    id serial primary key,
+    valor_inicial money check in (valor_inicial > 0) NOT NULL,
+    valor_final money NOT NULL,
+    data_hora timestamp without timezone NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    investimento_id integer references investimento(id) on update cascade NOT NULL
 );
