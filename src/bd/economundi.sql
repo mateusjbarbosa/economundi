@@ -60,11 +60,21 @@ create table usuario_pesquisa_palavra (
 );
 
 create table usuario_edita_palavra (
-    
+    id serial primary key,
+    data_hora timestamp without timezone NOT NULL,
+    isValida boolean default (false) NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    palavra_id integer references palavra(id) on update cascade NOT NULL
+    unique (usuario_id, palavra_id)
 );
 
 create table usuario_cadastra_palavra (
-
+    id serial primary key,
+    palavra character varying (50) NOT NULL,
+    data_hora timestamp without timezone NOT NULL,
+    isValida boolean default (false) NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    unique (usuario_id)
 );
 
 create table investimento (
