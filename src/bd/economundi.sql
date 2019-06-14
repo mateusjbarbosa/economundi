@@ -81,6 +81,9 @@ create table usuario_cadastra_palavra (
     unique (usuario_id, palavra_id)
 );
 
+-- ANTES DE PROSSEGUIR: Como fica a tabela de palavra agora? Como para cadastrar é feito um registro da palavra,
+-- a descrição fica nula, isso seria um problema?
+
 create table investimento (
     id serial primary key,
     nome character varying (50) unique NOT NULL,
