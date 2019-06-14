@@ -53,7 +53,7 @@ public class PalavraService {
     }
     
     public Palavra merge(Map<String, String> data) {
-        Palavra merged = new Palavra();
+        Palavra merged = null;
         
         if (data != null)
         {
@@ -66,6 +66,8 @@ public class PalavraService {
                 if (palavra != null)
                 {
                     String key = "nome";
+                    
+                    merged = new Palavra();
                     
                     merged.setId(palavra.getId());
                     merged.setNome(palavra.getNome());
@@ -80,6 +82,8 @@ public class PalavraService {
                     if (data.containsKey(key)) {
                         merged.setDescricao(data.get(key));
                     }
+                    
+                    merged.setQuantPesquisa(palavra.getQuantPesquisa());
                 }
             }
         }

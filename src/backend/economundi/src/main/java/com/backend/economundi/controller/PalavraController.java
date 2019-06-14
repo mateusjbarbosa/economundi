@@ -2,12 +2,15 @@ package com.backend.economundi.controller;
 
 import com.backend.economundi.entity.Palavra;
 import com.backend.economundi.service.PalavraService;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,5 +46,37 @@ public class PalavraController {
         {
             return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+    
+    @PatchMapping("/api/palavra/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        body.put("id", Long.toString(id));
+        
+        Map <String, String> erros;
+        
+        Palavra palavra = service.merge(body);
+        
+        if (palavra != null) {
+            erros = service.validate(palavra);
+
+            if (erros.isEmpty()) {
+                service.update(palavra);
+                httpHeaders.add ("Location", "/palavra/" + id);
+                return new ResponseEntity<>(erros, null, HttpStatus.ACCEPTED);
+           }
+        } else
+        {
+            erros = new HashMap<>();
+            
+            erros.put("Palavra", "Id inexistente.");
+        }
+        
+        return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
+    }
+    
+    @DeleteMapping("/api/palavra/{id}")
+    public void delete(@PathVariable("id")Long id){
+        service.delete(id);
     }
 }
