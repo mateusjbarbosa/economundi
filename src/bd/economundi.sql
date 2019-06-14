@@ -59,6 +59,8 @@ create table usuario_pesquisa_palavra (
     unique (usuario_id, palavra_id)
 );
 
+-- ALTERAÇÃO NA REGRA DE NEGÓCIO DO BANCO: Como agora é somente solicitada a edição, não é necessário
+-- a nova descrição, somente o registro.
 create table usuario_edita_palavra (
     id serial primary key,
     data_hora timestamp without timezone NOT NULL,
@@ -68,6 +70,9 @@ create table usuario_edita_palavra (
     unique (usuario_id, palavra_id)
 );
 
+-- ALTERAÇÃO NA REGRA DE NEGÓCIO DO BANCO: Como agora é somente solicitada a edição, não é necessário
+-- a nova descrição, somente o registro, informando a palavra que se deseja cadastrar. Havia um erro também,
+-- como referenciar o id de uma palavra que exisita ainda?
 create table usuario_cadastra_palavra (
     id serial primary key,
     palavra character varying (50) NOT NULL,
