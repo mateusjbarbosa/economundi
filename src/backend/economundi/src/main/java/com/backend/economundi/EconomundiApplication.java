@@ -1,9 +1,7 @@
 package com.backend.economundi;
 
-import com.backend.consumer.ApiNewsConsumer;
+import com.backend.economundi.consumer.ApiNewsConsumer;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,8 +16,6 @@ public class EconomundiApplication {
     private final long SEGUNDO = 1000;
     private final long MINUTO = SEGUNDO * 60;
     private final long HORA = MINUTO * 60;
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
