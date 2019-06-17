@@ -55,34 +55,18 @@ create table usuario_pesquisa_palavra (
     id serial primary key,
     data_hora timestamp without timezone NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL,
-    palavra_id integer references palavra(id) on update cascade NOT NULL
+    palavra_id integer references palavra(id) on update cascade,
     unique (usuario_id, palavra_id)
 );
 
--- ALTERAÇÃO NA REGRA DE NEGÓCIO DO BANCO: Como agora é somente solicitada a edição, não é necessário
--- a nova descrição, somente o registro.
-create table usuario_edita_palavra (
+-- Essa tabela será utilizada para armazenar todas as solicitações de edição e cadastro de palavras pelo usuário
+create table usuario_solicita_palavra (
     id serial primary key,
     data_hora timestamp without timezone NOT NULL,
-    isValida boolean default (false) NOT NULL,
-    usuario_id integer references usuario(id) on update cascade NOT NULL,
-    palavra_id integer references palavra(id) on update cascade NOT NULL
-    unique (usuario_id, palavra_id)
-);
-
--- ALTERAÇÃO NA REGRA DE NEGÓCIO DO BANCO: Como agora é somente solicitada a edição, não é necessário
--- a nova descrição, somente o registro.
-create table usuario_cadastra_palavra (
-    id serial primary key,
-    data_hora timestamp without timezone NOT NULL,
-    isValida boolean default (false) NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL,
     palavra_id integer references palavra(id) on update cascade NOT NULL,
     unique (usuario_id, palavra_id)
 );
-
--- ANTES DE PROSSEGUIR: Como fica a tabela de palavra agora? Como para cadastrar é feito um registro da palavra,
--- a descrição fica nula, isso seria um problema?
 
 create table investimento (
     id serial primary key,
