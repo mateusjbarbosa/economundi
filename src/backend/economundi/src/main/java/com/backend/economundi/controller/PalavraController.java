@@ -28,8 +28,7 @@ public class PalavraController {
         
         if (palavra != null) {
             return new ResponseEntity<>(palavra, null, HttpStatus.ACCEPTED);
-        } else
-        {
+        } else {
             return new ResponseEntity<>(palavra, null, HttpStatus.NOT_FOUND);
         }
     }
@@ -42,8 +41,7 @@ public class PalavraController {
             service.creat(palavra);
             httpHeaders.add("Location", "/palavra/" + palavra.getId());
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
-        } else
-        {
+        } else {
             return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -65,8 +63,7 @@ public class PalavraController {
                 httpHeaders.add ("Location", "/palavra/" + id);
                 return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
            }
-        } else
-        {
+        } else {
             erros = new HashMap<>();
             
             erros.put("Palavra", "Id inexistente.");
