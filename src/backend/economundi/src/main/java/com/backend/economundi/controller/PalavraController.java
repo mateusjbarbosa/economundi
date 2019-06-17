@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PalavraController {
     
-    private PalavraService service = new PalavraService();
+    private final PalavraService service = new PalavraService();
     
     @GetMapping("/api/palavra/{id}")
     public ResponseEntity getById(@PathVariable("id") Long id) {
