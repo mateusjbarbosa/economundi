@@ -50,7 +50,6 @@ public class PalavraController {
     
     @PatchMapping("/api/palavra/{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
-        HttpHeaders httpHeaders = new HttpHeaders();
         body.put("id", Long.toString(id));
         
         Map <String, String> erros;
@@ -61,9 +60,10 @@ public class PalavraController {
             erros = service.validate(palavra);
 
             if (erros.isEmpty()) {
+                HttpHeaders httpHeaders = new HttpHeaders();
                 service.update(palavra);
                 httpHeaders.add ("Location", "/palavra/" + id);
-                return new ResponseEntity<>(erros, null, HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
            }
         } else
         {
