@@ -66,15 +66,6 @@ create table usuario_pesquisa_palavra (
     unique (usuario_id, palavra_id)
 );
 
--- Essa tabela será utilizada para armazenar todas as solicitações de edição e cadastro de palavras pelo usuário
-create table usuario_solicita_palavra (
-    id serial primary key,
-    data_hora timestamp without time zone NOT NULL,
-    usuario_id integer references usuario(id) on update cascade NOT NULL,
-    palavra_id integer references palavra(id) on update cascade NOT NULL,
-    unique (usuario_id, palavra_id)
-);
-
 create table investimento (
     id serial primary key,
     nome character varying (50) unique NOT NULL,
