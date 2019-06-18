@@ -38,7 +38,7 @@ public class PalavraController {
         HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> erros = service.validate(palavra);
         if (erros.isEmpty()) {
-            service.creat(palavra);
+            service.create(palavra);
             httpHeaders.add("Location", "/palavra/" + palavra.getId());
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
         } else {

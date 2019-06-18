@@ -11,7 +11,7 @@ public class PalavraService {
     private static List<Palavra> list = new ArrayList<>();
     private static Map<Long, Palavra> map = new HashMap<>();
     
-    public void creat (Palavra palavra) {
+    public void create (Palavra palavra) {
         if (palavra != null) {
             Long id = ++sequence;
             palavra.setId(id);
