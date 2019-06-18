@@ -48,6 +48,13 @@ create table palavra (
     id serial primary key,
     nome character varying (50) unique NOT NULL,
     descricao text NOT NULL,
+);
+
+create table solicitacao (
+    id serial primary key,
+    nome character varying (50) NOT NULL,
+    descricao text NOT NULL,
+    status character varying (50) check (status in ('APROVADO', 'REPROVADO', 'AGUARDANDO')) default ('AGUARDANDO') NOT NULL
     usuario_id integer references usuario(id) on update cascade NOT NULL
 );
 
