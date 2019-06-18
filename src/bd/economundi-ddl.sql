@@ -38,7 +38,7 @@ create table comentario (
 
 create table usuario_curte_noticia (
     id serial primary key,
-    tipo_curtida character varying (2) check (tipo_curtida in ('C', 'NC')) NOT NULL,
+    tipo_curtida character varying (2) check (tipo_curtida in ('Curtiu', 'Não Curtiu')) NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL,
     noticia_id integer references noticia(id) on update cascade on delete cascade NOT NULL,
     unique (usuario_id, noticia_id)
@@ -53,8 +53,8 @@ create table palavra (
 create table solicitacao (
     id serial primary key,
     nome character varying (50) NOT NULL,
-    descricao text NOT NULL,
-    status character varying (50) check (status in ('APROVADO', 'REPROVADO', 'AGUARDANDO')) default ('AGUARDANDO') NOT NULL,
+    descricao text,
+    status character varying (50) check (status in ('Aprovado', 'Reprovado', 'Aguardando')) default ('Aguardando') NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL
 );
 
