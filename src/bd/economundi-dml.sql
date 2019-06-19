@@ -10,7 +10,3 @@ insert into palavra (nome, descricao) values ('BNDES', 'Sigla que designa o Banc
 insert into palavra (nome, descricao) values ('AÇÃO', 'Valor mobiliário emitido pelas sociedades anônimas, representando a menor fração do capital destas empresas. As empresas emitem ações para aumentar o capital social, e os recursos levantados podem ser utilizados para vários fins, sobretudo futuros investimentos');
 insert into palavra (nome, descricao) values ('PIB', 'Sigla que significa Produto Interno Bruto. Ver definição em PRODUTO INTERNO BRUTO.');
 insert into palavra (nome, descricao) values ('PREGÃO', 'A tristeza emana do povo!');
-
-update palavra set descricao = 'Intervalo de tempo durante o qual papéis listados em uma bolsa de valores são negociados, diretamente na sala de negociações e/ou pelo sistema de negociação eletrônica.' where palavra.nome = 'PREGÃO';
-
-delete from palavra where palavra.nome = 'BNDES';
