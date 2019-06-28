@@ -2,14 +2,13 @@
 
 BEGIN;
 
-/*Inserindo Dados na Tabela Usuario*/
+-- Inserindo dados na tabela Usuario
 insert into usuario (email, nome, sobrenome, senha, data_nasc, perfil_economico) values ('Alexandresilva58@gmail.com', 'Alexandre', 'Ribeiro', '123456789', '1991-07-01', 'Moderado-agressivo');
 insert into usuario (email, nome, sobrenome, senha, data_nasc, perfil_economico) values ('joaovitorteixeira10.JVT@gmail.com', 'João Vitor', 'Teixeira', '123456789', '1999-03-09', 'Conservador');
 insert into usuario (email, nome, sobrenome, senha, data_nasc, perfil_economico) values ('dev.mateusbarbosa@gmail.com', 'Mateus José', 'Barbosa', '123456789', '1999-03-10', 'Moderado');
 
-/*Inserindo Dados na Tabela Noticia*/
-
-insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values( 
+-- Inserindo dados na tabela Noticia
+insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values ( 
     'Beto Rourkes unnecessary Spanish monologue is offensive pandering at its worst',
     'Beto O’Rourke was asked a straightforward question by MSNBC.',
     'Beto O’Rourke was asked a straightforward question by MSNBC host Savannah Guthrie during the Democratic debate about what top marginal tax rate he would support. Naturally, O’Rourke ignored it entirely.
@@ -22,7 +21,7 @@ insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, lo
     50
 );
 
-insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values(
+insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values (
     'Bitcoin’s Parabolic Move Shows Why It’s a Sucker’s Bet',
     'Bitcoin has been on a tear lately, exploding from $3,000 to over $13,850.',
     'Bitcoin has been on a tear lately, exploding from $3,000 to over $13,850.While pundits try and ascribe reasons for the move, bitcoin traders who have managed to ride the wave are cheering.
@@ -40,7 +39,8 @@ insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, lo
     'Mundo',
     85
 );
-insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values(
+
+insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, localidade, engajamento) values (
     'Bolsa sobe; dólar cai após duas altas e fecha valendo R$ 3,847',
     'O Ibovespa, principal índice da Bolsa brasileira, fechou o dia em alta de 0,6%',
     'O Ibovespa, principal índice da Bolsa brasileira, fechou o dia em alta de 0,6%, a 100.688,63 pontos. 
@@ -53,41 +53,10 @@ insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, lo
     77
 );
 
-/*Inserindo Dados na Tabela Investimento*/
+-- Inserindo dados na tabela Comentario
+insert into comentario (data_hora, conteudo, usuario_escritor_id, usuario_reacao_id, noticia_id, comentario_pai_id) values (default, 'Eu lembro quando era 1/1!', );
 
-insert into investimento (nome, descricao, grupo, periodo, rendimento) values(
-    'LCI e LCA',
-    'Considerados investimentos de baixo risco, LCI (Letra de Crédito Imobiliário) e LCA (Letra de Crédito do Agronegócio) são emitidas por instituições financeiras. Com o objetivo de captar recursos para os setores imobiliário e agronegócio, respectivamente.
-     São dois tipos de investimentos em Renda Fixa de curto prazo e isentos de Imposto de Renda, que dão ao investidor duas opções: saber na hora da compra quanto seu dinheiro vai render ou optar por acompanhar as taxas de juros do mercado.',
-    'LCI/LCA',
-     1080,
-     28.13
-);
-
-insert into investimento (nome, descricao, grupo, periodo, rendimento) values(
-    'CDB e LC',
-    'Considerados investimentos de Renda Fixa com baixo risco, o CDB (Certificado de Depósito Bancário) e o LC (Letras de Câmbio) são títulos emitidos para que bancos e instituições financeiras consigam financiar suas atividades de crédito. Ideal para qualquer perfil de investidor.
-     Com o CDB e LC, quem empresta dinheiro para o banco em troca de juros é você! São investimentos de Renda Fixa mais rentáveis, onde você pode acompanhar as taxas de juros do mercado possibilitando a opção de saber exatamente quanto seu dinheiro irá render.',
-    'CDB/LC',
-     1080,
-     44.18
-);
-
-insert into investimento (nome, descricao, grupo, periodo, rendimento) values(
-    'Tesouro IPCA',
-    'Considerado a porta de entrada para o mundo dos investimentos, no Tesouro Direto você investe com pouco dinheiro e com o menor risco entre as aplicações do mercado. Ideal para quem quer começar a investir.
-     Investir no Tesouro Direto é uma maneira acessível para fazer seu dinheiro render mais. Nele você investe em títulos públicos com rentabilidade variável.',
-    'CDB/LC',
-     1080,
-     38.87
-);
-
-/*Inserindo Dados na Tabela Simulação*/
-/*insert into simulacao (valor_inicial, valor_final, data_hora, usuario_id, investimento_id) values(
-
-);*/
-
-/*Inserindo Dados na Tabela Palavra*/
+-- Inserindo dados na tabela Palavra
 insert into palavra (nome, descricao) values ('INVESTIMENTO', 'Emprego da poupança em atividade produtiva, com o objetivo de auferir ganhos a médio ou longo prazo. É utilizado, também, para designar a aplicação de recursos em algum tipo de ativo financeiro.');
 insert into palavra (nome, descricao) values ('BOLSA DE VALORES', 'Lugar onde se negociam títulos e valores mobiliários (sobretudo ações, opções, direitos e debêntures). A BM&FBOVESPA é a principal instituição brasileira de intermediação para operações do mercado de capitais e a única bolsa de valores, mercadorias e futuros em operação no Brasil.');
 insert into palavra (nome, descricao) values ('GARANTIA', 'O termo garantia, ou colateral, se refere aos itens usados por uma empresa ou indivíduo para sustentar o crédito quando levanta um financiamento. Assim, a garantia de um empréstimo pode ser qualquer ativo sobre o qual o credor (quem emprestou o dinheiro) tem um direito legal, que pode ser exercido caso o tomador do empréstimo não cumpra alguma das cláusulas do contrato.');
@@ -97,7 +66,82 @@ insert into palavra (nome, descricao) values ('FORNECEDOR', 'Qualquer organizaç
 insert into palavra (nome, descricao) values ('BNDES', 'Sigla que designa o Banco Nacional de Desenvolvimento Econômico Social, que é o órgão governamental responsável pela implementação de políticas de investimento empresarial de longo prazo. Dentre as principais responsabilidades do BNDES estão: impulsionar o crescimento da economia, atuando como instituição de fomento; fortalecer o empresariado nacional; promover a diversificação e o crescimento das exportações; criar pólos de produção para diminuir possíveis desequilíbrios regionais. As atividades de fomento da instituição são conduzidas através de programas especiais como, por exemplo, o Finame, Finem e Finac.');
 insert into palavra (nome, descricao) values ('AÇÃO', 'Valor mobiliário emitido pelas sociedades anônimas, representando a menor fração do capital destas empresas. As empresas emitem ações para aumentar o capital social, e os recursos levantados podem ser utilizados para vários fins, sobretudo futuros investimentos');
 insert into palavra (nome, descricao) values ('PIB', 'Sigla que significa Produto Interno Bruto. Ver definição em PRODUTO INTERNO BRUTO.');
-insert into palavra (nome, descricao) values ('PREGÃO', 'A tristeza emana do povo!');
+insert into palavra (nome, descricao) values ('PREGÃO', 'Intervalo de tempo durante o qual papéis listados em uma bolsa de valores são negociados, diretamente na sala de negociações e/ou pelo sistema de negociação eletrônica.');
+
+-- Inserindo dados na tabela Solicitacao
+insert into solicitacao (nome, descricao, status, usuario_id) values (
+    'PREGÃO ELETRÔNICO',
+    'Sistema eletrônico de negociação que permite a realização de negócios através de terminais sem a necessidade de presença física de operadores no pregão.',
+    default,
+    2
+);
+
+insert into solicitacao (nome, descricao, status, usuario_id) values (
+    'WHOLESALE INVENTORIES',
+    'O Departamento de Comércio dos EUA divulga mensalmente relatório contendo informações sobre as vendas e os estoques do setor atacadista, que serve como indicativo da atividade industrial local. Isso porque uma queda dos estoques, acompanhada de aumento das vendas, sugere uma possível retomada da atividade econômica local. Por outro lado, uma queda nos estoques, sem aumento de vendas, pode indicar apenas uma redução na taxa de reposição dos estoques por parte das empresas.',
+    default,
+    3
+);
+
+insert into solicitacao (nome, descricao, status, usuario_id) values (
+    'OPÇÃO DE SWAP',
+    'O investidor que compra essa opção adquire o direito de fazer um swap numa data específica.',
+    default,
+    1
+);
+
+insert into solicitacao (nome, descricao, status, usuario_id) values (
+    'SWAP',
+    'Do inglês, significa troca. No mercado financeiro trata-se de um jargão que se refere a um contrato de troca envolvendo commodities, moedas ou ativos financeiros. A troca é feita para mudar datas de vencimento, indexador ou os títulos que estão na carteira do investidor. Há operações dessas na Bolsa, que tem regras e, em alguns casos, até garantias, e no mercado de balcão, ou seja, fora de bolsa. Os contratos de swap foram lançados pela BM&F em abril de 1993.',
+    default,
+    3
+);
+
+
+-- Inserindo dados na tabela Usuario_Pesquisa_Palavra
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 1, 3);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 1, 4);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 2, 3);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 3, 3);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 1, 5);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 2, 7);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 3, 8);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 2, 1);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 3, 4);
+insert into usuario_pesquisa_palavra (data_hora, usuario_id, palavra_id) values (now(), 2, 2);s
+
+-- Inserindo dados na tabela Investimento
+insert into investimento (nome, descricao, grupo, periodo, rendimento) values (
+    'LCI e LCA',
+    'Considerados investimentos de baixo risco, LCI (Letra de Crédito Imobiliário) e LCA (Letra de Crédito do Agronegócio) são emitidas por instituições financeiras. Com o objetivo de captar recursos para os setores imobiliário e agronegócio, respectivamente.
+     São dois tipos de investimentos em Renda Fixa de curto prazo e isentos de Imposto de Renda, que dão ao investidor duas opções: saber na hora da compra quanto seu dinheiro vai render ou optar por acompanhar as taxas de juros do mercado.',
+    'LCI/LCA',
+     1080,
+     28.13
+);
+
+insert into investimento (nome, descricao, grupo, periodo, rendimento) values (
+    'CDB e LC',
+    'Considerados investimentos de Renda Fixa com baixo risco, o CDB (Certificado de Depósito Bancário) e o LC (Letras de Câmbio) são títulos emitidos para que bancos e instituições financeiras consigam financiar suas atividades de crédito. Ideal para qualquer perfil de investidor.
+     Com o CDB e LC, quem empresta dinheiro para o banco em troca de juros é você! São investimentos de Renda Fixa mais rentáveis, onde você pode acompanhar as taxas de juros do mercado possibilitando a opção de saber exatamente quanto seu dinheiro irá render.',
+    'CDB/LC',
+     1080,
+     44.18
+);
+
+insert into investimento (nome, descricao, grupo, periodo, rendimento) values (
+    'Tesouro IPCA',
+    'Considerado a porta de entrada para o mundo dos investimentos, no Tesouro Direto você investe com pouco dinheiro e com o menor risco entre as aplicações do mercado. Ideal para quem quer começar a investir.
+     Investir no Tesouro Direto é uma maneira acessível para fazer seu dinheiro render mais. Nele você investe em títulos públicos com rentabilidade variável.',
+    'CDB/LC',
+     1080,
+     38.87
+);
+
+-- Inserindo dados na tabela Simulação
+insert into simulacao (valor_inicial, valor_final, data_hora, usuario_id, investimento_id) values (1000.00, 1527.65, now(), 1, 2);
+insert into simulacao (valor_inicial, valor_final, data_hora, usuario_id, investimento_id) values (5000.00, 8540.21, now(), 2, 3);
+insert into simulacao (valor_inicial, valor_final, data_hora, usuario_id, investimento_id) values (1000000.00, 4520000.00, now(), 3, 3);
 
 COMMIT;
 
