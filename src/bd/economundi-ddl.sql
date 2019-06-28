@@ -25,23 +25,30 @@ create table noticia (
     engajamento integer default (0) check (engajamento >= 0) NOT NULL
 );
 
-create table comentario (
-    id serial primary key,
-    data_hora timestamp without time zone default (now()) NOT NULL,
-    conteudo text NOT NULL,
-    usuario_escritor_id integer references usuario(id) on update cascade NOT NULL,
-    usuario_reacao_id integer references usuario(id) on update cascade NOT NULL,
-    noticia_id integer references noticia(id) on update cascade NOT NULL,
-    comentario_pai_id integer references comentario(id) on update cascade on delete cascade,
-    unique (noticia_id, usuario_escritor_id)
-);
-
 create table usuario_curte_noticia (
     id serial primary key,
     tipo_curtida character varying (2) check (tipo_curtida in ('Curtiu', 'Não Curtiu')) NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL,
     noticia_id integer references noticia(id) on update cascade on delete cascade NOT NULL,
     unique (usuario_id, noticia_id)
+);
+
+create table comentario (
+    id serial primary key,
+    data_hora timestamp without time zone default (now()) NOT NULL,
+    conteudo text NOT NULL,
+    usuario_escritor_id integer references usuario(id) on update cascade NOT NULL,
+    noticia_id integer references noticia(id) on update cascade NOT NULL,
+    comentario_pai_id integer references comentario(id) on update cascade on delete cascade,
+    unique (noticia_id, usuario_escritor_id)
+);
+
+create table usuario_curte_comentario (
+    id serial primary key,
+    tipo_curtida character varying (2) check (tipo_curtida in ('Curtiu', 'Não Curtiu')) NOT NULL,
+    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    comentario_id integer references comentario(id) on update cascade on delete cascade NOT NULL,
+    unique (usuario_id, comentario_id)
 );
 
 create table palavra (

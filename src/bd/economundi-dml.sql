@@ -53,8 +53,20 @@ insert into noticia (manchete, descricao, conteudo, fonte, link_imagem, link, lo
     77
 );
 
+-- Inserindo dados na tabela Usuario_Curte_Noticia
+insert into usuario_curte_noticia (tipo_curtida, usuario_id, noticia_id) values ('Não curtiu', 1, 1);
+insert into usuario_curte_noticia (tipo_curtida, usuario_id, noticia_id) values ('Curtiu', 1, 2);
+insert into usuario_curte_noticia (tipo_curtida, usuario_id, noticia_id) values ('Não curtiu', 2, 1);
+insert into usuario_curte_noticia (tipo_curtida, usuario_id, noticia_id) values ('Não curtiu', 3, 2);
+
 -- Inserindo dados na tabela Comentario
-insert into comentario (data_hora, conteudo, usuario_escritor_id, usuario_reacao_id, noticia_id, comentario_pai_id) values (default, 'Eu lembro quando era 1/1!', );
+insert into comentario (data_hora, conteudo, usuario_escritor_id, noticia_id) values (default, 'Eu lembro quando era 1/1!', 1, 3);
+insert into comentario (data_hora, conteudo, usuario_escritor_id, noticia_id, comentario_pai_id) values (default, 'Quanto tempo, hein!', 2, 3, 1);
+insert into comentario (data_hora, conteudo, usuario_escritor_id, noticia_id) values (default, 'HAHAHA!', 1, 3, 1);
+
+-- Inserindo dados na tabela Usuario_Curte_Comentario
+insert into usuario_curte_comentario (tipo_curtida, usuario_id, comentario_id) values ('Curtiu', 3, 1);
+insert into usuario_curte_comentario (tipo_curtida, usuario_id, comentario_id) values ('Curtiu', 1, 2);
 
 -- Inserindo dados na tabela Palavra
 insert into palavra (nome, descricao) values ('INVESTIMENTO', 'Emprego da poupança em atividade produtiva, com o objetivo de auferir ganhos a médio ou longo prazo. É utilizado, também, para designar a aplicação de recursos em algum tipo de ativo financeiro.');
