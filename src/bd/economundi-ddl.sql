@@ -63,7 +63,7 @@ create table solicitacao (
     descricao text,
     status character varying (50) check (status in ('Aprovado', 'Reprovado', 'Aguardando')) default ('Aguardando') NOT NULL,
     usuario_id integer references usuario(id) on update cascade NOT NULL,
-    palavra_id integer references palavra(id) on update cascade NOT NULL
+    palavra_id integer references palavra(id) on update cascade
 );
 
 create table usuario_pesquisa_palavra (
