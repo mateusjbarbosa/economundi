@@ -1,6 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.entity.Palavra;
+import com.backend.economundi.entity.Word;
 import com.backend.economundi.service.PalavraService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-public class PalavraController {
+public class WordController {
     
     private final PalavraService service = new PalavraService();
     
     @GetMapping("/api/palavra/{id}")
     public ResponseEntity getById(@PathVariable("id") String search) {
-        List <Palavra> palavras = new ArrayList();
+        List <Word> palavras = new ArrayList();
         
         try {
             Long id = Long.parseLong(search);
-            Palavra palavra = service.readById(id);
+            Word palavra = service.readById(id);
             
             if (palavra != null)
             {
@@ -48,9 +48,10 @@ public class PalavraController {
     }
     
     @PostMapping("/api/palavra")
-    public ResponseEntity add(@RequestBody Palavra palavra) {
+    public ResponseEntity add(@RequestBody Word palavra) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> erros = service.validate(palavra);
+        
         if (erros.isEmpty()) {
             service.create(palavra);
             httpHeaders.add("Location", "/palavra/" + palavra.getId());
@@ -66,7 +67,7 @@ public class PalavraController {
         
         Map <String, String> erros;
         
-        Palavra palavra = service.merge(body);
+        Word palavra = service.merge(body);
         
         if (palavra != null) {
             erros = service.validate(palavra);

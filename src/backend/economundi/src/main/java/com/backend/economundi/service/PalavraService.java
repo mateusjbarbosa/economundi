@@ -1,6 +1,6 @@
 package com.backend.economundi.service;
 
-import com.backend.economundi.entity.Palavra;
+import com.backend.economundi.entity.Word;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class PalavraService {
     private static Long sequence = 0L;
-    private static List<Palavra> list = new ArrayList<>();
-    private static Map<Long, Palavra> map = new HashMap<>();
+    private static List<Word> list = new ArrayList<>();
+    private static Map<Long, Word> map = new HashMap<>();
     
-    public void create (Palavra palavra) {
+    public void create (Word palavra) {
         if (palavra != null) {
             Long id = ++sequence;
             palavra.setId(id);
@@ -21,16 +21,16 @@ public class PalavraService {
         }
     }
     
-    public Palavra readById(Long id) {
-        Palavra palavra = map.get(id);
+    public Word readById(Long id) {
+        Word palavra = map.get(id);
         
         realizeSearch(palavra);
 
         return palavra;
     }
     
-    public List <Palavra> readBySubString(String name) {
-        List <Palavra> palavras = new ArrayList();
+    public List <Word> readBySubString(String name) {
+        List <Word> palavras = new ArrayList();
         
         list.stream().filter((palavra) -> 
             (palavra.getNome().toLowerCase().
@@ -41,9 +41,9 @@ public class PalavraService {
         return palavras;
     }
     
-    public void update(Palavra palavra) {
+    public void update(Word palavra) {
         Long id = palavra.getId();
-        Palavra oldPalavra = map.get(id);
+        Word oldPalavra = map.get(id);
         
         if (oldPalavra != null) {
             list.remove(oldPalavra);
@@ -53,7 +53,7 @@ public class PalavraService {
     }
     
     public void delete(Long id) {
-        Palavra palavra = map.get(id);
+        Word palavra = map.get(id);
         
         if (palavra != null) {
             list.remove(palavra);
@@ -61,8 +61,8 @@ public class PalavraService {
         }
     }
     
-    public Palavra merge(Map<String, String> data) {
-        Palavra merged = null;
+    public Word merge(Map<String, String> data) {
+        Word merged = null;
         
         if (data != null)
         {
@@ -70,13 +70,13 @@ public class PalavraService {
             
             if (id != 0)
             {
-                Palavra palavra = map.get(id);
+                Word palavra = map.get(id);
                 
                 if (palavra != null)
                 {
                     String key = "nome";
                     
-                    merged = new Palavra();
+                    merged = new Word();
                     
                     merged.setId(palavra.getId());
                     merged.setNome(palavra.getNome());
@@ -100,7 +100,7 @@ public class PalavraService {
         return merged;
     }
     
-    public Map<String, String> validate(Palavra palavra) {
+    public Map<String, String> validate(Word palavra) {
         Map<String, String> erros = new HashMap<>();
         
         if (palavra != null) {
@@ -122,7 +122,7 @@ public class PalavraService {
         return erros;
     }
    
-    private void realizeSearch(Palavra palavra) {
+    private void realizeSearch(Word palavra) {
         if (palavra != null) {
             Long quantPesquisa = palavra.getQuantPesquisa();
             palavra.setQuantPesquisa(++quantPesquisa);

@@ -1,6 +1,6 @@
 package com.backend.economundi.entity;
 
-public class Palavra {
+public class Word {
     private Long id;
     private String nome;
     private String descricao;
