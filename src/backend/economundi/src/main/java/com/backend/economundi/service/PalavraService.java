@@ -24,12 +24,21 @@ public class PalavraService {
     public Palavra readById(Long id) {
         Palavra palavra = map.get(id);
         
-        if (palavra != null) {
-            Long quantPesquisa = palavra.getQuantPesquisa();
-            palavra.setQuantPesquisa(++quantPesquisa);
-        }
+        realizeSearch(palavra);
 
         return palavra;
+    }
+    
+    public List <Palavra> readBySubString(String name) {
+        List <Palavra> palavras = new ArrayList();
+        
+        list.stream().filter((palavra) -> 
+            (palavra.getNome().toLowerCase().
+             contains(name.toLowerCase()))).forEachOrdered((palavra) -> {
+                palavras.add(palavra);
+            });
+        
+        return palavras;
     }
     
     public void update(Palavra palavra) {
@@ -113,4 +122,10 @@ public class PalavraService {
         return erros;
     }
    
+    private void realizeSearch(Palavra palavra) {
+        if (palavra != null) {
+            Long quantPesquisa = palavra.getQuantPesquisa();
+            palavra.setQuantPesquisa(++quantPesquisa);
+        }
+    }
 }

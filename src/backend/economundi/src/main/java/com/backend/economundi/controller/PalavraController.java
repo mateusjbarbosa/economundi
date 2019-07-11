@@ -2,7 +2,9 @@ package com.backend.economundi.controller;
 
 import com.backend.economundi.entity.Palavra;
 import com.backend.economundi.service.PalavraService;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +25,25 @@ public class PalavraController {
     private final PalavraService service = new PalavraService();
     
     @GetMapping("/api/palavra/{id}")
-    public ResponseEntity getById(@PathVariable("id") Long id) {
-        Palavra palavra = service.readById(id);
+    public ResponseEntity getById(@PathVariable("id") String search) {
+        List <Palavra> palavras = new ArrayList();
         
-        if (palavra != null) {
-            return new ResponseEntity<>(palavra, null, HttpStatus.ACCEPTED);
+        try {
+            Long id = Long.parseLong(search);
+            Palavra palavra = service.readById(id);
+            
+            if (palavra != null)
+            {
+                palavras.add(palavra);
+            }
+        } catch (NumberFormatException e){
+            palavras = service.readBySubString(search);
+        }
+        
+        if (palavras.size() > 0) {
+            return new ResponseEntity<>(palavras, null, HttpStatus.ACCEPTED);
         } else {
-            return new ResponseEntity<>(palavra, null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(palavras, null, HttpStatus.NOT_FOUND);
         }
     }
     
