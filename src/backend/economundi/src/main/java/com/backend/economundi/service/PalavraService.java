@@ -24,18 +24,21 @@ public class PalavraService {
     public Word readById(Long id) {
         Word palavra = map.get(id);
         
-        realizeSearch(palavra);
+        if (palavra != null) {
+            Long quantPesquisa = palavra.getQuantPesquisa();
+            palavra.setQuantPesquisa(++quantPesquisa);
+        }
 
         return palavra;
     }
     
-    public List <Word> readBySubString(String name) {
-        List <Word> palavras = new ArrayList();
+    public Map<Long, String> readBySubString(String name) {
+        Map<Long, String> palavras = new HashMap();
         
         list.stream().filter((palavra) -> 
             (palavra.getNome().toLowerCase().
              contains(name.toLowerCase()))).forEachOrdered((palavra) -> {
-                palavras.add(palavra);
+                palavras.put(palavra.getId(), palavra.getNome());
             });
         
         return palavras;
@@ -120,12 +123,5 @@ public class PalavraService {
         }
         
         return erros;
-    }
-   
-    private void realizeSearch(Word palavra) {
-        if (palavra != null) {
-            Long quantPesquisa = palavra.getQuantPesquisa();
-            palavra.setQuantPesquisa(++quantPesquisa);
-        }
     }
 }

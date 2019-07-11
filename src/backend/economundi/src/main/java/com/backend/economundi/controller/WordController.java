@@ -2,9 +2,7 @@ package com.backend.economundi.controller;
 
 import com.backend.economundi.entity.Word;
 import com.backend.economundi.service.PalavraService;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,25 +23,15 @@ public class WordController {
     private final PalavraService service = new PalavraService();
     
     @GetMapping("/api/palavra/{id}")
-    public ResponseEntity getById(@PathVariable("id") String search) {
-        List <Word> palavras = new ArrayList();
+    public ResponseEntity getWord(@PathVariable("id") String search) {
         
         try {
             Long id = Long.parseLong(search);
             Word palavra = service.readById(id);
-            
-            if (palavra != null)
-            {
-                palavras.add(palavra);
-            }
+            return new ResponseEntity<>(palavra, null, HttpStatus.ACCEPTED);
         } catch (NumberFormatException e){
-            palavras = service.readBySubString(search);
-        }
-        
-        if (palavras.size() > 0) {
+            Map <Long, String> palavras = service.readBySubString(search);
             return new ResponseEntity<>(palavras, null, HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>(palavras, null, HttpStatus.NOT_FOUND);
         }
     }
     
