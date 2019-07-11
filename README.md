@@ -1,5 +1,5 @@
 # EconoMundi
 
-Repositório responsável por armazenar o desenvolvimento do site "EconoMundi", projeto para aplicação de conhecimento adquirido no 5º período de Sistemas de Informação na FAI - Centro de Ensino Superior em Gestão, Tecnologia e Educação e para apresentação na Feira de Tecnologia da mesma faculdade (FAITEC) do ano de 2019.
+EconoMundi é um portal de notícias integrado com o objetivo de exibir o que há de mais importante no contexto econômico do Brasil e do mundo. Leitores leigos no assunto conseguem aprender lendo as matérias que estão disponíveis, com o auxílio de um dicionário que explica todos os termos técnicos, pode também criar um perfil de investidor e descobrir qual investimento se adequa a sua personalidade. Para os usuários que já têm uma certa familiaridade, EconoMundi também possibilita que esse possa simular investimentos.
 
-O "EconoMundi" trata-se de um portal agregador de notícias sobre Economia e também possui diversas funcionalidades: Teste de perfil econômico, Simulador de Investimentos etc.
+O portal exibe índice das bolsas, câmbio e as manchete das notícias nacionais e internacionais. Como já mencionado, possibilita simulação de investimento. E por fim entrega ao usuário um dicionário integrado no próprio site.
