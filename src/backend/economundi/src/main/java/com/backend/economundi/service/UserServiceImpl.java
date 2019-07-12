@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.economundi.UserRepository;
-import com.backend.economundi.entity.UserEntity;
+import com.backend.economundi.entity.User;
 import com.backend.economundi.shared.UserDto;
 import com.backend.economundi.shared.Utils;
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("Email already exists");
 		}
 
-		UserEntity userEntity = new UserEntity();
+		User userEntity = new User();
 		BeanUtils.copyProperties(user, userEntity);
 
 		String publicUserId = utils.generatedUserId(30);
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userEntity.setUserId(publicUserId);
 
-		UserEntity storedUserDetails = userRepository.save(userEntity);
+		User storedUserDetails = userRepository.save(userEntity);
 
 		UserDto returnValue = new UserDto();
 		BeanUtils.copyProperties(storedUserDetails, returnValue);
