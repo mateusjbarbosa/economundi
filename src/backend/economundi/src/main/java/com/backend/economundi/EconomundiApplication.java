@@ -4,9 +4,11 @@ import com.backend.economundi.consumer.ApiNewsConsumer;
 import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @Component
@@ -27,4 +29,12 @@ public class EconomundiApplication {
         
         api.getNews();
     }
+    
+    /*
+	 * Função para Criptografar a senha do usuario 
+	 */
+	@Bean
+	BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
