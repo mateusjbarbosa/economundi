@@ -35,6 +35,22 @@
                     <artifactId>gson</artifactId>
                     <scope>compile</scope>
                 </dependency>
+                
+                <dependency>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-core</artifactId>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.springframework.data</groupId>
+                    <artifactId>spring-data-mongodb</artifactId>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.hibernate.javax.persistence</groupId>
+                    <artifactId>hibernate-jpa-2.1-api</artifactId>
+                    <version>1.0.0.Final</version>
+                </dependency>
 	</dependencies>
 
 	<build>
