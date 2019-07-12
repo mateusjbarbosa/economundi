@@ -1,7 +1,7 @@
 package com.backend.economundi.controller;
 
 import com.backend.economundi.entity.Word;
-import com.backend.economundi.service.PalavraService;
+import com.backend.economundi.service.WordService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WordController {
     
-    private final PalavraService service = new PalavraService();
+    private final WordService service = new WordService();
     
     @GetMapping("/api/palavra/{id}")
     public ResponseEntity getWord(@PathVariable("id") String search) {

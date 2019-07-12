@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PalavraService {
+public class WordService {
     private static Long sequence = 0L;
     private static List<Word> list = new ArrayList<>();
     private static Map<Long, Word> map = new HashMap<>();
