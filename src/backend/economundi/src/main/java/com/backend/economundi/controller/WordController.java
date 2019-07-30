@@ -35,6 +35,11 @@ public class WordController {
         }
     }
     
+    @GetMapping("/api/palavra/top")
+    public ResponseEntity getTop() {
+        return new ResponseEntity<>(service.getTopSearch(), null, HttpStatus.ACCEPTED);
+    }
+    
     @PostMapping("/api/palavra")
     public ResponseEntity add(@RequestBody Word palavra) {
         HttpHeaders httpHeaders = new HttpHeaders();

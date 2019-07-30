@@ -8,21 +8,23 @@ import java.util.Map;
 
 public class WordService {
     private static Long sequence = 0L;
-    private static List<Word> list = new ArrayList<>();
-    private static Map<Long, Word> map = new HashMap<>();
+    private static final List<Word> LIST = new ArrayList<>();
+    private static final Map<Long, Word> MAP = new HashMap<>();
+    private static final List<Word> WORD_TOP = new ArrayList();
+    private final Integer TOP = 5;
     
     public void create (Word palavra) {
         if (palavra != null) {
             Long id = ++sequence;
             palavra.setId(id);
             palavra.setQuantPesquisa(0L);
-            list.add(palavra);
-            map.put(id, palavra);
+            LIST.add(palavra);
+            MAP.put(id, palavra);
         }
     }
     
     public Word readById(Long id) {
-        Word palavra = map.get(id);
+        Word palavra = MAP.get(id);
         
         if (palavra != null) {
             Long quantPesquisa = palavra.getQuantPesquisa();
@@ -35,7 +37,7 @@ public class WordService {
     public Map<Long, String> readBySubString(String name) {
         Map<Long, String> palavras = new HashMap();
         
-        list.stream().filter((palavra) -> 
+        LIST.stream().filter((palavra) -> 
             (palavra.getNome().toLowerCase().
              contains(name.toLowerCase()))).forEachOrdered((palavra) -> {
                 palavras.put(palavra.getId(), palavra.getNome());
@@ -46,21 +48,21 @@ public class WordService {
     
     public void update(Word palavra) {
         Long id = palavra.getId();
-        Word oldPalavra = map.get(id);
+        Word oldPalavra = MAP.get(id);
         
         if (oldPalavra != null) {
-            list.remove(oldPalavra);
-            list.add(palavra);
-            map.put(id, palavra);
+            LIST.remove(oldPalavra);
+            LIST.add(palavra);
+            MAP.put(id, palavra);
         }
     }
     
     public void delete(Long id) {
-        Word palavra = map.get(id);
+        Word palavra = MAP.get(id);
         
         if (palavra != null) {
-            list.remove(palavra);
-            map.remove(id);
+            LIST.remove(palavra);
+            MAP.remove(id);
         }
     }
     
@@ -73,7 +75,7 @@ public class WordService {
             
             if (id != 0)
             {
-                Word palavra = map.get(id);
+                Word palavra = MAP.get(id);
                 
                 if (palavra != null)
                 {
@@ -123,5 +125,48 @@ public class WordService {
         }
         
         return erros;
+    }
+    
+    public void topSerch() {
+        LIST.forEach((word) -> {
+            if (WORD_TOP.size() < TOP) {
+                if (!WORD_TOP.contains(word)) {
+                    WORD_TOP.add(word);
+                }
+            } else {
+                Word wordBackup;
+                
+                for (int pos = 0; pos < TOP; pos++) {
+                    Word wordAnalyze = WORD_TOP.get(pos);
+                    
+                    if (!WORD_TOP.contains(word)) {
+                        if (word.getQuantPesquisa() >= 
+                            wordAnalyze.getQuantPesquisa()) {
+                            wordBackup = wordAnalyze;
+                            WORD_TOP.set(pos, word);
+                            
+                            for (int posSubs = (pos + 1); (posSubs < TOP);
+                                posSubs++) {
+                                wordAnalyze = WORD_TOP.get(posSubs);
+                                WORD_TOP.set(posSubs, wordBackup);
+                                wordBackup = wordAnalyze;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        });
+    }
+    
+    public Map<Long, String> getTopSearch() {
+        Map<Long, String> mapTop = new HashMap();
+        
+        WORD_TOP.forEach((word) -> {
+            mapTop.put(word.getId(), word.getNome());
+        });
+        
+        return mapTop;
     }
 }

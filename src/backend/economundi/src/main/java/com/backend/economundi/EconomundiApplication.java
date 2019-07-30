@@ -1,6 +1,7 @@
 package com.backend.economundi;
 
 import com.backend.economundi.consumer.ApiNewsConsumer;
+import com.backend.economundi.service.WordService;
 import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,15 +27,17 @@ public class EconomundiApplication {
     @Scheduled(fixedDelay = MINUTO)
     public void reportCurrentTime() throws IOException {
         ApiNewsConsumer api = new ApiNewsConsumer();
+        WordService word = new WordService();
         
         api.getNews();
+        word.topSerch();
     }
     
     /*
-	 * Função para Criptografar a senha do usuario 
-	 */
-	@Bean
-	BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+     * Função para Criptografar a senha do usuario 
+     */
+    @Bean
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
+            return new BCryptPasswordEncoder();
+    }
 }
