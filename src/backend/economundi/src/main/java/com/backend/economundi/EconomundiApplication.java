@@ -19,18 +19,19 @@ public class EconomundiApplication {
     private final long SEGUNDO = 1000;
     private final long MINUTO = SEGUNDO * 60;
     private final long HORA = MINUTO * 60;
+    private final long DIA = 24 * HORA;
     
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
     }
 
-    @Scheduled(fixedDelay = MINUTO)
+    @Scheduled(fixedDelay = SEGUNDO)
     public void reportCurrentTime() throws IOException {
         ApiNewsConsumer api = new ApiNewsConsumer();
         WordService word = new WordService();
         
         api.getNews();
-        word.topSerch();
+        word.topSearch();
     }
     
     /*

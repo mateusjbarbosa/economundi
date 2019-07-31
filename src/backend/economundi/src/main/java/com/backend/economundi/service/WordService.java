@@ -127,7 +127,7 @@ public class WordService {
         return erros;
     }
     
-    public void topSerch() {
+    public void topSearch() {
         LIST.forEach((word) -> {
             if (WORD_TOP.size() < TOP) {
                 if (!WORD_TOP.contains(word)) {
