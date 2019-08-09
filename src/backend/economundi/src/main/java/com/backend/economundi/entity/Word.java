@@ -2,9 +2,9 @@ package com.backend.economundi.entity;
 
 public class Word {
     private Long id;
-    private String nome;
-    private String descricao;
-    private Long quantPesquisa;
+    private String name;
+    private String description;
+    private Long amountSearch;
 
     public Long getId() {
         return id;
@@ -14,27 +14,27 @@ public class Word {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
     
-        public Long getQuantPesquisa() {
-        return quantPesquisa;
+        public Long getAmountSearch() {
+        return amountSearch;
     }
 
-    public void setQuantPesquisa(Long quantPesquisa) {
-        this.quantPesquisa = quantPesquisa;
+    public void setAmountSearch(Long amountSearch) {
+        this.amountSearch = amountSearch;
     }
 }

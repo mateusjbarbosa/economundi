@@ -13,55 +13,60 @@ public class WordService {
     private static final List<Word> WORD_TOP = new ArrayList();
     private final Integer TOP = 5;
     
-    public void create (Word palavra) {
-        if (palavra != null) {
+    /**
+      * Adiciona aos controles do dicionário.
+      * 
+      * @param word Nova palavra a ser criada.
+      */
+    public void create (Word word) {
+        if (word != null) {
             Long id = ++sequence;
-            palavra.setId(id);
-            palavra.setQuantPesquisa(0L);
-            LIST.add(palavra);
-            MAP.put(id, palavra);
+            word.setId(id);
+            word.setAmountSearch(0L);
+            LIST.add(word);
+            MAP.put(id, word);
         }
     }
     
     public Word readById(Long id) {
-        Word palavra = MAP.get(id);
+        Word word = MAP.get(id);
         
-        if (palavra != null) {
-            Long quantPesquisa = palavra.getQuantPesquisa();
-            palavra.setQuantPesquisa(++quantPesquisa);
+        if (word != null) {
+            Long amountSearch = word.getAmountSearch();
+            word.setAmountSearch(++amountSearch);
         }
 
-        return palavra;
+        return word;
     }
     
     public Map<Long, String> readBySubString(String name) {
-        Map<Long, String> palavras = new HashMap();
+        Map<Long, String> words = new HashMap();
         
-        LIST.stream().filter((palavra) -> 
-            (palavra.getNome().toLowerCase().
-             contains(name.toLowerCase()))).forEachOrdered((palavra) -> {
-                palavras.put(palavra.getId(), palavra.getNome());
+        LIST.stream().filter((word) -> 
+            (word.getName().toLowerCase().
+             contains(name.toLowerCase()))).forEachOrdered((word) -> {
+                words.put(word.getId(), word.getName());
             });
         
-        return palavras;
+        return words;
     }
     
-    public void update(Word palavra) {
-        Long id = palavra.getId();
-        Word oldPalavra = MAP.get(id);
+    public void update(Word word) {
+        Long id = word.getId();
+        Word oldWord = MAP.get(id);
         
-        if (oldPalavra != null) {
-            LIST.remove(oldPalavra);
-            LIST.add(palavra);
-            MAP.put(id, palavra);
+        if (oldWord != null) {
+            LIST.remove(oldWord);
+            LIST.add(word);
+            MAP.put(id, word);
         }
     }
     
     public void delete(Long id) {
-        Word palavra = MAP.get(id);
+        Word word = MAP.get(id);
         
-        if (palavra != null) {
-            LIST.remove(palavra);
+        if (word != null) {
+            LIST.remove(word);
             MAP.remove(id);
         }
     }
@@ -75,29 +80,29 @@ public class WordService {
             
             if (id != 0)
             {
-                Word palavra = MAP.get(id);
+                Word word = MAP.get(id);
                 
-                if (palavra != null)
+                if (word != null)
                 {
                     String key = "nome";
                     
                     merged = new Word();
                     
-                    merged.setId(palavra.getId());
-                    merged.setNome(palavra.getNome());
-                    merged.setDescricao(palavra.getDescricao());
+                    merged.setId(word.getId());
+                    merged.setName(word.getName());
+                    merged.setDescription(word.getDescription());
                     
                     if (data.containsKey(key)) {
-                        merged.setNome(data.get(key));
+                        merged.setName(data.get(key));
                     }
                     
                     key = "descricao";
                     
                     if (data.containsKey(key)) {
-                        merged.setDescricao(data.get(key));
+                        merged.setDescription(data.get(key));
                     }
                     
-                    merged.setQuantPesquisa(palavra.getQuantPesquisa());
+                    merged.setAmountSearch(word.getAmountSearch());
                 }
             }
         }
@@ -105,26 +110,26 @@ public class WordService {
         return merged;
     }
     
-    public Map<String, String> validate(Word palavra) {
-        Map<String, String> erros = new HashMap<>();
+    public Map<String, String> validate(Word word) {
+        Map<String, String> errors = new HashMap<>();
         
-        if (palavra != null) {
-            String nome = palavra.getNome();
+        if (word != null) {
+            String name = word.getName();
             
-            if (nome == null) {
-                erros.put("Nome", "A palavra precisa de um nome.");
+            if (name == null) {
+                errors.put("Nome", "A palavra precisa de um nome.");
             }
             
-            String descricao = palavra.getDescricao();
+            String description = word.getDescription();
             
-            if (descricao == null) {
-                erros.put("Descrição", "A palavra precisa de uma definição");
+            if (description == null) {
+                errors.put("Descrição", "A palavra precisa de uma definição");
             }
         } else {
-            erros.put("Entidade", "Não há palavra.");
+            errors.put("Entidade", "Não há palavra.");
         }
         
-        return erros;
+        return errors;
     }
     
     public void topSearch() {
@@ -140,8 +145,8 @@ public class WordService {
                     Word wordAnalyze = WORD_TOP.get(pos);
                     
                     if (!WORD_TOP.contains(word)) {
-                        if (word.getQuantPesquisa() >= 
-                            wordAnalyze.getQuantPesquisa()) {
+                        if (word.getAmountSearch() >= 
+                            wordAnalyze.getAmountSearch()) {
                             wordBackup = wordAnalyze;
                             WORD_TOP.set(pos, word);
                             
@@ -164,7 +169,7 @@ public class WordService {
         Map<Long, String> mapTop = new HashMap();
         
         WORD_TOP.forEach((word) -> {
-            mapTop.put(word.getId(), word.getNome());
+            mapTop.put(word.getId(), word.getName());
         });
         
         return mapTop;
