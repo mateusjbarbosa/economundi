@@ -14,10 +14,11 @@ public class WordService {
     private final Integer TOP = 5;
     
     /**
-      * Adiciona aos controles do dicionário.
-      * 
-      * @param word Nova palavra a ser criada.
-      */
+     * 
+     * Adiciona aos controles do dicionário.
+     * 
+     * @param word Nova palavra a ser criada.
+     */
     public void create (Word word) {
         if (word != null) {
             Long id = ++sequence;
@@ -28,6 +29,12 @@ public class WordService {
         }
     }
     
+    /**
+     * Pesquisa de palavras por id.
+     * 
+     * @param id Identificador da palavra a ser encontrada.
+     * @return Palavra caso exista.
+     */
     public Word readById(Long id) {
         Word word = MAP.get(id);
         
@@ -39,18 +46,28 @@ public class WordService {
         return word;
     }
     
-    public Map<Long, String> readBySubString(String name) {
+    /**
+     * Realiza pesquisa por substring.
+     * 
+     * @param substring A string que se deseja encontrar.
+     * @return Id e nome da palabra que contém a substring.
+     */
+    public Map<Long, String> readBySubString(String substring) {
         Map<Long, String> words = new HashMap();
         
         LIST.stream().filter((word) -> 
             (word.getName().toLowerCase().
-             contains(name.toLowerCase()))).forEachOrdered((word) -> {
+             contains(substring.toLowerCase()))).forEachOrdered((word) -> {
                 words.put(word.getId(), word.getName());
             });
         
         return words;
     }
     
+    /**
+     * Atualiza a palavra.
+     * @param word Palavra com suas modificações.
+     */
     public void update(Word word) {
         Long id = word.getId();
         Word oldWord = MAP.get(id);
@@ -62,6 +79,10 @@ public class WordService {
         }
     }
     
+    /**
+     * Deleta a palavra.
+     * @param id Identificador da palavra que se deseja deletar.
+     */
     public void delete(Long id) {
         Word word = MAP.get(id);
         
@@ -71,6 +92,11 @@ public class WordService {
         }
     }
     
+    /**
+     * Realiza o merge apenas dos valores que estiver mapeado.
+     * @param data Mapeamento com um conjunto de chave e valor.
+     * @return Palavra editada, se houver.
+     */
     public Word merge(Map<String, String> data) {
         Word merged = null;
         
@@ -110,6 +136,11 @@ public class WordService {
         return merged;
     }
     
+    /**
+     * Valida se os campos obrigatórios realmente estão preenchidos.
+     * @param word Palavra a ser validada.
+     * @return  Mapeamento com os erros, se houver.
+     */
     public Map<String, String> validate(Word word) {
         Map<String, String> errors = new HashMap<>();
         
@@ -132,6 +163,9 @@ public class WordService {
         return errors;
     }
     
+     /**
+     * Monta uma lista com as top 5 palavras mais pesquisadas.
+     */
     public void topSearch() {
         LIST.forEach((word) -> {
             if (WORD_TOP.size() < TOP) {
@@ -165,6 +199,10 @@ public class WordService {
         });
     }
     
+    /**
+     * Informa as palavras mais pesquisadas no sistema.
+     * @return Mapa com id e palavra (correspondente) mais pesquisadas.
+     */
     public Map<Long, String> getTopSearch() {
         Map<Long, String> mapTop = new HashMap();
         
