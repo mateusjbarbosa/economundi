@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WordController {
     
+    private final String PATH_URL = "/api/v1/palavra/";
     private final WordService service = new WordService();
     
     /**
@@ -27,7 +28,7 @@ public class WordController {
      * @param search String com id ou substring.
      * @return Nenhuma, uma ou mais palavras.
      */
-    @GetMapping("/api/palavra/{id}")
+    @GetMapping(PATH_URL + "{id}")
     public ResponseEntity getWord(@PathVariable("id") String search) {
         
         try {
@@ -44,7 +45,7 @@ public class WordController {
      * Informa as palavras mais pesquisadas no sistema.
      * @return Conjunto com id e sua palavra correspondente.
      */
-    @GetMapping("/api/palavra/top")
+    @GetMapping(PATH_URL + "top")
     public ResponseEntity getTop() {
         return new ResponseEntity<>(service.getTopSearch(), null, HttpStatus.ACCEPTED);
     }
@@ -55,7 +56,7 @@ public class WordController {
      * @return Se sucesso, o seu ID. Caso contrário, é retornado o motivo do
      * erro.
      */
-    @PostMapping("/api/palavra")
+    @PostMapping(PATH_URL)
     public ResponseEntity add(@RequestBody Word palavra) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> erros = service.validate(palavra);
@@ -75,7 +76,7 @@ public class WordController {
      * @param body Conjunto com chave e valor da edição.
      * @return Motivo do erro, caso exista algum campo inválido.
      */
-    @PatchMapping("/api/palavra/{id}")
+    @PatchMapping(PATH_URL + "{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         body.put("id", Long.toString(id));
         
@@ -104,7 +105,7 @@ public class WordController {
      * Deleta palavra no sistema
      * @param id Identificador da palavra.
      */
-    @DeleteMapping("/api/palavra/{id}")
+    @DeleteMapping(PATH_URL + "{id}")
     public void delete(@PathVariable("id")Long id){
         service.delete(id);
     }
