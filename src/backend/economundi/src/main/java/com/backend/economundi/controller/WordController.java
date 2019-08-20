@@ -22,6 +22,11 @@ public class WordController {
     
     private final WordService service = new WordService();
     
+    /**
+     * Pesquisa de palavra por id ou string.
+     * @param search String com id ou substring.
+     * @return Nenhuma, uma ou mais palavras.
+     */
     @GetMapping("/api/palavra/{id}")
     public ResponseEntity getWord(@PathVariable("id") String search) {
         
@@ -35,11 +40,21 @@ public class WordController {
         }
     }
     
+    /**
+     * Informa as palavras mais pesquisadas no sistema.
+     * @return Conjunto com id e sua palavra correspondente.
+     */
     @GetMapping("/api/palavra/top")
     public ResponseEntity getTop() {
         return new ResponseEntity<>(service.getTopSearch(), null, HttpStatus.ACCEPTED);
     }
     
+    /**
+     * Adiciona nova palavra ao sistema.
+     * @param palavra Nova palavra.
+     * @return Se sucesso, o seu ID. Caso contrário, é retornado o motivo do
+     * erro.
+     */
     @PostMapping("/api/palavra")
     public ResponseEntity add(@RequestBody Word palavra) {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -54,12 +69,17 @@ public class WordController {
         }
     }
     
+    /**
+     * Atualiza um ou mais valores na palavra.
+     * @param id O id da palavra a ser editado.
+     * @param body Conjunto com chave e valor da edição.
+     * @return Motivo do erro, caso exista algum campo inválido.
+     */
     @PatchMapping("/api/palavra/{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         body.put("id", Long.toString(id));
         
         Map <String, String> erros;
-        
         Word palavra = service.merge(body);
         
         if (palavra != null) {
@@ -80,6 +100,10 @@ public class WordController {
         return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
     }
     
+    /**
+     * Deleta palavra no sistema
+     * @param id Identificador da palavra.
+     */
     @DeleteMapping("/api/palavra/{id}")
     public void delete(@PathVariable("id")Long id){
         service.delete(id);
