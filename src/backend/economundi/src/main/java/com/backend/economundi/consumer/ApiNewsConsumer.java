@@ -13,6 +13,6 @@ public class ApiNewsConsumer {
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         ResultNews result = generic.getData(URL, ResultNews.class);
         
-        System.out.println(result.getArticles().get(0).getTitle());
+        System.out.println(result.toString());
     }
 }

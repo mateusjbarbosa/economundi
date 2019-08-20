@@ -4,6 +4,11 @@ public class Source {
     private String id;
     private String name;
 
+    @Override
+    public String toString() {
+        return "Source{" + "id=" + id + ", name=" + name + '}';
+    }
+
     public String getId() {
         return id;
     }

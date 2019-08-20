@@ -7,6 +7,11 @@ public class ResultNews {
     private Long totalResults;
     private List<News> articles;
 
+    @Override
+    public String toString() {
+        return "ResultNews{" + "status=" + status + ", totalResults=" + totalResults + ", articles=" + articles + '}';
+    }
+
     public List<News> getArticles() {
         return articles;
     }

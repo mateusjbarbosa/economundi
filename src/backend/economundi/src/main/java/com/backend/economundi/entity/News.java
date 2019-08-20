@@ -9,6 +9,11 @@ public class News {
    private String urtToImage;
    private String content;
 
+    @Override
+    public String toString() {
+        return "News{" + "source=" + source + ", author=" + author + ", title=" + title + ", description=" + description + ", url=" + url + ", urtToImage=" + urtToImage + ", content=" + content + '}';
+    }
+
     public Source getSource() {
         return source;
     }
