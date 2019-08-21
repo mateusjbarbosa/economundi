@@ -19,16 +19,18 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <MenuBar />
+        <div className="container">
+          <MenuBar />
 
-        <div>
-          <Route exact path="/" component={Destaque} />
-          <Route path="/noticias" component={Noticias} />
-          <Route path="/indices" component={Indices} />
-          <Route path="/simulacoes" component={Simulacoes} />
-          <Route path="/dicionario" component={Dicionario} />
-          <Route path="/sobre" component={Sobre} />
-          <Route path="/perfil" component={Perfil} />
+          <section className="main">
+            <Route exact path="/" component={Destaque} />
+            <Route path="/noticias" component={Noticias} />
+            <Route path="/indices" component={Indices} />
+            <Route path="/simulacoes" component={Simulacoes} />
+            <Route path="/dicionario" component={Dicionario} />
+            <Route path="/sobre" component={Sobre} />
+            <Route path="/perfil" component={Perfil} />
+          </section>
         </div>
       </Router>
     );

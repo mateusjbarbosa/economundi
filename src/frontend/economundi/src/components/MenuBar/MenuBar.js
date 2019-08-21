@@ -5,19 +5,29 @@ import "./menu-bar.scss";
 
 function MenuBar() {
   return (
-    <section class="menu-container">
-      <div class="menu-item">
+    <aside className="nav">
+      <div className="nav-item">
         <Link to="/">PE</Link>
       </div>
-      <div class="menu-item">N</div>
-      <div class="menu-item">I</div>
-      <div class="menu-item">S</div>
-      <div class="menu-item">
+      <div className="nav-item">
+        <Link to="/noticias">N</Link>
+      </div>
+      <div className="nav-item">
+        <Link to="/indices">I</Link>
+      </div>
+      <div className="nav-item">
+        <Link to="/simulacoes">S</Link>
+      </div>
+      <div className="nav-item">
         <Link to="/dicionario">D</Link>
       </div>
-      <div class="menu-item">SN</div>
-      <div class="menu-item">P</div>
-    </section>
+      <div className="nav-item">
+        <Link to="/sobre">SN</Link>
+      </div>
+      <div className="nav-item">
+        <Link to="/perfil">P</Link>
+      </div>
+    </aside>
   );
 }
 
