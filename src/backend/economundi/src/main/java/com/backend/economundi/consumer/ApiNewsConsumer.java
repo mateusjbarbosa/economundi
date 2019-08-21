@@ -6,7 +6,7 @@ import java.io.IOException;
 public class ApiNewsConsumer {
     
     private final String URL =
-        "https://newsapi.org/v2/top-headlines?country=br&caregory="
+        "https://newsapi.org/v2/top-headlines?country=br&category="
             + "business&apiKey=e8f44036f3254db8bcd6e31c3c9ca1b0";
 
     public void getNews() throws IOException { 
