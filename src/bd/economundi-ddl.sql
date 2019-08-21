@@ -21,8 +21,10 @@ create table noticia (
     fonte character varying (100) NOT NULL,
     link_imagem character varying (100),
     link character varying (100) NOT NULL,
+    data_public date default(now()) NOT NULL,
     localidade character varying (6) check (localidade in ('Brasil', 'Mundo')) NOT NULL,
-    engajamento integer default (0) check (engajamento >= 0) NOT NULL
+    engajamento integer default (0) check (engajamento >= 0) NOT NULL,
+    unique(manchete, data_public)
 );
 
 create table usuario_curte_noticia (
