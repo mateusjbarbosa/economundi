@@ -1,5 +1,6 @@
 package com.backend.economundi.service;
 
+import com.backend.economundi.database.dao.impl.WordDao;
 import com.backend.economundi.entity.Word;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +22,10 @@ public class WordService {
      */
     public void create (Word word) {
         if (word != null) {
-            Long id = ++sequence;
-            word.setId(id);
-            word.setAmountSearch(0L);
-            LIST.add(word);
-            MAP.put(id, word);
+            WordDao wordDao = new WordDao();
+            
+            wordDao.create(word);
+            wordDao.closeConnection();
         }
     }
     
@@ -36,13 +36,15 @@ public class WordService {
      * @return Palavra caso exista.
      */
     public Word readById(Long id) {
-        Word word = MAP.get(id);
+        WordDao wordDao = new WordDao();
+        Word word = wordDao.readById(id);
         
-        if (word != null) {
-            Long amountSearch = word.getAmountSearch();
-            word.setAmountSearch(++amountSearch);
-        }
-
+        /*
+        @TODO Implementar o usuário responsável pela pesquisa (tabela
+        usuario_pesquisa_palavra).
+         */
+        wordDao.closeConnection();
+        
         return word;
     }
     
@@ -69,14 +71,10 @@ public class WordService {
      * @param word Palavra com suas modificações.
      */
     public void update(Word word) {
-        Long id = word.getId();
-        Word oldWord = MAP.get(id);
+        WordDao wordDao = new WordDao();
         
-        if (oldWord != null) {
-            LIST.remove(oldWord);
-            LIST.add(word);
-            MAP.put(id, word);
-        }
+        wordDao.update(word);
+        wordDao.closeConnection();
     }
     
     /**
@@ -106,7 +104,10 @@ public class WordService {
             
             if (id != 0)
             {
-                Word word = MAP.get(id);
+                WordDao wordDao = new WordDao();
+                Word word = wordDao.readById(id);
+                
+                wordDao.closeConnection();
                 
                 if (word != null)
                 {
