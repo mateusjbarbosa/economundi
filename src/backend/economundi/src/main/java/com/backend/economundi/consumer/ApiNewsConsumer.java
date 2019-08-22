@@ -1,6 +1,7 @@
 package com.backend.economundi.consumer;
 
 import com.backend.economundi.entity.ResultNews;
+import com.backend.economundi.service.NewsService;
 import java.io.IOException;
 
 public class ApiNewsConsumer {
@@ -12,7 +13,12 @@ public class ApiNewsConsumer {
     public void getNews() throws IOException { 
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         ResultNews result = generic.getData(URL, ResultNews.class);
+        NewsService service = new NewsService();
         
-        System.out.println(result.toString());
+        result.getArticles().forEach((news) -> {
+            news.setLocality("Brasil");
+            news.setRelevance(0L);
+            service.create(news);
+        });
     }
 }

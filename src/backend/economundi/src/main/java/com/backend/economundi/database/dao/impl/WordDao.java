@@ -18,7 +18,7 @@ public class WordDao implements IWordDao {
 
     @Override
     public void create(Word word) {
-        String sql = "INSERT INTO palavra (" + ID + "," + NAME
+        String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ")" + "VALUES (nextval('palavra_id_seq')"
                 + ", ?, ?)";
         PreparedStatement stmt;

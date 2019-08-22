@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class WordService {
-    private static Long sequence = 0L;
     private static final List<Word> LIST = new ArrayList<>();
     private static final Map<Long, Word> MAP = new HashMap<>();
     private static final List<Word> WORD_TOP = new ArrayList();
