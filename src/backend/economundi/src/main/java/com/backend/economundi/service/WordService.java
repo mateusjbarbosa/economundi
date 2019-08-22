@@ -82,12 +82,14 @@ public class WordService {
      * @param id Identificador da palavra que se deseja deletar.
      */
     public void delete(Long id) {
-        Word word = MAP.get(id);
+        WordDao wordDao = new WordDao();
+        Word word = wordDao.readById(id);
         
         if (word != null) {
-            LIST.remove(word);
-            MAP.remove(id);
+            wordDao.delete(word);
         }
+        
+        wordDao.closeConnection();
     }
     
     /**

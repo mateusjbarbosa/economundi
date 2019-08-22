@@ -33,8 +33,17 @@ public class WordController {
         
         try {
             Long id = Long.parseLong(search);
-            Word palavra = service.readById(id);
-            return new ResponseEntity<>(palavra, null, HttpStatus.ACCEPTED);
+            Word word = service.readById(id);
+            
+            if (word.getId() != null) {
+                return new ResponseEntity<>(word, null, HttpStatus.ACCEPTED);
+            } else {
+                Map <String, String> erro = new HashMap<>();
+                
+                erro.put("Palavra", "Id inexistente.");
+                
+                return new ResponseEntity<>(erro, null, HttpStatus.NOT_FOUND);
+            }
         } catch (NumberFormatException e){
             Map <Long, String> palavras = service.readBySubString(search);
             return new ResponseEntity<>(palavras, null, HttpStatus.ACCEPTED);

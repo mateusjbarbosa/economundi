@@ -42,7 +42,7 @@ public class WordDao implements IWordDao {
         PreparedStatement stmt;
         ResultSet rs;
         Word word = new Word();
-        
+
         try {
             stmt = conn.prepareStatement(sql);
 
@@ -54,7 +54,7 @@ public class WordDao implements IWordDao {
                 word.setName(rs.getString(NAME));
                 word.setDescription(rs.getString(DESCRIPTION));
             }
-            
+
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
@@ -66,20 +66,20 @@ public class WordDao implements IWordDao {
 
     @Override
     public void update(Word word) {
-        String sql = "UPDATE " + ENTITY + " set " + NAME + "= ?," + 
-                DESCRIPTION + "= ? WHERE " + ID + "= ?";
-        
+        String sql = "UPDATE " + ENTITY + " set " + NAME + "= ?,"
+                + DESCRIPTION + "= ? WHERE " + ID + "= ?";
+
         PreparedStatement stmt;
         ResultSet rs;
-        
+
         try {
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setString(1, word.getName());
             stmt.setString(2, word.getDescription());
             stmt.setLong(3, word.getId());
             rs = stmt.executeQuery();
-            
+
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
@@ -89,7 +89,22 @@ public class WordDao implements IWordDao {
 
     @Override
     public void delete(Word word) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
+
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setLong(1, word.getId());
+            rs = stmt.executeQuery();
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override
