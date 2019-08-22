@@ -2,6 +2,8 @@ create database economundi encoding 'utf-8';
 
 \c economundi;
 
+begin;
+
 create table usuario (
     id serial primary key,
     email character varying (100) unique NOT NULL,
@@ -20,11 +22,9 @@ create table noticia (
     conteudo text,
     fonte character varying (100) NOT NULL,
     link_imagem character varying (100),
-    link character varying (100) NOT NULL,
-    data_public date default(now()) NOT NULL,
+    link character varying (100) NOT NULL unique,
     localidade character varying (6) check (localidade in ('Brasil', 'Mundo')) NOT NULL,
-    engajamento integer default (0) check (engajamento >= 0) NOT NULL,
-    unique(manchete, data_public)
+    engajamento integer default (0) check (engajamento >= 0) NOT NULL
 );
 
 create table usuario_curte_noticia (
@@ -93,3 +93,5 @@ create table simulacao (
     usuario_id integer references usuario(id) on update cascade NOT NULL,
     investimento_id integer references investimento(id) on update cascade NOT NULL
 );
+
+commit;
