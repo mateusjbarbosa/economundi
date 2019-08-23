@@ -10,15 +10,17 @@ public class ApiNewsConsumer {
         "https://newsapi.org/v2/top-headlines?country=br&category="
             + "business&apiKey=e8f44036f3254db8bcd6e31c3c9ca1b0";
 
-    public void getNews() throws IOException { 
+    public void refreshNews() throws IOException { 
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         ResultNews result = generic.getData(URL, ResultNews.class);
         NewsService service = new NewsService();
         
         result.getArticles().forEach((news) -> {
             news.setLocality("Brasil");
-            news.setRelevance(0L);
+            news.setRelevance(100L);
             service.create(news);
         });
+        
+        service.updateAllNewsWithRelevance();
     }
 }

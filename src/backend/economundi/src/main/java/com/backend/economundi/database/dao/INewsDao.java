@@ -1,6 +1,7 @@
 package com.backend.economundi.database.dao;
 
 import com.backend.economundi.entity.News;
+import java.util.List;
 
 public interface INewsDao {
     
@@ -14,8 +15,13 @@ public interface INewsDao {
     public static String LOCALITY = "localidade";
     public static String RELEVANCE = "engajamento";
     public static String ENTITY = "noticia";
+    public static String DATE = "data_hora";
     
-    public void create (News news);
+    public void create(News news);
+    
+    public void update(News news);
+    
+    public List<News> readNewsWithRelevance();
     
     public void closeConnection();
 }

@@ -3,9 +3,13 @@ package com.backend.economundi.database.dao.impl;
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsDao;
 import com.backend.economundi.entity.News;
+import com.backend.economundi.entity.Source;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewsDao implements INewsDao {
 
@@ -17,11 +21,11 @@ public class NewsDao implements INewsDao {
 
     @Override
     public void create(News news) {
-        String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + TITLE +
-                "," + DESCRIPTION + "," + CONTENT + "," + SOURCE + "," +
-                URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE +
-                ") VALUES (nextval('noticia_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
-                
+        String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + TITLE
+                + "," + DESCRIPTION + "," + CONTENT + "," + SOURCE + ","
+                + URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE
+                + ") VALUES (nextval('noticia_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
+
         PreparedStatement stmt;
 
         try {
@@ -39,11 +43,69 @@ public class NewsDao implements INewsDao {
 
             stmt.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
         }
     }
-    
-        @Override
+
+    @Override
+    public void update(News news) {
+        String sql = "UPDATE " + ENTITY + " SET " + RELEVANCE + "= ?"
+                + " WHERE " + ID + "= ?";
+
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setLong(1, news.getRelevance());
+            stmt.setLong(2, news.getId());
+            rs = stmt.executeQuery();
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+        }
+    }
+
+    @Override
+    public List<News> readNewsWithRelevance() {
+        String sql = "SELECT * from " + ENTITY + " WHERE " + RELEVANCE + "> 0";
+        List<News> newsList = new ArrayList<>();
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                News news = new News();
+                
+                news.setContent(rs.getString(CONTENT));
+                news.setDate(rs.getString(DATE));
+                news.setDescription(rs.getString(DESCRIPTION));
+                news.setId(rs.getLong(ID));
+                news.setLocality(rs.getString(LOCALITY));
+                news.setRelevance(rs.getLong(RELEVANCE));
+                news.setTitle(rs.getString(TITLE));
+                news.setUrl(rs.getString(URL));
+                news.setUrlToImage(rs.getString(URL_IMAGE));
+                
+                Source source = new Source();
+                
+                source.setName(rs.getString(SOURCE));
+                news.setSource(source);
+                
+                newsList.add(news);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        return newsList;
+    }
+
+    @Override
     public void closeConnection() {
         try {
             if (conn.isClosed()) {
@@ -53,5 +115,4 @@ public class NewsDao implements INewsDao {
             System.out.println(ex);
         }
     }
-
 }

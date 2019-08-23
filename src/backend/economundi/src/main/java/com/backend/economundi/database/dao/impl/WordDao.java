@@ -66,7 +66,7 @@ public class WordDao implements IWordDao {
 
     @Override
     public void update(Word word) {
-        String sql = "UPDATE " + ENTITY + " set " + NAME + "= ?,"
+        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";
 
         PreparedStatement stmt;

@@ -25,12 +25,12 @@ public class EconomundiApplication {
         SpringApplication.run(EconomundiApplication.class, args);
     }
 
-    @Scheduled(fixedDelay = SEGUNDO)
+    @Scheduled(fixedDelay = HORA)
     public void reportCurrentTime() throws IOException {
         ApiNewsConsumer api = new ApiNewsConsumer();
         WordService word = new WordService();
         
-        api.getNews();
+        api.refreshNews();
         word.topSearch();
     }
     

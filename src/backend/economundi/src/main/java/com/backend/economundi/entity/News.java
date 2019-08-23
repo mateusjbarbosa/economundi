@@ -2,25 +2,35 @@ package com.backend.economundi.entity;
 
 public class News {
 
+    private Long id;
     private Source source;
-    private String author;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String content;
     private String locality;
+    private String date;
     private Long relevance;
 
     @Override
     public String toString() {
-        return "News{" + "source=" + source + ", author=" + author + ", title="
-                + title + ", description=" + description + ", url=" + url + 
-                ", urlToImage=" + urlToImage + ", content=" + content + 
-                ", locality=" + locality + ", relevance=" + relevance + '}';
+        return "News{" + "id=" + id + ", source=" + source + ", title=" + 
+                title + ", description=" + description +
+                ", url=" + url + ", urlToImage=" + urlToImage + ", content=" +
+                content + ", locality=" + locality + ", date=" + date +
+                ", relevance=" + relevance + '}';
     }
 
     
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
     public Source getSource() {
         return source;
@@ -28,14 +38,6 @@ public class News {
 
     public void setSource(Source source) {
         this.source = source;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getTitle() {
@@ -93,6 +95,12 @@ public class News {
     public void setRelevance(Long relevance) {
         this.relevance = relevance;
     }
-//    
-    
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
