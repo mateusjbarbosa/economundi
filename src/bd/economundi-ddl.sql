@@ -17,12 +17,13 @@ create table usuario (
 
 create table noticia (
     id serial primary key,
-    manchete character varying (100) NOT NULL,
-    descricao character varying (200) NOT NULL,
+    manchete text NOT NULL,
+    descricao text,
     conteudo text,
-    fonte character varying (100) NOT NULL,
-    link_imagem character varying (100),
-    link character varying (100) NOT NULL unique,
+    fonte character varying (200) NOT NULL,
+    link_imagem text,
+    link text NOT NULL unique,
+    data_hora timestamp without time zone default (now()) NOT NULL,
     localidade character varying (6) check (localidade in ('Brasil', 'Mundo')) NOT NULL,
     engajamento integer default (0) check (engajamento >= 0) NOT NULL
 );
@@ -68,12 +69,11 @@ create table solicitacao (
     palavra_id integer references palavra(id) on update cascade
 );
 
-create table usuario_pesquisa_palavra (
+create table palavra_acesso (
     id serial primary key,
     data_hora timestamp without time zone NOT NULL,
-    usuario_id integer references usuario(id) on update cascade NOT NULL,
     palavra_id integer references palavra(id) on update cascade,
-    unique (usuario_id, palavra_id)
+    unique (palavra_id, data_hora)
 );
 
 create table investimento (
