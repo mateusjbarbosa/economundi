@@ -1,0 +1,41 @@
+* {
+  font-family: "Fira Sans", sans-serif;
+  color: #000000;
+}
+
+.econo-nav {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-around;
+
+  box-flex: 0;
+
+  background: #333333;
+}
+
+.econo-nav-item {
+  padding: 1vw 2vh;
+
+  text-align: center;
+
+  background: tomato;
+
+  cursor: pointer;
+
+  & a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+.econo-main {
+}
+
+h1 {
+  margin: 2vh;
+
+  text-transform: uppercase;
+}
