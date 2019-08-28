@@ -1,4 +1,4 @@
 import App from "./App/App";
-import Dicionario from "./Dicionario/Dicionario";
+import Dictionary from "./Dictionary/Dictionary";
 
-export { App, Dicionario };
+export { App, Dictionary };

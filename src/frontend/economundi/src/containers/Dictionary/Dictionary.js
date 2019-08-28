@@ -4,9 +4,9 @@ import { Box } from "../../components";
 
 import api from "../../services/api";
 
-import "./dicionario.scss";
+import "./dictionary.scss";
 
-class Dicionario extends Component {
+class Dictionary extends Component {
   state = {
     searchedWord: "",
     topSearch: {}
@@ -18,15 +18,16 @@ class Dicionario extends Component {
   }
 
   getTopSearch = async () => {
-    const response = await api.get("api/v1/palavra/top");
+    const response = await api.get("api/v1/word/top");
 
     console.log(response.data);
   };
 
   getWord = async () => {
-    const response = await api.get("api/v1/palavra/10");
+    const response = await api.get("api/v1/word/10");
 
     this.setState({ searchedWord: response.data });
+
     console.log(response);
   };
 
@@ -53,4 +54,4 @@ class Dicionario extends Component {
   }
 }
 
-export default Dicionario;
+export default Dictionary;

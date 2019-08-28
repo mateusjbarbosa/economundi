@@ -5,7 +5,7 @@ import { Menu } from "../../components";
 
 import Routes from "../Routes";
 
-import "./App.scss";
+import "./app.scss";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <div className="container-fluid">
           <div className="row">
             <Menu />
+
             <main className="col-md-11 econo-main">
               <Routes />
             </main>

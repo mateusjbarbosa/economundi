@@ -1,25 +1,30 @@
 .econo-dicio {
   max-width: 100%;
+
   display: flex;
 }
 
 .econo-search-box {
   position: relative;
-  color: #aaa;
-  font-size: 1.5em;
+
   margin-top: 7.5vh;
   margin-bottom: 7.5vh;
+
+  color: #aaa;
+
+  font-size: 1.5em;
 }
 
 .econo-search-input {
   width: 100%;
   height: 7vh;
 
+  border: none;
+  border-radius: 10px;
+
   text-indent: 1vw;
 
   background: #ffffff;
-  border: none;
-  border-radius: 10px;
 }
 
 input:focus {

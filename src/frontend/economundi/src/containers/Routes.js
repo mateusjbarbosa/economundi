@@ -5,7 +5,7 @@ import { Dicionario } from "../containers";
 
 const Routes = () => (
   <Switch>
-    <Route path="/dicionario" component={Dicionario} />
+    <Route path="/dicionario" component={Dictionary} />
   </Switch>
 );
 
