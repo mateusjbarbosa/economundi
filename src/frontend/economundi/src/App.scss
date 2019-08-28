@@ -3,6 +3,10 @@
   color: #000000;
 }
 
+body {
+  background: #f48b3a;
+}
+
 .econo-nav {
   height: 100vh;
 
@@ -31,11 +35,10 @@
   }
 }
 
-.econo-main {
-}
-
 h1 {
-  margin: 2vh;
+  margin-top: 2vh;
+
+  color: #ffffff;
 
   text-transform: uppercase;
 }
