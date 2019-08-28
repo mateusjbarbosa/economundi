@@ -1,24 +1,33 @@
 import React, { Component } from "react";
 
-import api from "../../services/api";
+import { Box } from "../../components";
 
-import Box from "../../components/Box/Box";
+import api from "../../services/api";
 
 import "./dicionario.scss";
 
 class Dicionario extends Component {
   state = {
-    searchedWord: {}
+    searchedWord: "",
+    topSearch: {}
   };
 
   componentDidMount() {
+    this.getTopSearch();
     this.getWord();
   }
+
+  getTopSearch = async () => {
+    const response = await api.get("api/v1/palavra/top");
+
+    console.log(response.data);
+  };
 
   getWord = async () => {
     const response = await api.get("api/v1/palavra/10");
 
     this.setState({ searchedWord: response.data });
+    console.log(response);
   };
 
   render() {
@@ -33,7 +42,7 @@ class Dicionario extends Component {
           />
         </div>
         <div className="econo-dicio">
-          <Box title="Mais pesquisadas" content={"Lorem Ipsum"} />
+          <Box title="Mais pesquisadas" content={this.state.topSearch.word} />
           <Box
             title="Definição"
             content={this.state.searchedWord.description}
