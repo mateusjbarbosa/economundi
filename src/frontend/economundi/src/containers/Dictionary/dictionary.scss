@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .econo-dicio {
   max-width: 100%;
 
@@ -9,8 +11,6 @@
 
   margin-top: 7.5vh;
   margin-bottom: 7.5vh;
-
-  color: #aaa;
 
   font-size: 1.5em;
 }
@@ -24,7 +24,7 @@
 
   text-indent: 1vw;
 
-  background: #ffffff;
+  background: $color-component-1;
 }
 
 input:focus {

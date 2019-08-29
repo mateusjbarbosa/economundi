@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .econo-box {
   width: 30vw;
   height: 65vh;
@@ -10,7 +12,7 @@
 
   overflow: hidden;
 
-  background: #fff;
+  background: $color-component-1;
 }
 
 h2 {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { Dicionario } from "../containers";
+import { Dictionary } from "../containers";
 
 const Routes = () => (
   <Switch>
