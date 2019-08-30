@@ -2,8 +2,8 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsDao;
-import com.backend.economundi.entity.News;
-import com.backend.economundi.entity.Source;
+import com.backend.economundi.database.dao.entity.News;
+import com.backend.economundi.database.dao.entity.Source;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

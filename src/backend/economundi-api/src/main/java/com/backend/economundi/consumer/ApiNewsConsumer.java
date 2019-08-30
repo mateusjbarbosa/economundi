@@ -1,6 +1,6 @@
 package com.backend.economundi.consumer;
 
-import com.backend.economundi.entity.ResultNews;
+import com.backend.economundi.database.dao.entity.ResultNews;
 import com.backend.economundi.service.NewsService;
 import java.io.IOException;
 

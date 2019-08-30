@@ -1,6 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.entity.Word;
+import com.backend.economundi.database.dao.entity.Word;
 import com.backend.economundi.service.WordService;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,15 +38,15 @@ public class WordController {
             if (word.getId() != null) {
                 return new ResponseEntity<>(word, null, HttpStatus.ACCEPTED);
             } else {
-                Map <String, String> erro = new HashMap<>();
+                Map <String, String> error = new HashMap<>();
                 
-                erro.put("Palavra", "Id inexistente.");
+                error.put("Palavra", "Id inexistente.");
                 
-                return new ResponseEntity<>(erro, null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(error, null, HttpStatus.NOT_FOUND);
             }
         } catch (NumberFormatException e){
-            Map <Long, String> palavras = service.readBySubString(search);
-            return new ResponseEntity<>(palavras, null, HttpStatus.ACCEPTED);
+            Map <Long, String> words = service.readBySubString(search);
+            return new ResponseEntity<>(words, null, HttpStatus.ACCEPTED);
         }
     }
     
@@ -68,15 +68,16 @@ public class WordController {
     @PostMapping(PATH_URL)
     public ResponseEntity add(@RequestBody Word palavra) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        Map<String, String> erros = service.validate(palavra);
+        Map<String, String> errors = service.validate(palavra);
         
-        if (erros.isEmpty()) {
-            service.create(palavra);
-            httpHeaders.add("Location", "/palavra/" + palavra.getId());
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
+        if (errors.isEmpty()) {
+            if (service.create(palavra)) {
+                httpHeaders.add("Location", "/palavra/" + palavra.getId());
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+            }
         }
+        
+        return new ResponseEntity<>(errors, null, HttpStatus.NOT_ACCEPTABLE);
     }
     
     /**
@@ -89,25 +90,25 @@ public class WordController {
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         body.put("id", Long.toString(id));
         
-        Map <String, String> erros;
-        Word palavra = service.merge(body);
+        Map <String, String> errors;
+        Word word = service.merge(body);
         
-        if (palavra != null) {
-            erros = service.validate(palavra);
+        if (word != null) {
+            errors = service.validate(word);
 
-            if (erros.isEmpty()) {
+            if (errors.isEmpty()) {
                 HttpHeaders httpHeaders = new HttpHeaders();
-                service.update(palavra);
+                service.update(word);
                 httpHeaders.add ("Location", "/palavra/" + id);
                 return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
            }
         } else {
-            erros = new HashMap<>();
+            errors = new HashMap<>();
             
-            erros.put("Palavra", "Id inexistente.");
+            errors.put("Palavra", "Id inexistente.");
         }
         
-        return new ResponseEntity<>(erros, null, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(errors, null, HttpStatus.NOT_ACCEPTABLE);
     }
     
     /**

@@ -1,4 +1,4 @@
-package com.backend.economundi.entity;
+package com.backend.economundi.database.dao.entity;
 
 public class Word {
     private Long id;

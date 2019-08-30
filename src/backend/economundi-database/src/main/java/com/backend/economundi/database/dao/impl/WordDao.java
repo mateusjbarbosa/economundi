@@ -2,7 +2,7 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.IWordDao;
-import com.backend.economundi.entity.Word;
+import com.backend.economundi.database.dao.entity.Word;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,23 +17,26 @@ public class WordDao implements IWordDao {
     }
 
     @Override
-    public void create(Word word) {
+    public Boolean create(Word word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ")" + "VALUES (nextval('palavra_id_seq')"
                 + ", ?, ?)";
         PreparedStatement stmt;
+        Boolean success = false;
 
         try {
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, word.getName());
             stmt.setString(2, word.getDescription());
-            stmt.execute();
+            success = stmt.execute();
 
             stmt.close();
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        
+        return success;
     }
 
     @Override
@@ -68,7 +71,6 @@ public class WordDao implements IWordDao {
     public void update(Word word) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";
-
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -90,7 +92,6 @@ public class WordDao implements IWordDao {
     @Override
     public void delete(Word word) {
         String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
-
         PreparedStatement stmt;
         ResultSet rs;
 
