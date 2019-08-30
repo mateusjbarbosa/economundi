@@ -1,7 +1,7 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.impl.WordDao;
-import com.backend.economundi.entity.Word;
+import com.backend.economundi.database.dao.entity.Word;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,14 +18,19 @@ public class WordService {
      * Adiciona aos controles do dicionário.
      * 
      * @param word Nova palavra a ser criada.
+     * @return Houve ou não sucesso na criação.
      */
-    public void create (Word word) {
+    public Boolean create (Word word) {
+        Boolean success = false;
+        
         if (word != null) {
             WordDao wordDao = new WordDao();
             
-            wordDao.create(word);
+            success = wordDao.create(word);
             wordDao.closeConnection();
         }
+        
+        return success;
     }
     
     /**

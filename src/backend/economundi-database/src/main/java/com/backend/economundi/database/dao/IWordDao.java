@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao;
 
-import com.backend.economundi.entity.Word;
+import com.backend.economundi.database.dao.entity.Word;
 
 public interface IWordDao {
     
@@ -9,7 +9,7 @@ public interface IWordDao {
     public static String DESCRIPTION = "descricao";
     public static String ENTITY = "palavra";
 
-    public void create(Word guest);
+    public Boolean create(Word guest);
     
     public Word readById(Long id);
 

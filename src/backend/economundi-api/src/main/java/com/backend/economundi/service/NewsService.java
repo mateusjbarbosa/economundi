@@ -1,7 +1,7 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.impl.NewsDao;
-import com.backend.economundi.entity.News;
+import com.backend.economundi.database.dao.entity.News;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;

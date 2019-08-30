@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao;
 
-import com.backend.economundi.entity.News;
+import com.backend.economundi.database.dao.entity.News;
 import java.util.List;
 
 public interface INewsDao {
