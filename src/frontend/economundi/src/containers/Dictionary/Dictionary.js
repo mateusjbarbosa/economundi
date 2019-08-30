@@ -4,6 +4,7 @@ import { Box } from "../../components";
 
 import api from "../../services/api";
 
+import "../../styles/components.scss";
 import "./dictionary.scss";
 
 class Dictionary extends Component {
@@ -33,23 +34,23 @@ class Dictionary extends Component {
 
   render() {
     return (
-      <div className="col-md-12">
+      <>
         <h1>Dicionário</h1>
-        <div className="econo-search-box">
+        <div class="econo-search">
           <input
-            className="econo-search-input"
+            class="econo-search-input"
             type="text"
             placeholder="Algum termo deu um nó na cabeça?"
           />
+          <a class="econo-search-icon" href="#">
+            <i class="fas fa-search"></i>
+          </a>
         </div>
-        <div className="econo-dicio">
-          <Box title="Mais pesquisadas" content={this.state.topSearch.word} />
-          <Box
-            title="Definição"
-            content={this.state.searchedWord.description}
-          />
+        <div class="econo-box-container">
+          <Box title="Mais pesquisadas" />
+          <Box title="Definição" content={this.state.searchedWord} />
         </div>
-      </div>
+      </>
     );
   }
 }

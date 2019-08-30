@@ -10,15 +10,13 @@ import "./app.scss";
 function App() {
   return (
     <Router>
-      <div className="App">
-        <div className="container-fluid">
-          <div className="row">
-            <Menu />
+      <div className="container-fluid">
+        <div className="row">
+          <Menu />
 
-            <main className="col-md-11 econo-main">
-              <Routes />
-            </main>
-          </div>
+          <main className="col-11 econo-main">
+            <Routes />
+          </main>
         </div>
       </div>
     </Router>

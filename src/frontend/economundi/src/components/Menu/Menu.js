@@ -5,28 +5,30 @@ import "./menu.scss";
 
 function Menu() {
   return (
-    <nav className="col-md-1 econo-nav">
-      <div className="econo-nav-item">
-        <Link to="/">PE</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/">N</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/">I</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/">S</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/dicionario">D</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/">SN</Link>
-      </div>
-      <div className="econo-nav-item">
-        <Link to="/">P</Link>
-      </div>
+    <nav class="col-1 econo-menu">
+      <ul class="econo-menu-list">
+        <li class="econo-menu-item">
+          <Link to="/">PE</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/">N</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/">I</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/">S</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/dicionario">D</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/">SN</Link>
+        </li>
+        <li class="econo-menu-item">
+          <Link to="/">P</Link>
+        </li>
+      </ul>
     </nav>
   );
 }

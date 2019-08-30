@@ -1,29 +1,30 @@
 @import "../../styles/variables.scss";
 
-.econo-nav {
-  height: 100vh;
+.econo-menu {
+  background: $color-secundary;
+}
+
+.econo-menu-list {
+  height: 95vh;
+
+  margin-top: 2.5vh;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  justify-content: space-around;
+  align-items: center;
 
-  box-flex: 0;
+  list-style-type: none;
 
-  background: $color-nav;
+  background: $color-primary;
 }
 
-.econo-nav-item {
-  padding: 1vw 2vh;
+.econo-menu-item {
+  width: 5vw;
+  height: 10vh;
 
   text-align: center;
 
-  background: $color-nav-item;
-
-  cursor: pointer;
-
-  & a {
-    text-decoration: none;
-    color: $color-text-1;
-  }
+  background: $color-text-1;
 }

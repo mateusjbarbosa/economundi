@@ -1,24 +1,49 @@
+@import "../../styles/components.scss";
+@import "../../styles/scrollbar.scss";
 @import "../../styles/variables.scss";
 
 .econo-box {
-  width: 30vw;
-  height: 65vh;
+  width: 35vw;
+  height: 50vh;
 
-  margin-right: 5%;
+  border-radius: 2em;
 
-  padding: 10px 12px;
+  background: $color-component-1;
+  overflow-y: scroll;
+}
 
-  border-radius: 10px;
+.econo-box-title {
+  width: 35%;
 
-  overflow: hidden;
+  position: fixed;
+
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
 
   background: $color-component-1;
 }
 
-h2 {
-  text-transform: uppercase;
+.econo-box-content {
+  margin-top: 7vh;
 }
 
-p {
+.econo-paragraph-spotlight {
+  font-size: 2em;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  margin-left: 1.5vw;
+
+  color: $color-primary;
+}
+
+.econo-paragraph-text {
+  width: 90%;
+
+  font-size: 1.2em;
+  font-weight: 500;
+
   text-align: justify;
+
+  margin-left: 5%;
 }

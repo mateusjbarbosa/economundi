@@ -1,32 +1,74 @@
 @import "../../styles/variables.scss";
 
-.econo-dicio {
-  max-width: 100%;
+.econo-search {
+  position: absolute;
 
-  display: flex;
-}
+  width: 90%;
+  height: 60px;
 
-.econo-search-box {
-  position: relative;
+  top: 17vh;
+  left: 5%;
 
-  margin-top: 7.5vh;
-  margin-bottom: 7.5vh;
+  padding: 10px;
 
-  font-size: 1.5em;
-}
-
-.econo-search-input {
-  width: 100%;
-  height: 7vh;
-
-  border: none;
-  border-radius: 10px;
-
-  text-indent: 1vw;
+  border-radius: 2em;
 
   background: $color-component-1;
 }
 
-input:focus {
-  outline: 0;
+.econo-search-input {
+  width: 95%;
+
+  margin-left: 1vw;
+  padding: 0;
+
+  float: left;
+  line-height: 40px;
+
+  border: none;
+  outline: none;
+
+  font-size: 1.5em;
+  font-weight: bold;
+
+  transition: 0.4s;
+  color: $color-text-2;
+}
+
+.econo-search-icon {
+  float: right;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 2em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.4s;
+
+  cursor: pointer;
+
+  background: $color-secundary;
+  color: $color-text-1;
+}
+
+.econo-search-icon:hover {
+  text-decoration: none;
+
+  background: $color-component-1;
+  color: $color-secundary;
+}
+
+.econo-box-container {
+  width: 90%;
+
+  margin-top: 20vh;
+  margin-left: 5%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

@@ -1,18 +1,16 @@
 @import "../../styles/variables.scss";
 
 * {
-  font-family: "Fira Sans", sans-serif;
-  color: $color-text-2;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  background: #f48b3a;
+  background: $color-secundary;
 }
 
-h1 {
-  margin-top: 2vh;
-
-  color: $color-text-1;
-
-  text-transform: uppercase;
+.econo-main {
+  height: 100vh;
 }
