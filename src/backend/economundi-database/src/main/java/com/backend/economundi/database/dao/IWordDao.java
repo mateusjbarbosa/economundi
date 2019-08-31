@@ -16,6 +16,4 @@ public interface IWordDao {
     public void update(Word word);
 
     public void delete(Word word);
-
-    public void closeConnection();
 }

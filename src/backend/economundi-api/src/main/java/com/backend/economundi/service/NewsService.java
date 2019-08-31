@@ -1,24 +1,25 @@
 package com.backend.economundi.service;
 
-import com.backend.economundi.database.dao.impl.NewsDao;
 import com.backend.economundi.database.dao.entity.News;
+import com.backend.economundi.database.dao.impl.NewsDao;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NewsService {
-
+    
     /**
      * Cria um novo artigo no sistema.
      *
      * @param news Artigo a ser criado.
      */
     public void create(News news) {
+        NewsDao newsDao = new NewsDao();
+        
         if (news != null) {
-            NewsDao newsDao = new NewsDao();
-
             newsDao.create(news);
-            newsDao.closeConnection();
         }
     }
 
@@ -28,12 +29,11 @@ public class NewsService {
      * @param news Notícia a ser atualizada.
      */
     public void update(News news) {
+        NewsDao newsDao = new NewsDao();
+        
         if (news != null) {
             if (news.getId() != null) {
-                NewsDao newsDao = new NewsDao();
-
                 newsDao.update(news);
-                newsDao.closeConnection();
             }
         }
     }
@@ -46,8 +46,6 @@ public class NewsService {
         Date now = new Date();
         Timestamp tsNow = new Timestamp(now.getTime());
         List<News> newsList = newsDao.readNewsWithRelevance();
-
-        newsDao.closeConnection();
         
         newsList.forEach((_item) -> {
             Timestamp tsNews = Timestamp.valueOf(_item.getDate());

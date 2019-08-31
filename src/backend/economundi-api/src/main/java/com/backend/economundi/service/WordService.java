@@ -27,7 +27,6 @@ public class WordService {
             WordDao wordDao = new WordDao();
             
             success = wordDao.create(word);
-            wordDao.closeConnection();
         }
         
         return success;
@@ -47,7 +46,6 @@ public class WordService {
         @TODO Implementar o usuário responsável pela pesquisa (tabela
         usuario_pesquisa_palavra).
          */
-        wordDao.closeConnection();
         
         return word;
     }
@@ -78,7 +76,6 @@ public class WordService {
         WordDao wordDao = new WordDao();
         
         wordDao.update(word);
-        wordDao.closeConnection();
     }
     
     /**
@@ -92,8 +89,6 @@ public class WordService {
         if (word != null) {
             wordDao.delete(word);
         }
-        
-        wordDao.closeConnection();
     }
     
     /**
@@ -112,8 +107,6 @@ public class WordService {
             {
                 WordDao wordDao = new WordDao();
                 Word word = wordDao.readById(id);
-                
-                wordDao.closeConnection();
                 
                 if (word != null)
                 {

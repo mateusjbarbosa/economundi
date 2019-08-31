@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WordDao implements IWordDao {
 
@@ -21,7 +23,7 @@ public class WordDao implements IWordDao {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ")" + "VALUES (nextval('palavra_id_seq')"
                 + ", ?, ?)";
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         Boolean success = false;
 
         try {
@@ -33,7 +35,27 @@ public class WordDao implements IWordDao {
 
             stmt.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                
+            }
+        } finally {
+            try {
+                if (conn != null & !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
         }
         
         return success;
@@ -42,8 +64,8 @@ public class WordDao implements IWordDao {
     @Override
     public Word readById(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         Word word = new Word();
 
         try {
@@ -61,7 +83,35 @@ public class WordDao implements IWordDao {
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                   conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
         }
 
         return word;
@@ -71,8 +121,8 @@ public class WordDao implements IWordDao {
     public void update(Word word) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -85,15 +135,43 @@ public class WordDao implements IWordDao {
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
         }
     }
 
     @Override
     public void delete(Word word) {
         String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -104,19 +182,35 @@ public class WordDao implements IWordDao {
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
-
-    @Override
-    public void closeConnection() {
-        try {
-            if (conn.isClosed()) {
-                conn.close();
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                
             }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } finally {
+           try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
         }
     }
-
 }

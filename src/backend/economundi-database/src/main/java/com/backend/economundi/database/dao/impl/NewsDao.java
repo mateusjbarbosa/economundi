@@ -10,14 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class NewsDao implements INewsDao {
 
-    private final Connection conn;
-
-    public NewsDao() {
-        conn = ConnectionFactory.getConnection();
-    }
+    private Connection conn;
 
     @Override
     public void create(News news) {
@@ -26,9 +26,11 @@ public class NewsDao implements INewsDao {
                 + URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE
                 + ") VALUES (nextval('noticia_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, news.getTitle());
@@ -40,9 +42,30 @@ public class NewsDao implements INewsDao {
             stmt.setString(7, news.getLocality());
             stmt.setLong(8, news.getRelevance());
             stmt.execute();
-
-            stmt.close();
+            
+            conn.commit();
         } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1.getMessage());
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
@@ -51,19 +74,49 @@ public class NewsDao implements INewsDao {
         String sql = "UPDATE " + ENTITY + " SET " + RELEVANCE + "= ?"
                 + " WHERE " + ID + "= ?";
 
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setLong(1, news.getRelevance());
             stmt.setLong(2, news.getId());
             rs = stmt.executeQuery();
-
-            rs.close();
-            stmt.close();
+            
+            conn.commit();
         } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                
+            }
+        } finally {
+            try {
+                if (stmt != null & !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NewsDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            } 
         }
     }
 
@@ -71,11 +124,13 @@ public class NewsDao implements INewsDao {
     public List<News> readNewsWithRelevance() {
         String sql = "SELECT * from " + ENTITY + " WHERE " + RELEVANCE + "> 0";
         List<News> newsList = new ArrayList<>();
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(sql);
+            
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -99,20 +154,33 @@ public class NewsDao implements INewsDao {
                 newsList.add(news);
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
         }
         
         return newsList;
-    }
-
-    @Override
-    public void closeConnection() {
-        try {
-            if (conn.isClosed()) {
-                conn.close();
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
     }
 }
