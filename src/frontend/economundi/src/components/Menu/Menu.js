@@ -22,32 +22,32 @@ function Menu() {
         </li>
         <li class="econo-menu-item">
           <Link to="/">
-            <IconeNoticia width="60" height="60" />
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
         <li class="econo-menu-item">
           <Link to="/">
-            <IconeIndices width="60" height="60" />
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
         <li class="econo-menu-item">
-          <Link to="/">
-            <IconeSimulacoes width="60" height="60" />
+          <Link to="/simulacoes">
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
         <li class="econo-menu-item">
           <Link to="/dicionario">
-            <IconeDicionario width="60" height="60" />
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
         <li class="econo-menu-item">
           <Link to="/">
-            <IconeSobre width="60" height="60" />
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
         <li class="econo-menu-item">
           <Link to="/">
-            <IconePerfil width="60" height="60" />
+            <IconeLogo width="60" height="60" />
           </Link>
         </li>
       </ul>
