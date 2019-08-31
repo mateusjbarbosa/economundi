@@ -13,39 +13,39 @@ import "./menu.scss";
 
 function Menu() {
   return (
-    <nav class="col-1 econo-menu">
-      <ul class="econo-menu-list">
-        <li class="econo-menu-item">
+    <nav className="col-1 econo-menu">
+      <ul className="econo-menu-list">
+        <li className="econo-menu-item">
           <Link to="/">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/simulacoes">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/dicionario">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/">
             <IconeLogo width="60" height="60" />
           </Link>
         </li>
-        <li class="econo-menu-item">
+        <li className="econo-menu-item">
           <Link to="/">
             <IconeLogo width="60" height="60" />
           </Link>

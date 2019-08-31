@@ -36,17 +36,17 @@ class Dictionary extends Component {
     return (
       <>
         <h1>Dicionário</h1>
-        <div class="econo-search">
+        <div className="econo-search">
           <input
-            class="econo-search-input"
+            className="econo-search-input"
             type="text"
             placeholder="Algum termo deu um nó na cabeça?"
           />
-          <a class="econo-search-icon" href="#">
-            <i class="fas fa-search"></i>
+          <a className="econo-search-icon" href="#">
+            <i className="fas fa-search"></i>
           </a>
         </div>
-        <div class="econo-box-container">
+        <div className="econo-box-container">
           <Box title="Mais pesquisadas" />
           <Box title="Definição" content={this.state.searchedWord} />
         </div>
