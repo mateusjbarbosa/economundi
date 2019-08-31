@@ -42,7 +42,7 @@ class Dictionary extends Component {
             type="text"
             placeholder="Algum termo deu um nó na cabeça?"
           />
-          <a className="econo-search-icon" href="#">
+          <a className="econo-search-icon" href="/">
             <i className="fas fa-search"></i>
           </a>
         </div>
