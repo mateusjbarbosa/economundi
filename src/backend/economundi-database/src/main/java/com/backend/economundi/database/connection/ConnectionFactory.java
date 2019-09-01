@@ -10,7 +10,7 @@ public class ConnectionFactory {
     private static final String URL = "jdbc:postgresql://localhost:5432/"
             + "economundi";
     private static final String USER = "postgres";
-    private static final String PASS = "123";
+    private static final String PASS = "123456";
 
     public static Connection getConnection() {
         try {
