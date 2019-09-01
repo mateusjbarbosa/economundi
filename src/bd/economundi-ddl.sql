@@ -9,8 +9,9 @@ create table usuario (
     email character varying (100) unique NOT NULL,
     nome character varying (20) NOT NULL,
     sobrenome character varying (50) NOT NULL,
-    senha character varying (30) check (length(senha) > 8) NOT NULL,
+    senha character varying (200) check (length(senha) > 8) NOT NULL,
     data_nasc date check (data_nasc < now()) NOT NULL,
+    permissao character varying(30) check(permissao in ('Administrador','usuario')) NOT NULL,
     perfil_economico character varying (20) check (perfil_economico in ('Conservador', 'Moderado', 'Moderado-agressivo', 'Agressivo')),
     data_hora_cadastro timestamp without time zone default now() NOT NULL
 );
