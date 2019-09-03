@@ -3,6 +3,7 @@ package com.backend.economundi.controller;
 import com.backend.economundi.database.dao.entity.Word;
 import com.backend.economundi.service.WordService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class WordController {
                 return new ResponseEntity<>(error, null, HttpStatus.NOT_FOUND);
             }
         } catch (NumberFormatException e){
-            Map <Long, String> words = service.readBySubString(search);
+            List<Word> words = service.readBySubString(search);
             return new ResponseEntity<>(words, null, HttpStatus.ACCEPTED);
         }
     }
@@ -67,13 +68,14 @@ public class WordController {
      */
     @PostMapping(PATH_URL)
     public ResponseEntity add(@RequestBody Word palavra) {
-        HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> errors = service.validate(palavra);
         
         if (errors.isEmpty()) {
             if (service.create(palavra)) {
-                httpHeaders.add("Location", "/palavra/" + palavra.getId());
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+                return new ResponseEntity<>(null, null, HttpStatus.CREATED);
+            } else {
+                errors.put("Banco de dados", "Não foi possível adicionar a "
+                        + "palavra.");
             }
         }
         

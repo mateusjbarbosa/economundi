@@ -7,15 +7,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordDao implements IWordDao {
 
-    private final Connection conn;
+    private Connection conn;
 
     public WordDao() {
-        this.conn = ConnectionFactory.getConnection();
+
     }
 
     @Override
@@ -27,18 +27,22 @@ public class WordDao implements IWordDao {
         Boolean success = false;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, word.getName());
             stmt.setString(2, word.getDescription());
-            success = stmt.execute();
+            stmt.execute();
 
-            stmt.close();
+            conn.commit();
+
+            success = true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
-                
+
             }
         } finally {
             try {
@@ -46,18 +50,18 @@ public class WordDao implements IWordDao {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
+
             try {
                 if (stmt != null && !stmt.isClosed()) {
                     stmt.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
         }
-        
+
         return success;
     }
 
@@ -66,51 +70,47 @@ public class WordDao implements IWordDao {
         String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Word word = new Word();
+        Word word = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setLong(1, id);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
+                word = new Word();
                 word.setId(rs.getLong(ID));
                 word.setName(rs.getString(NAME));
                 word.setDescription(rs.getString(DESCRIPTION));
             }
-
-            rs.close();
-            stmt.close();
         } catch (SQLException ex) {
-            try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-                
-            }
+
         } finally {
             try {
                 if (stmt != null && !stmt.isClosed()) {
                     stmt.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
+
             try {
                 if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
+
             try {
                 if (conn != null && !conn.isClosed()) {
-                   conn.close();
+                    conn.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
         }
 
@@ -118,27 +118,91 @@ public class WordDao implements IWordDao {
     }
 
     @Override
+    public List<Word> readByName(String name) {
+        String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " ilike "
+                + "'%" + name + "%' order by " + NAME + " asc limit 5";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Word> wordList = new ArrayList<>();
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Word word = new Word();
+                
+                word.setId(rs.getLong(ID));
+                word.setName(rs.getString(NAME));
+                word.setDescription(rs.getString(DESCRIPTION));
+                
+                wordList.add(word);
+            }
+        } catch (SQLException ex) {
+
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
+
+        return wordList;
+    }
+
+    @Override
+    public List<Word> readTop() {
+        List<Word> wordList = new ArrayList<>();
+        String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
+
+        return wordList;
+    }
+
+    @Override
     public void update(Word word) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";
         PreparedStatement stmt = null;
-        ResultSet rs = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, word.getName());
             stmt.setString(2, word.getDescription());
             stmt.setLong(3, word.getId());
-            rs = stmt.executeQuery();
+            stmt.execute();
 
-            rs.close();
-            stmt.close();
+            conn.commit();
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
-                
+
             }
         } finally {
             try {
@@ -146,23 +210,15 @@ public class WordDao implements IWordDao {
                     stmt.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                
-            }
-            
+
             try {
                 if (conn != null && !conn.isClosed()) {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
         }
     }
@@ -174,42 +230,43 @@ public class WordDao implements IWordDao {
         ResultSet rs = null;
 
         try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setLong(1, word.getId());
             rs = stmt.executeQuery();
 
-            rs.close();
-            stmt.close();
+            conn.commit();
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
-                
+
             }
         } finally {
-           try {
+            try {
                 if (stmt != null && !stmt.isClosed()) {
                     stmt.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
+
             try {
                 if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
-            
+
             try {
                 if (conn != null && !conn.isClosed()) {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
         }
     }

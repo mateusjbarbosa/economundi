@@ -56,16 +56,10 @@ public class WordService {
      * @param substring A string que se deseja encontrar.
      * @return Id e nome da palabra que contém a substring.
      */
-    public Map<Long, String> readBySubString(String substring) {
-        Map<Long, String> words = new HashMap();
+    public List<Word> readBySubString(String substring) {
+        WordDao wordDao = new WordDao();
         
-        LIST.stream().filter((word) -> 
-            (word.getName().toLowerCase().
-             contains(substring.toLowerCase()))).forEachOrdered((word) -> {
-                words.put(word.getId(), word.getName());
-            });
-        
-        return words;
+        return wordDao.readByName(substring);
     }
     
     /**
