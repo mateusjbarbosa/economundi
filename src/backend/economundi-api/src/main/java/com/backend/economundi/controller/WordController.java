@@ -62,17 +62,22 @@ public class WordController {
     
     /**
      * Adiciona nova palavra ao sistema.
-     * @param palavra Nova palavra.
+     * @param word Nova palavra.
      * @return Se sucesso, o seu ID. Caso contrário, é retornado o motivo do
      * erro.
      */
     @PostMapping(PATH_URL)
-    public ResponseEntity add(@RequestBody Word palavra) {
-        Map<String, String> errors = service.validate(palavra);
+    public ResponseEntity add(@RequestBody Word word) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        Map<String, String> errors = service.validate(word);
         
         if (errors.isEmpty()) {
-            if (service.create(palavra)) {
-                return new ResponseEntity<>(null, null, HttpStatus.CREATED);
+            word.setName(word.getName().toUpperCase().trim());
+            word.setDescription(word.getDescription().trim());
+            
+            if (service.create(word)) {
+                httpHeaders.add("Location", "/palavra/" + word.getId());
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
             } else {
                 errors.put("Banco de dados", "Não foi possível adicionar a "
                         + "palavra.");

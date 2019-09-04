@@ -22,8 +22,9 @@ public class WordDao implements IWordDao {
     public Boolean create(Word word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ")" + "VALUES (nextval('palavra_id_seq')"
-                + ", ?, ?)";
+                + ", ?, ?) RETURNING " + ID;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         Boolean success = false;
 
         try {
@@ -33,7 +34,11 @@ public class WordDao implements IWordDao {
 
             stmt.setString(1, word.getName());
             stmt.setString(2, word.getDescription());
-            stmt.execute();
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                word.setId(rs.getLong(ID));
+            }
 
             conn.commit();
 
@@ -48,6 +53,14 @@ public class WordDao implements IWordDao {
             try {
                 if (conn != null & !conn.isClosed()) {
                     conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
                 }
             } catch (SQLException ex) {
 
