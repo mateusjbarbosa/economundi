@@ -83,7 +83,6 @@ public class WordDao implements IWordDao {
 
         try {
             conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             stmt.setLong(1, id);

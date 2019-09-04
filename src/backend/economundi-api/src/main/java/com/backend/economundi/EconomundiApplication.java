@@ -1,7 +1,6 @@
 package com.backend.economundi;
 
 import com.backend.economundi.consumer.ApiNewsConsumer;
-import com.backend.economundi.service.WordService;
 import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,9 +25,7 @@ public class EconomundiApplication {
     @Scheduled(fixedDelay = HORA)
     public void reportCurrentTime() throws IOException {
         ApiNewsConsumer api = new ApiNewsConsumer();
-        WordService word = new WordService();
         
         api.refreshNews();
-        word.topSearch();
     }
 }

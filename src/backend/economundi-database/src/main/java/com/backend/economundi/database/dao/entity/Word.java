@@ -4,7 +4,6 @@ public class Word {
     private Long id;
     private String name;
     private String description;
-    private Long amountSearch;
 
     public Long getId() {
         return id;
@@ -28,13 +27,5 @@ public class Word {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-    
-        public Long getAmountSearch() {
-        return amountSearch;
-    }
-
-    public void setAmountSearch(Long amountSearch) {
-        this.amountSearch = amountSearch;
     }
 }

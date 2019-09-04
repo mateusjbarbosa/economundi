@@ -3,16 +3,11 @@ package com.backend.economundi.service;
 import com.backend.economundi.database.dao.impl.WordDao;
 import com.backend.economundi.database.dao.entity.Word;
 import com.backend.economundi.database.dao.impl.WordAccessDao;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class WordService {
-    private static final List<Word> LIST = new ArrayList<>();
-    private static final Map<Long, Word> MAP = new HashMap<>();
-    private static final List<Word> WORD_TOP = new ArrayList();
-    private final Integer TOP = 5;
     
     /**
      * 
@@ -164,52 +159,13 @@ public class WordService {
         return errors;
     }
     
-     /**
-     * Monta uma lista com as top 5 palavras mais pesquisadas.
-     */
-    public void topSearch() {
-        LIST.forEach((word) -> {
-            if (WORD_TOP.size() < TOP) {
-                if (!WORD_TOP.contains(word)) {
-                    WORD_TOP.add(word);
-                }
-            } else {
-                Word wordBackup;
-                
-                for (int pos = 0; pos < TOP; pos++) {
-                    Word wordAnalyze = WORD_TOP.get(pos);
-                    
-                    if (!WORD_TOP.contains(word)) {
-                        if (word.getAmountSearch() >= 
-                            wordAnalyze.getAmountSearch()) {
-                            wordBackup = wordAnalyze;
-                            WORD_TOP.set(pos, word);
-                            
-                            for (int posSubs = (pos + 1); (posSubs < TOP);
-                                posSubs++) {
-                                wordAnalyze = WORD_TOP.get(posSubs);
-                                WORD_TOP.set(posSubs, wordBackup);
-                                wordBackup = wordAnalyze;
-                            }
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-        });
-    }
-    
     /**
      * Informa as palavras mais pesquisadas no sistema.
      * @return Mapa com id e palavra (correspondente) mais pesquisadas.
      */
     public Map<Long, String> getTopSearch() {
-        Map<Long, String> mapTop = new HashMap();
-        
-        WORD_TOP.forEach((word) -> {
-            mapTop.put(word.getId(), word.getName());
-        });
+        WordAccessDao wordAccessDao = new WordAccessDao();
+        Map<Long, String> mapTop = wordAccessDao.getMostSearched();
         
         return mapTop;
     }

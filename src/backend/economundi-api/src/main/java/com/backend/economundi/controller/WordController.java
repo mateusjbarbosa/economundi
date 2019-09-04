@@ -35,7 +35,7 @@ public class WordController {
             Long id = Long.parseLong(search);
             Word word = service.readById(id);
             
-            if (word.getId() != null) {
+            if (word != null) {
                 return new ResponseEntity<>(word, null, HttpStatus.ACCEPTED);
             } else {
                 Map <String, String> error = new HashMap<>();
