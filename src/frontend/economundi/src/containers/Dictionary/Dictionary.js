@@ -8,28 +8,44 @@ import "../../styles/components.scss";
 import "./dictionary.scss";
 
 class Dictionary extends Component {
-  state = {
-    searchedWord: "",
-    topSearch: {}
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.getTopSearch();
-    this.getWord();
+    this.state = {
+      searchedWord: "",
+      topSearch: {}
+    };
+
+    this.getWord = this.getWord.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   getTopSearch = async () => {
-    const response = await api.get("api/v1/word/top");
+    const response = await api.get("palavra/top");
 
     console.log(response.data);
   };
 
-  getWord = async () => {
-    const response = await api.get("api/v1/word/10");
+  getWord = async word => {
+    const response = await api.get(`palavra/${word}`);
 
-    this.setState({ searchedWord: response.data });
+    this.setState({ searchedWord: response.data[0].description });
+  };
 
-    console.log(response);
+  handleSearchChange = e => {
+    let searchingWord = "";
+
+    if (e.target.value !== "") {
+      searchingWord = e.target.value;
+
+      if (searchingWord.length > 3) {
+        try {
+          this.getWord(searchingWord);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
   };
 
   render() {
@@ -40,6 +56,7 @@ class Dictionary extends Component {
           <input
             className="econo-search-input"
             type="text"
+            onChange={this.handleSearchChange}
             placeholder="Algum termo deu um nó na cabeça?"
           />
           <a className="econo-search-icon" href="/">
