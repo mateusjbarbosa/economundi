@@ -72,7 +72,7 @@ create table solicitacao (
 
 create table palavra_acesso (
     id serial primary key,
-    data_hora timestamp without time zone NOT NULL,
+    data_hora timestamp without time zone NOT NULL default now(),
     palavra_id integer references palavra(id) on update cascade,
     unique (palavra_id, data_hora)
 );
