@@ -123,8 +123,6 @@ public class WordService {
                     if (data.containsKey(key)) {
                         merged.setDescription(data.get(key));
                     }
-                    
-                    merged.setAmountSearch(word.getAmountSearch());
                 }
             }
         }
