@@ -46,8 +46,8 @@ public class WordController {
                 return new ResponseEntity<>(error, null, HttpStatus.NOT_FOUND);
             }
         } catch (NumberFormatException e){
-            List<Word> words = service.readBySubString(search);
-            return new ResponseEntity<>(words, null, HttpStatus.ACCEPTED);
+            Map<Long, String> mapWord = service.readBySubString(search);
+            return new ResponseEntity<>(mapWord, null, HttpStatus.ACCEPTED);
         }
     }
     
