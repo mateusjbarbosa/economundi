@@ -3,7 +3,6 @@ package com.backend.economundi.controller;
 import com.backend.economundi.database.dao.entity.Word;
 import com.backend.economundi.service.WordService;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -2,6 +2,7 @@ package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.impl.WordDao;
 import com.backend.economundi.database.dao.entity.Word;
+import com.backend.economundi.database.dao.impl.WordAccessDao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +43,10 @@ public class WordService {
         WordDao wordDao = new WordDao();
         Word word = wordDao.readById(id);
         
-        /*
-        @TODO Implementar o usuário responsável pela pesquisa (tabela
-        usuario_pesquisa_palavra).
-         */
+        if (word != null) {
+            WordAccessDao wordAccessDao = new WordAccessDao();
+            wordAccessDao.create(id);
+        }
         
         return word;
     }

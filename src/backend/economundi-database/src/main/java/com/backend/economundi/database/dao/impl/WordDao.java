@@ -14,14 +14,10 @@ public class WordDao implements IWordDao {
 
     private Connection conn;
 
-    public WordDao() {
-
-    }
-
     @Override
     public Boolean create(Word word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
-                + "," + DESCRIPTION + ")" + "VALUES (nextval('palavra_id_seq')"
+                + "," + DESCRIPTION + ") VALUES (nextval('palavra_id_seq')"
                 + ", ?, ?) RETURNING " + ID;
         PreparedStatement stmt = null;
         ResultSet rs = null;
