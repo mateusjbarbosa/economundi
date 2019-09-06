@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Box } from "../../components";
+import { BoxList, BoxText } from "../../components";
 
 import api from "../../services/api";
 
@@ -13,21 +13,29 @@ class Dictionary extends Component {
 
     this.state = {
       suggestions: [],
+      topSearched: [],
       text: "",
       description: ""
     };
   }
 
-  getWord = async word => {
-    const response = await api.get(`palavra/${word}`);
+  async componentDidMount() {
+    const list = await this.getTopSearched();
 
-    const keys = Object.keys(response.data);
+    this.setState({
+      topSearched: list,
+      isLoadingComplete: true
+    });
+  }
+
+  jsonByWordObject = data => {
+    const keys = Object.keys(data);
     const list = [];
 
     keys.map(key => {
       const item = {
         id: key,
-        name: response.data[key]
+        name: data[key]
       };
       list.push(item);
     });
@@ -35,10 +43,23 @@ class Dictionary extends Component {
     return list;
   };
 
+  getWord = async word => {
+    const response = await api.get(`palavra/${word}`);
+
+    return this.jsonByWordObject(response.data);
+  };
+
   getDescriptionWord = async id => {
     const response = await api.get(`palavra/${id}`);
 
     this.setState({ description: response.data.description });
+  };
+
+  getTopSearched = async () => {
+    const response = await api.get("palavra/top");
+    const list = this.jsonByWordObject(response.data);
+
+    return list;
   };
 
   onTextChanged = async e => {
@@ -83,6 +104,7 @@ class Dictionary extends Component {
 
   render() {
     const { text } = this.state;
+
     return (
       <>
         <h1>Dicionário</h1>
@@ -100,8 +122,8 @@ class Dictionary extends Component {
           {this.renderSuggestions()}
         </div>
         <div className="econo-box-container">
-          <Box title="Mais pesquisadas" />
-          <Box title="Definição" content={this.state.description} />
+          <BoxList title="Mais pesquisadas" content={this.state.topSearched} />
+          <BoxText title="Definição" content={this.state.description} />
         </div>
       </>
     );

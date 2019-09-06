@@ -1,0 +1,39 @@
+@import "../../styles/components.scss";
+@import "../../styles/scrollbar.scss";
+@import "../../styles/variables.scss";
+
+.econo-box {
+  width: 35vw;
+  height: 50vh;
+
+  border-radius: 2em;
+
+  background: $color-component-1;
+  overflow-y: scroll;
+}
+
+.econo-box-title {
+  width: 35%;
+
+  position: fixed;
+
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
+
+  background: $color-component-1;
+}
+
+.econo-box-content {
+  margin-top: 7vh;
+}
+
+.econo-paragraph-text {
+  width: 90%;
+
+  font-size: 1.2em;
+  font-weight: 500;
+
+  text-align: justify;
+
+  margin-left: 5%;
+}
