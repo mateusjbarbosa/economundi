@@ -12,43 +12,77 @@ class Dictionary extends Component {
     super(props);
 
     this.state = {
-      searchedWord: "",
-      topSearch: {}
+      suggestions: [],
+      text: "",
+      description: ""
     };
-
-    this.getWord = this.getWord.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
-
-  getTopSearch = async () => {
-    const response = await api.get("palavra/top");
-
-    console.log(response.data);
-  };
 
   getWord = async word => {
     const response = await api.get(`palavra/${word}`);
 
-    this.setState({ searchedWord: response.data[0].description });
+    const keys = Object.keys(response.data);
+    const list = [];
+
+    keys.map(key => {
+      const item = {
+        id: key,
+        name: response.data[key]
+      };
+      list.push(item);
+    });
+
+    return list;
   };
 
-  handleSearchChange = e => {
-    let searchingWord = "";
+  getDescriptionWord = async id => {
+    const response = await api.get(`palavra/${id}`);
 
-    if (e.target.value !== "") {
-      searchingWord = e.target.value;
+    this.setState({ description: response.data.description });
+  };
 
-      if (searchingWord.length > 3) {
-        try {
-          this.getWord(searchingWord);
-        } catch (error) {
-          console.log(error);
-        }
-      }
+  onTextChanged = async e => {
+    const value = e.target.value;
+
+    let suggestions = [];
+
+    if (value.length > 0) {
+      suggestions = await this.getWord(value);
+    } else {
+      this.setState({ suggestions: [] });
     }
+
+    this.setState(() => ({ suggestions, text: value }));
   };
+
+  suggestionSelected = item => {
+    this.setState(() => ({ text: item.name, suggestions: [] }));
+
+    this.getDescriptionWord(item.id);
+  };
+
+  renderSuggestions() {
+    const { suggestions } = this.state;
+
+    if (suggestions.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="econo-suggestions">
+        <ul>
+          {suggestions.map(item => (
+            <li key={item.id} onClick={() => this.suggestionSelected(item)}>
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   render() {
+    const { text } = this.state;
     return (
       <>
         <h1>Dicionário</h1>
@@ -56,16 +90,18 @@ class Dictionary extends Component {
           <input
             className="econo-search-input"
             type="text"
-            onChange={this.handleSearchChange}
+            onChange={this.onTextChanged}
+            value={text}
             placeholder="Algum termo deu um nó na cabeça?"
           />
           <a className="econo-search-icon" href="/">
-            <i className="fas fa-search"></i>
+            <div className="fas fa-search"></div>
           </a>
+          {this.renderSuggestions()}
         </div>
         <div className="econo-box-container">
           <Box title="Mais pesquisadas" />
-          <Box title="Definição" content={this.state.searchedWord} />
+          <Box title="Definição" content={this.state.description} />
         </div>
       </>
     );

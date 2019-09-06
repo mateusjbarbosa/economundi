@@ -14,6 +14,32 @@
   border-radius: 2em;
 
   background: $color-component-1;
+  z-index: 1;
+}
+
+.econo-suggestions {
+  padding-top: 2px;
+  background: #fff;
+  margin-top: 42px;
+  margin-left: 0;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 0;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
+.econo-suggestions ul {
+  list-style-type: none;
+  text-align: left;
+}
+
+.econo-suggestions li {
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
+.econo-suggestions li:hover {
+  background-color: rgba(128, 128, 128, 0.2);
 }
 
 .econo-search-input {
