@@ -2,25 +2,29 @@ create database economundi encoding 'utf-8';
 
 \c economundi;
 
+begin;
+
 create table usuario (
     id serial primary key,
     email character varying (100) unique NOT NULL,
     nome character varying (20) NOT NULL,
     sobrenome character varying (50) NOT NULL,
-    senha character varying (30) check (length(senha) > 8) NOT NULL,
+    senha character varying (200) check (length(senha) > 8) NOT NULL,
     data_nasc date check (data_nasc < now()) NOT NULL,
+    permissao character varying(30) check(permissao in ('Administrador','usuario')) NOT NULL,
     perfil_economico character varying (20) check (perfil_economico in ('Conservador', 'Moderado', 'Moderado-agressivo', 'Agressivo')),
     data_hora_cadastro timestamp without time zone default now() NOT NULL
 );
 
 create table noticia (
     id serial primary key,
-    manchete character varying (100) NOT NULL,
-    descricao character varying (200) NOT NULL,
+    manchete text NOT NULL,
+    descricao text,
     conteudo text,
-    fonte character varying (100) NOT NULL,
-    link_imagem character varying (100),
-    link character varying (100) NOT NULL,
+    fonte character varying (200) NOT NULL,
+    link_imagem text,
+    link text NOT NULL unique,
+    data_hora timestamp without time zone default (now()) NOT NULL,
     localidade character varying (6) check (localidade in ('Brasil', 'Mundo')) NOT NULL,
     engajamento integer default (0) check (engajamento >= 0) NOT NULL
 );
@@ -66,12 +70,11 @@ create table solicitacao (
     palavra_id integer references palavra(id) on update cascade
 );
 
-create table usuario_pesquisa_palavra (
+create table palavra_acesso (
     id serial primary key,
-    data_hora timestamp without time zone NOT NULL,
-    usuario_id integer references usuario(id) on update cascade NOT NULL,
+    data_hora timestamp without time zone NOT NULL default now(),
     palavra_id integer references palavra(id) on update cascade,
-    unique (usuario_id, palavra_id)
+    unique (palavra_id, data_hora)
 );
 
 create table investimento (
@@ -91,3 +94,5 @@ create table simulacao (
     usuario_id integer references usuario(id) on update cascade NOT NULL,
     investimento_id integer references investimento(id) on update cascade NOT NULL
 );
+
+commit;
