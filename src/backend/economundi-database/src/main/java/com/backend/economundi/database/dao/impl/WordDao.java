@@ -13,6 +13,11 @@ import java.util.List;
 public class WordDao implements IWordDao {
 
     private Connection conn;
+    
+    public static String NAME = "nome";
+    public static String ID = "id";
+    public static String DESCRIPTION = "descricao";
+    public static String ENTITY = "palavra";
 
     @Override
     public Boolean create(Word word) {

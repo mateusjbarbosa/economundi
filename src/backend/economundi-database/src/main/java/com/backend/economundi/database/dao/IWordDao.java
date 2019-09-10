@@ -4,11 +4,6 @@ import com.backend.economundi.database.dao.entity.Word;
 import java.util.List;
 
 public interface IWordDao {
-    
-    public static String NAME = "nome";
-    public static String ID = "id";
-    public static String DESCRIPTION = "descricao";
-    public static String ENTITY = "palavra";
 
     public Boolean create(Word guest);
     

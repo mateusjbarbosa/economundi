@@ -14,6 +14,9 @@ import java.util.logging.Logger;
 public class WordAccessDao implements IWordAccessDao{
     
     private Connection conn;
+    
+    public static String WORD_ID = "palavra_id";
+    public static String ENTITY = "palavra_acesso";
 
     @Override
     public void create(Long id) {
