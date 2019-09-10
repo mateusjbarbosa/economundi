@@ -14,10 +14,10 @@ public class WordDao implements IWordDao {
 
     private Connection conn;
     
-    public static String NAME = "nome";
-    public static String ID = "id";
-    public static String DESCRIPTION = "descricao";
-    public static String ENTITY = "palavra";
+    private static final String NAME = "nome";
+    private static final String ID = "id";
+    private static final String DESCRIPTION = "descricao";
+    private static final String ENTITY = "palavra";
 
     @Override
     public Boolean create(Word word) {

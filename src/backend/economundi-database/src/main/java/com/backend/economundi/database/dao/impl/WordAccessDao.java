@@ -15,12 +15,16 @@ public class WordAccessDao implements IWordAccessDao{
     
     private Connection conn;
     
-    public static String WORD_ID = "palavra_id";
-    public static String ENTITY = "palavra_acesso";
+    private static final String WORD_ACCESS_ID = "palavra_id";
+    private static final String ENTITY_WORD_ACCESS = "palavra_acesso";
+    private static final String ENTITY_WORD = "palavra";
+    private static final String WORD_NAME = "nome";
+    private static final String WORD_ID = "id";
 
     @Override
     public void create(Long id) {
-        String sql = "INSERT INTO " + ENTITY + "(" + WORD_ID + ") VALUES (?)";
+        String sql = "INSERT INTO " + ENTITY_WORD_ACCESS + "(" + WORD_ACCESS_ID
+                + ") VALUES (?)";
         PreparedStatement stmt = null;
         
         try {
@@ -60,10 +64,13 @@ public class WordAccessDao implements IWordAccessDao{
 
     @Override
     public Map<Long, String> getMostSearched() {
-        String sql = "SELECT P.id, P.nome FROM palavra P INNER JOIN ("
-                + "SELECT PA." + WORD_ID + ", COUNT(*) AS total FROM " +
-                ENTITY + " PA GROUP BY PA." + WORD_ID + ") T1 on T1." +
-                WORD_ID + "= P.id ORDER BY T1.total DESC, P.nome LIMIT 5";
+        String sql = "SELECT W." + WORD_NAME +", W." + WORD_ID + " FROM " +
+                ENTITY_WORD  + " W INNER JOIN " + "(SELECT WA." + 
+                WORD_ACCESS_ID + ", COUNT(*) AS total FROM " +
+                ENTITY_WORD_ACCESS + " WA GROUP BY WA." + WORD_ACCESS_ID + ") "
+                + "T1 on T1." +
+                WORD_ACCESS_ID + "= W.id ORDER BY T1.total DESC, W." + 
+                WORD_NAME + " LIMIT 5";
         Map<Long, String> wordMap = new HashMap<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -72,14 +79,13 @@ public class WordAccessDao implements IWordAccessDao{
             conn = ConnectionFactory.getConnection();
             
             stmt = conn.prepareStatement(sql);
-            
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 wordMap.put(rs.getLong("id"), rs.getString("nome"));
             }
         } catch (SQLException ex) {
-            
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (rs != null && !rs.isClosed()) {

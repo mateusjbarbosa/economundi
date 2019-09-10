@@ -19,17 +19,17 @@ public class NewsDao implements INewsDao {
 
     private Connection conn;
     
-    public static String ID = "id";
-    public static String TITLE = "manchete";
-    public static String DESCRIPTION = "descricao";
-    public static String CONTENT = "conteudo";
-    public static String SOURCE = "fonte";
-    public static String URL = "link";
-    public static String URL_IMAGE = "link_imagem";
-    public static String LOCALITY = "localidade";
-    public static String RELEVANCE = "engajamento";
-    public static String ENTITY = "noticia";
-    public static String DATE = "data_hora";
+    private static String ID = "id";
+    private static String TITLE = "manchete";
+    private static String DESCRIPTION = "descricao";
+    private static String CONTENT = "conteudo";
+    private static String SOURCE = "fonte";
+    private static String URL = "link";
+    private static String URL_IMAGE = "link_imagem";
+    private static String LOCALITY = "localidade";
+    private static String RELEVANCE = "engajamento";
+    private static String ENTITY = "noticia";
+    private static String DATE = "data_hora";
 
     @Override
     public void create(News news) {
