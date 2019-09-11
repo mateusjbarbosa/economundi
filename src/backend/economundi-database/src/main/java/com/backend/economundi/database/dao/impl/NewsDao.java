@@ -19,16 +19,16 @@ public class NewsDao implements INewsDao {
 
     private Connection conn;
     
-    private static String ID = "id";
-    private static String TITLE = "manchete";
-    private static String DESCRIPTION = "descricao";
-    private static String CONTENT = "conteudo";
-    private static String SOURCE = "fonte";
-    private static String URL = "link";
-    private static String URL_IMAGE = "link_imagem";
-    private static String LOCALITY = "localidade";
-    private static String RELEVANCE = "engajamento";
-    private static String ENTITY = "noticia";
+    private static final String ID = "id";
+    private static final String TITLE = "manchete";
+    private static final String DESCRIPTION = "descricao";
+    private static final String CONTENT = "conteudo";
+    private static final String SOURCE = "fonte";
+    private static final String URL = "link";
+    private static final String URL_IMAGE = "link_imagem";
+    private static final String LOCALITY = "localidade";
+    private static final String RELEVANCE = "engajamento";
+    private static final String ENTITY = "noticia";
     private static String DATE = "data_hora";
 
     @Override
@@ -87,7 +87,6 @@ public class NewsDao implements INewsDao {
                 + " WHERE " + ID + "= ?";
 
         PreparedStatement stmt = null;
-        ResultSet rs = null;
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -96,7 +95,7 @@ public class NewsDao implements INewsDao {
 
             stmt.setLong(1, news.getRelevance());
             stmt.setLong(2, news.getId());
-            rs = stmt.executeQuery();
+            stmt.execute();
             
             conn.commit();
         } catch (SQLException ex) {
@@ -112,14 +111,6 @@ public class NewsDao implements INewsDao {
                 }
             } catch (SQLException ex) {
                 
-            }
-            
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(NewsDao.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             try {
@@ -195,4 +186,11 @@ public class NewsDao implements INewsDao {
         
         return newsList;
     }
+
+    @Override
+    public List<News> readByPage(Long pageBegin, Long pageEnd) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

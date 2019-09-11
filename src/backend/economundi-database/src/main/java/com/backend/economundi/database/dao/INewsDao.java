@@ -10,4 +10,6 @@ public interface INewsDao {
     public void update(News news);
     
     public List<News> readNewsWithRelevance();
+    
+    public List<News> readByPage(Long pageBegin, Long pageEnd);
 }

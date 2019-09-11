@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class NewsService {
     
+    private final Integer LIMIT = 6;
+    
     /**
      * Cria um novo artigo no sistema.
      *
@@ -21,6 +23,12 @@ public class NewsService {
         if (news != null) {
             newsDao.create(news);
         }
+    }
+    
+    public void readByPage(Long id) {
+        NewsDao newsDao = new NewsDao();
+        Long pageBegin = id * LIMIT;
+        Long pageEnd = pageBegin + LIMIT;
     }
 
     /**
