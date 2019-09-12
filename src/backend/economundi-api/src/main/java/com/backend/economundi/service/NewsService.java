@@ -4,7 +4,9 @@ import com.backend.economundi.database.dao.entity.News;
 import com.backend.economundi.database.dao.impl.NewsDao;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,13 +30,28 @@ public class NewsService {
     /**
      * Coleta as notícias seis por páginas, começando do 0.
      * @param page Página das notícias;
+     * @param locality Localidade da notícia;x
      * @return Lista de notícias.
      */
-    public List<News> readByPage(Long page) {
+    public Map<Long, Map<String, String>> readByPage(Long page, String locality) {
         NewsDao newsDao = new NewsDao();
         Long pageBegin = page * LIMIT;
+        List<News> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
+        Map<Long, Map<String, String>> newsMap = new HashMap<>();
         
-        return newsDao.readByPage(pageBegin, LIMIT);
+        newsList.stream().forEach((news) -> {
+            Map<String, String> newsInfoMap = new HashMap<>();
+            
+            newsInfoMap.put("title", news.getTitle());
+            newsInfoMap.put("description", news.getDescription());
+            newsInfoMap.put("url", news.getUrl());
+            newsInfoMap.put("titleToImage", news.getUrlToImage());
+            newsInfoMap.put("title", news.getSource().getName());
+            
+            newsMap.put(news.getId(), newsInfoMap);
+        });
+        
+        return newsMap;
     }
 
     /**

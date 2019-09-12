@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -188,10 +186,11 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public List<News> readByPage(Long pageBegin, Integer size) {
+    public List<News> readByPage(Long pageBegin, Integer size, String locality) {
         List<News> newsList = new ArrayList<>();
-        String sql = "SELECT * from " + ENTITY + " ORDER BY " + RELEVANCE +
-                " DESC, " + TITLE + " LIMIT ? OFFSET ?";
+        String sql = "SELECT * from " + ENTITY + " WHERE " + LOCALITY  + " = ?"
+                + " ORDER BY " + RELEVANCE + " DESC, " + TITLE + 
+                " LIMIT ? OFFSET ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
@@ -199,8 +198,9 @@ public class NewsDao implements INewsDao {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(sql);
             
-            stmt.setInt(1, size);
-            stmt.setLong(2, pageBegin);
+            stmt.setString(1, locality);
+            stmt.setInt(2, size);
+            stmt.setLong(3, pageBegin);
             
             rs = stmt.executeQuery();
             
@@ -225,7 +225,6 @@ public class NewsDao implements INewsDao {
                 newsList.add(news);
             }
         } catch (SQLException ex) {
-            
         } finally {
             try {
                 if (stmt != null & !stmt.isClosed()) {

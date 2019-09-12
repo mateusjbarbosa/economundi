@@ -21,8 +21,8 @@ public class NewsController {
      * @param page Valor inteiro informando a página.
      * @return As notícias de uma determinada página.
      */
-    @GetMapping(PATH_URL + "{page}")
+    @GetMapping(PATH_URL + "brasil/"+ "{page}")
     public ResponseEntity getNewsBrazil(@PathVariable("page") Long page) {
-        return new ResponseEntity<>(service.readByPage(page), null, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(service.readByPage(page, "Brasil"), null, HttpStatus.ACCEPTED);
     }
 }

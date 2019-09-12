@@ -11,5 +11,5 @@ public interface INewsDao {
     
     public List<News> readNewsWithRelevance();
     
-    public List<News> readByPage(Long pageBegin, Integer size);
+    public List<News> readByPage(Long pageBegin, Integer size, String locality);
 }
