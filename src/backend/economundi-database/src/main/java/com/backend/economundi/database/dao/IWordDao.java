@@ -10,8 +10,6 @@ public interface IWordDao {
     public Word readById(Long id);
     
     public List<Word> readByName(String name);
-    
-    public List<Word> readTop();
 
     public void update(Word word);
 

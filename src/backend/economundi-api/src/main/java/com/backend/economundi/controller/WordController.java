@@ -29,7 +29,7 @@ public class WordController {
      * @return Nenhuma, uma ou mais palavras.
      */
     @GetMapping(PATH_URL + "{id}")
-    public ResponseEntity getWord(@PathVariable("id") String search) {
+    public ResponseEntity<?> getWord(@PathVariable("id") String search) {
         
         try {
             Long id = Long.parseLong(search);
@@ -55,7 +55,7 @@ public class WordController {
      * @return Conjunto com id e sua palavra correspondente.
      */
     @GetMapping(PATH_URL + "top")
-    public ResponseEntity getTop() {
+    public ResponseEntity<?> getTop() {
         return new ResponseEntity<>(service.getTopSearch(), null, HttpStatus.ACCEPTED);
     }
     
@@ -66,7 +66,7 @@ public class WordController {
      * erro.
      */
     @PostMapping(PATH_URL)
-    public ResponseEntity add(@RequestBody Word word) {
+    public ResponseEntity<?> add(@RequestBody Word word) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> errors = service.validate(word);
         
@@ -93,7 +93,7 @@ public class WordController {
      * @return Motivo do erro, caso exista algum campo inválido.
      */
     @PatchMapping(PATH_URL + "{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         body.put("id", Long.toString(id));
         
         Map <String, String> errors;

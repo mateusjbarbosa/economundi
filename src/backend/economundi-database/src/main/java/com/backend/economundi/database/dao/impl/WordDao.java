@@ -186,14 +186,6 @@ public class WordDao implements IWordDao {
     }
 
     @Override
-    public List<Word> readTop() {
-        List<Word> wordList = new ArrayList<>();
-        String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
-
-        return wordList;
-    }
-
-    @Override
     public void update(Word word) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";

@@ -1,8 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.database.dao.IUserDao;
 import com.backend.economundi.database.dao.entity.User;
-import com.backend.economundi.database.dao.impl.UserDao;
 import com.backend.economundi.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 

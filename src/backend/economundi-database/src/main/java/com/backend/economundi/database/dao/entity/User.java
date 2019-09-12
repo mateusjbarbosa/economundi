@@ -1,8 +1,6 @@
 package com.backend.economundi.database.dao.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
-import org.springframework.stereotype.Component;
 
 /**
  *
