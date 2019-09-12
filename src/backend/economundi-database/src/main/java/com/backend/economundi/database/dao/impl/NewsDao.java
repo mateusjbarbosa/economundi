@@ -188,9 +188,70 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public List<News> readByPage(Long pageBegin, Long pageEnd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<News> readByPage(Long pageBegin, Integer size) {
+        List<News> newsList = new ArrayList<>();
+        String sql = "SELECT * from " + ENTITY + " ORDER BY " + RELEVANCE +
+                " DESC, " + TITLE + " LIMIT ? OFFSET ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setInt(1, size);
+            stmt.setLong(2, pageBegin);
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                News news = new News();
+                
+                news.setContent(rs.getString(CONTENT));
+                news.setDate(rs.getString(DATE));
+                news.setDescription(rs.getString(DESCRIPTION));
+                news.setId(rs.getLong(ID));
+                news.setLocality(rs.getString(LOCALITY));
+                news.setRelevance(rs.getLong(RELEVANCE));
+                news.setTitle(rs.getString(TITLE));
+                news.setUrl(rs.getString(URL));
+                news.setUrlToImage(rs.getString(URL_IMAGE));
+                
+                Source source = new Source();
+                
+                source.setName(rs.getString(SOURCE));
+                news.setSource(source);
+                
+                newsList.add(news);
+            }
+        } catch (SQLException ex) {
+            
+        } finally {
+            try {
+                if (stmt != null & !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            } 
+        }
+        
+        return newsList;
     }
-    
-    
 }

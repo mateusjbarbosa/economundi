@@ -25,10 +25,16 @@ public class NewsService {
         }
     }
     
-    public void readByPage(Long id) {
+    /**
+     * Coleta as notícias seis por páginas, começando do 0.
+     * @param page Página das notícias;
+     * @return Lista de notícias.
+     */
+    public List<News> readByPage(Long page) {
         NewsDao newsDao = new NewsDao();
-        Long pageBegin = id * LIMIT;
-        Long pageEnd = pageBegin + LIMIT;
+        Long pageBegin = page * LIMIT;
+        
+        return newsDao.readByPage(pageBegin, LIMIT);
     }
 
     /**
