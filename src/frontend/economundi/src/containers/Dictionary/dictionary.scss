@@ -1,100 +1,121 @@
-@import "../../styles/variables.scss";
+@import "../../styles/color-pallete.scss";
 
-.econo-search {
+h1 {
+  color: $color-text-primary;
+}
+
+.title {
   position: absolute;
+  top: 15%;
+}
 
-  width: 90%;
-  height: 60px;
+.search {
+  position: absolute;
+  top: 20%;
+  width: 80%;
 
-  top: 17vh;
-  left: 5%;
+  margin-top: 5%;
 
-  padding: 10px;
-
-  border-radius: 2em;
-
-  background: $color-component-1;
   z-index: 1;
 }
 
-.econo-suggestions {
-  padding-top: 2px;
-  background: #fff;
-  margin-top: 42px;
-  margin-left: 0;
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  border: 0;
-  border-radius: 0 0 24px 24px;
-  box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
+.input {
+  width: 98%;
+  height: 3em;
+
+  padding-left: 2%;
+
+  border: none;
+  border-radius: 0.5em;
+  outline: none;
+
+  font-weight: 600;
+
+  background: $color-component-primary;
+
+  &::placeholder {
+    font-size: 0.8em;
+  }
 }
 
-.econo-suggestions ul {
-  list-style-type: none;
+.suggestions ul {
+  margin-top: 0;
+  padding: 0 0 1% 0;
+
   text-align: left;
+  list-style-type: none;
+
+  border-radius: 0.5em;
+
+  box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.18);
+
+  background: $color-component-primary;
 }
 
-.econo-suggestions li {
-  padding: 10px 5px;
+.suggestions li {
+  padding: 2%;
+
+  font-weight: 600;
+
   cursor: pointer;
 }
 
-.econo-suggestions li:hover {
+.suggestions li:hover {
   background-color: rgba(128, 128, 128, 0.2);
 }
 
-.econo-search-input {
-  width: 95%;
+.box-container {
+  width: 80%;
 
-  margin-left: 1vw;
-  padding: 0;
-
-  float: left;
-  line-height: 40px;
-
-  border: none;
-  outline: none;
-
-  font-size: 1.5em;
-  font-weight: bold;
-
-  transition: 0.4s;
-  color: $color-text-2;
+  margin-top: 25%;
 }
 
-.econo-search-icon {
-  float: right;
+@media screen and (min-width: 768px) {
+  .title {
+    top: 5%;
+    left: 15%;
+  }
 
-  width: 40px;
-  height: 40px;
+  .search {
+    top: 15%;
+  }
 
-  border-radius: 2em;
+  .input::placeholder {
+    font-size: 1em;
+  }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .box-container {
+    width: 90%;
 
-  transition: 0.4s;
+    margin-top: 20%;
 
-  cursor: pointer;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+    grid-template-areas: "box box";
+  }
 
-  background: $color-secundary;
-  color: $color-text-1;
+  .box {
+    grid-area: "box";
+
+    width: 35vw;
+    height: 50vh;
+
+    margin-left: 2.5vw;
+  }
 }
 
-.econo-search-icon:hover {
-  text-decoration: none;
+@media screen and (min-width: 1024px) {
+  .search {
+    top: 10%;
+  }
 
-  background: $color-component-1;
-  color: $color-secundary;
-}
+  .input {
+    height: 5em;
+  }
 
-.econo-box-container {
-  width: 90%;
-
-  margin-top: 20vh;
-  margin-left: 5%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  .box-container {
+    margin-top: 15%;
+    margin-left: 1.5%;
+  }
 }

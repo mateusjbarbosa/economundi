@@ -1,16 +1,32 @@
-@import "../../styles/variables.scss";
+@import "../../styles/color-pallete.scss";
 
-* {
-  margin: 0;
-  padding: 0;
+.app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-  font-family: "Montserrat", sans-serif;
+  height: 100vh;
+
+  display: grid;
+  grid-template-rows: 10% auto;
+  grid-template-columns: 100vw;
+  grid-template-areas: "menu" "content";
 }
 
-body {
+.content {
+  grid-area: "content";
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
   background: $color-secundary;
 }
 
-.econo-main {
-  height: 100vh;
+@media screen and (min-width: 768px) {
+  .app {
+    grid-template-rows: auto;
+    grid-template-columns: 10% auto;
+    grid-template-areas: "menu content";
+  }
 }

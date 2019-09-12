@@ -4,7 +4,6 @@ import { BoxList, BoxText } from "../../components";
 
 import api from "../../services/api";
 
-import "../../styles/components.scss";
 import "./dictionary.scss";
 
 class Dictionary extends Component {
@@ -30,13 +29,15 @@ class Dictionary extends Component {
 
   jsonByWordObject = data => {
     const keys = Object.keys(data);
+
     const list = [];
 
-    keys.map(key => {
+    keys.forEach(key => {
       const item = {
         id: key,
         name: data[key]
       };
+
       list.push(item);
     });
 
@@ -90,7 +91,7 @@ class Dictionary extends Component {
     }
 
     return (
-      <div className="econo-suggestions">
+      <div className="suggestions">
         <ul>
           {suggestions.map(item => (
             <li key={item.id} onClick={() => this.suggestionSelected(item)}>
@@ -103,27 +104,26 @@ class Dictionary extends Component {
   }
 
   render() {
-    const { text } = this.state;
+    const { description, text, topSearched } = this.state;
 
     return (
       <>
-        <h1>Dicionário</h1>
-        <div className="econo-search">
+        <div className="title">
+          <h1>Dicionário</h1>
+        </div>
+        <div className="search">
           <input
-            className="econo-search-input"
+            className="input"
             type="text"
             onChange={this.onTextChanged}
             value={text}
             placeholder="Algum termo deu um nó na cabeça?"
           />
-          <a className="econo-search-icon" href="/">
-            <div className="fas fa-search"></div>
-          </a>
           {this.renderSuggestions()}
         </div>
-        <div className="econo-box-container">
-          <BoxList title="Mais pesquisadas" content={this.state.topSearched} />
-          <BoxText title="Definição" content={this.state.description} />
+        <div className="box-container">
+          <BoxList title="Mais pesquisadas" content={topSearched} />
+          <BoxText title="Definição" content={description} />
         </div>
       </>
     );
