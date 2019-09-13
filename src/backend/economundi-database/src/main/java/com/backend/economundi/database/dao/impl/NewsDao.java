@@ -58,7 +58,6 @@ public class NewsDao implements INewsDao {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
-                System.out.println(ex1.getMessage());
             }
         } finally {
             try {
@@ -74,7 +73,6 @@ public class NewsDao implements INewsDao {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
             }
         }
     }

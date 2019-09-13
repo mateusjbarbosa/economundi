@@ -53,10 +53,8 @@ public class UserDao implements IUserDao {
 
         } catch (SQLException e) {
             try {
-                System.out.println(e.getMessage());
                 conn.rollback();
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
             }
         } finally {
             try {
@@ -64,7 +62,6 @@ public class UserDao implements IUserDao {
                     stmt.close();
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
 
             try {

@@ -85,7 +85,6 @@ public class WordAccessDao implements IWordAccessDao{
                 wordMap.put(rs.getLong("id"), rs.getString("nome"));
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (rs != null && !rs.isClosed()) {

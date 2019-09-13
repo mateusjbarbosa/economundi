@@ -68,19 +68,15 @@ public class WordController {
     @PostMapping(PATH_URL)
     public ResponseEntity<?> add(@RequestBody Word word) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        Map<String, String> errors = service.validate(word);
+        Map<String, String> errors = service.create(word);
         
         if (errors.isEmpty()) {
-            word.setName(word.getName().toUpperCase().trim());
-            word.setDescription(word.getDescription().trim());
-            
-            if (service.create(word)) {
-                httpHeaders.add("Location", "/palavra/" + word.getId());
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
-            } else {
-                errors.put("Banco de dados", "Não foi possível adicionar a "
-                        + "palavra.");
-            }
+        	if (word.getId() != null && word.getId() != 0) {
+        		httpHeaders.add("Location", "/palavra/" + word.getId());
+            	return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+        	} else {
+        		errors.put("Palavra", "Nome já se encontra no dicionário!");
+        	}
         }
         
         return new ResponseEntity<>(errors, null, HttpStatus.NOT_ACCEPTABLE);
@@ -96,22 +92,10 @@ public class WordController {
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         body.put("id", Long.toString(id));
         
-        Map <String, String> errors;
-        Word word = service.merge(body);
+        Map <String, String> errors = service.update(body);
         
-        if (word != null) {
-            errors = service.validate(word);
-
-            if (errors.isEmpty()) {
-                HttpHeaders httpHeaders = new HttpHeaders();
-                service.update(word);
-                httpHeaders.add ("Location", "/palavra/" + id);
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.ACCEPTED);
-           }
-        } else {
-            errors = new HashMap<>();
-            
-            errors.put("Palavra", "Id inexistente.");
+        if (errors.isEmpty()) {
+            return new ResponseEntity<>(null, null, HttpStatus.ACCEPTED);
         }
         
         return new ResponseEntity<>(errors, null, HttpStatus.NOT_ACCEPTABLE);

@@ -16,16 +16,20 @@ public class WordService {
      * @param word Nova palavra a ser criada.
      * @return Houve ou não sucesso na criação.
      */
-    public Boolean create (Word word) {
-        Boolean success = false;
+    public Map<String, String> create (Word word) {
+    	Map<String, String> errors = validate(word);
+    	
+    	if (errors.isEmpty())
+    	{
+    		WordDao wordDao = new WordDao();
         
-        if (word != null) {
-            WordDao wordDao = new WordDao();
-            
-            success = wordDao.create(word);
-        }
+    		word.setName(word.getName().toUpperCase().trim());
+    		word.setDescription(word.getDescription().trim());
         
-        return success;
+    		wordDao.create(word);
+    	}
+    	
+    	return errors;
     }
     
     /**
@@ -36,7 +40,7 @@ public class WordService {
      */
     public Word readById(Long id) {
         WordDao wordDao = new WordDao();
-        Word word = wordDao.readById(id);
+        Word word = wordDao.read(id);
         
         if (word != null) {
             WordAccessDao wordAccessDao = new WordAccessDao();
@@ -68,10 +72,18 @@ public class WordService {
      * Atualiza a palavra.
      * @param word Palavra com suas modificações.
      */
-    public void update(Word word) {
-        WordDao wordDao = new WordDao();
+    public Map <String, String> update(Map<String, String> body) {
+    	Word word = merge(body);
+    	Map <String, String> errors = validate(word);
+    	
+    	if (errors.isEmpty())
+    	{
+    		WordDao wordDao = new WordDao();
         
-        wordDao.update(word);
+    		wordDao.update(word);
+    	}
+        
+        return errors;
     }
     
     /**
@@ -80,7 +92,7 @@ public class WordService {
      */
     public void delete(Long id) {
         WordDao wordDao = new WordDao();
-        Word word = wordDao.readById(id);
+        Word word = wordDao.read(id);
         
         if (word != null) {
             wordDao.delete(word);
@@ -92,7 +104,7 @@ public class WordService {
      * @param data Mapeamento com um conjunto de chave e valor.
      * @return Palavra editada, se houver.
      */
-    public Word merge(Map<String, String> data) {
+    private Word merge(Map<String, String> data) {
         Word merged = null;
         
         if (data != null)
@@ -102,7 +114,7 @@ public class WordService {
             if (id != 0)
             {
                 WordDao wordDao = new WordDao();
-                Word word = wordDao.readById(id);
+                Word word = wordDao.read(id);
                 
                 if (word != null)
                 {
@@ -135,19 +147,19 @@ public class WordService {
      * @param word Palavra a ser validada.
      * @return  Mapeamento com os erros, se houver.
      */
-    public Map<String, String> validate(Word word) {
+    private Map<String, String> validate(Word word) {
         Map<String, String> errors = new HashMap<>();
         
         if (word != null) {
             String name = word.getName();
             
-            if (name == null) {
+            if (name == null || name.isEmpty()) {
                 errors.put("Nome", "A palavra precisa de um nome.");
             }
             
             String description = word.getDescription();
             
-            if (description == null) {
+            if (description == null || description.isEmpty()) {
                 errors.put("Descrição", "A palavra precisa de uma definição");
             }
         } else {
