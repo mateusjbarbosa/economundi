@@ -12,7 +12,8 @@ public class IndexService {
     
     public void checkNewIndex () {
         if (DATE_FORMAT.format(DATE).equals(DATE_NEW_CHECK)) {
-            ApiConsumerGeneric generic = new ApiConsumerGeneric();
+            @SuppressWarnings("unused")
+			ApiConsumerGeneric generic = new ApiConsumerGeneric();
         }
     }
 }

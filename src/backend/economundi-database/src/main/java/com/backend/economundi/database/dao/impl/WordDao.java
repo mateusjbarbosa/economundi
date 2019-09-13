@@ -13,15 +13,19 @@ import java.util.List;
 public class WordDao implements IWordDao {
 
     private Connection conn;
+    
+    private static final String NAME = "nome";
+    private static final String ID = "id";
+    private static final String DESCRIPTION = "descricao";
+    private static final String ENTITY = "palavra";
 
     @Override
-    public Boolean create(Word word) {
+    public void create(Word word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ") VALUES (nextval('palavra_id_seq')"
                 + ", ?, ?) RETURNING " + ID;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Boolean success = false;
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -37,8 +41,6 @@ public class WordDao implements IWordDao {
             }
 
             conn.commit();
-
-            success = true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
@@ -70,12 +72,10 @@ public class WordDao implements IWordDao {
 
             }
         }
-
-        return success;
     }
-
-    @Override
-    public Word readById(Long id) {
+    
+	@Override
+	public Word read(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -123,6 +123,96 @@ public class WordDao implements IWordDao {
         }
 
         return word;
+	}
+	
+    @Override
+    public void update(Word word) {
+        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
+                + DESCRIPTION + "= ? WHERE " + ID + "= ?";
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, word.getName());
+            stmt.setString(2, word.getDescription());
+            stmt.setLong(3, word.getId());
+            stmt.execute();
+
+            conn.commit();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
+    @Override
+    public void delete(Word word) {
+        String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setLong(1, word.getId());
+            rs = stmt.executeQuery();
+
+            conn.commit();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 
     @Override
@@ -178,104 +268,5 @@ public class WordDao implements IWordDao {
         }
 
         return wordList;
-    }
-
-    @Override
-    public List<Word> readTop() {
-        List<Word> wordList = new ArrayList<>();
-        String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
-
-        return wordList;
-    }
-
-    @Override
-    public void update(Word word) {
-        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
-                + DESCRIPTION + "= ? WHERE " + ID + "= ?";
-        PreparedStatement stmt = null;
-
-        try {
-            conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false);
-            stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1, word.getName());
-            stmt.setString(2, word.getDescription());
-            stmt.setLong(3, word.getId());
-            stmt.execute();
-
-            conn.commit();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-
-            }
-        } finally {
-            try {
-                if (stmt != null && !stmt.isClosed()) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
-    @Override
-    public void delete(Word word) {
-        String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false);
-            stmt = conn.prepareStatement(sql);
-
-            stmt.setLong(1, word.getId());
-            rs = stmt.executeQuery();
-
-            conn.commit();
-        } catch (SQLException ex) {
-            try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-
-            }
-        } finally {
-            try {
-                if (stmt != null && !stmt.isClosed()) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-        }
     }
 }

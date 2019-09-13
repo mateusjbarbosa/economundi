@@ -11,7 +11,5 @@ public class ApiIpcaConsumer {
     public void getIpca() throws IOException {
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         ResultNews result = generic.getData(url, ResultNews.class);
-        
-        System.out.println(result);
     }
 }

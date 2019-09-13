@@ -3,22 +3,6 @@ package com.backend.economundi.database.dao;
 import com.backend.economundi.database.dao.entity.Word;
 import java.util.List;
 
-public interface IWordDao {
-    
-    public static String NAME = "nome";
-    public static String ID = "id";
-    public static String DESCRIPTION = "descricao";
-    public static String ENTITY = "palavra";
-
-    public Boolean create(Word guest);
-    
-    public Word readById(Long id);
-    
+public interface IWordDao extends IBaseDao<Word> {
     public List<Word> readByName(String name);
-    
-    public List<Word> readTop();
-
-    public void update(Word word);
-
-    public void delete(Word word);
 }
