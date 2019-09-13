@@ -113,7 +113,4 @@ public class WordAccessDao implements IWordAccessDao{
         
         return wordMap;
     }
-    
-    
-    
 }
