@@ -86,6 +86,10 @@ create table yield (
     rendimento double precision NOT NULL
 );
 
+create table news_black_list (
+    name primary key
+);
+
 create table simulation (
     id serial primary key,
     initial_value money NOT NULL,
