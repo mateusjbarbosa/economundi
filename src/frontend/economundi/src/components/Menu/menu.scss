@@ -1,0 +1,27 @@
+@import "../../styles/color-pallete.scss";
+
+.menu {
+  grid-area: "menu";
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background: $color-secundary;
+
+  & a {
+    color: $color-text-default;
+
+    text-decoration: none;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,26 @@
+@import "../../styles/color-pallete.scss";
+@import "../../styles/scroll.scss";
+
+.box {
+  width: 100%;
+  height: 30vh;
+
+  margin-top: 5%;
+  padding-top: 2%;
+
+  border-radius: 1em;
+
+  background: #ffffff;
+
+  overflow-y: scroll;
+
+  &-text {
+    font-weight: 500;
+
+    text-align: justify;
+
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}

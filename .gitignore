@@ -1,2 +1,6 @@
 /src/backend/economundi-database/target/
 src/backend/economundi-api/target/
+
+*.bak
+
+docs/mer/mer\.dia~

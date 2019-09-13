@@ -1,0 +1,32 @@
+@import "../../styles/color-pallete.scss";
+
+.app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  height: 100vh;
+
+  display: grid;
+  grid-template-rows: 10% auto;
+  grid-template-columns: 100vw;
+  grid-template-areas: "menu" "content";
+}
+
+.content {
+  grid-area: "content";
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background: $color-secundary;
+}
+
+@media screen and (min-width: 768px) {
+  .app {
+    grid-template-rows: auto;
+    grid-template-columns: 10% auto;
+    grid-template-areas: "menu content";
+  }
+}
