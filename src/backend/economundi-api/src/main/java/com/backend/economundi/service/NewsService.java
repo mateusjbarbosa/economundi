@@ -27,6 +27,15 @@ public class NewsService {
         }
     }
     
+    public News readById(Long id) {
+    	News news = null;
+    	NewsDao newsDao = new NewsDao();
+    	
+    	news = newsDao.read(id);
+    	
+    	return news;
+    }
+    
     /**
      * Coleta as notícias seis por páginas, começando do 0.
      * @param page Página das notícias;

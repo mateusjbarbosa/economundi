@@ -1,4 +1,4 @@
-package com.backend.economundi.database.dao.impl;
+	package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsDao;
@@ -78,6 +78,69 @@ public class NewsDao implements INewsDao {
             }
         }
     }
+    
+	@Override
+	public News read(Long id) {
+        String sql = "SELECT * FROM " + ENTITY + " WHERE " + ID + "= ?";
+        News news = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setLong(1, id);
+            
+            rs = stmt.executeQuery();
+            
+            if(rs.next()) {
+                news = new News();
+                news.setContent(rs.getString(CONTENT));
+                news.setDate(rs.getString(DATE));
+                news.setDescription(rs.getString(DESCRIPTION));
+                news.setId(rs.getLong(ID));
+                news.setLocality(rs.getString(LOCALITY));
+                news.setRelevance(rs.getLong(RELEVANCE));
+                news.setTitle(rs.getString(TITLE));
+                news.setUrl(rs.getString(URL));
+                news.setUrlToImage(rs.getString(URL_IMAGE));
+                
+                Source source = new Source();
+                
+                source.setName(rs.getString(SOURCE));
+                news.setSource(source);
+            }
+        } catch (SQLException ex) {
+            
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+            
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+        }
+        
+        return news;
+	}
 
     @Override
     public void update(News news) {
@@ -120,6 +183,12 @@ public class NewsDao implements INewsDao {
             } 
         }
     }
+    
+	@Override
+	public void delete(News entity) {
+		// TODO Auto-generated method stub
+		
+	}
 
     @Override
     public List<News> readNewsWithRelevance() {
