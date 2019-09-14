@@ -87,7 +87,8 @@ create table yield (
 );
 
 create table news_black_list (
-    name primary key
+    id serial primary key,
+    name character varying (50) unique NOT NULL
 );
 
 create table simulation (
