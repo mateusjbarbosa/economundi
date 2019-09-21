@@ -1,0 +1,16 @@
+@import "../../styles/color-pallete.scss";
+
+h1 {
+  color: $color-text-primary;
+}
+
+.title {
+  position: absolute;
+  top: 15%;
+}
+
+.news-container {
+  width: 80%;
+
+  margin-top: 25%;
+}
