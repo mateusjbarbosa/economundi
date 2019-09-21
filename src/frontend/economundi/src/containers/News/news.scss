@@ -14,3 +14,39 @@ h1 {
 
   margin-top: 25%;
 }
+
+@media screen and (min-width: 768px) {
+  .news-title {
+    position: absolute;
+    top: 5%;
+  }
+
+  .news-container {
+    width: 90%;
+
+    margin-top: 10%;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(2, auto);
+    grid-template-areas: "box" "box";
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .news-title {
+    position: absolute;
+    top: 5%;
+  }
+
+  .news-container {
+    width: 90%;
+
+    margin-top: 2%;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "box" "box" "box";
+  }
+}
