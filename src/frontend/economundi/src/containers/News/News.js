@@ -41,7 +41,7 @@ class News extends Component {
 
     return (
       <>
-        <div className="title">
+        <div className="news-title">
           <h1>Notícias</h1>
         </div>
         <div className="news-container">
