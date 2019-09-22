@@ -106,7 +106,7 @@ public class WordController {
      * @param id Identificador da palavra.
      */
     @DeleteMapping(PATH_URL + "{id}")
-    public void delete(@PathVariable("id")Long id){
+    public void delete(@PathVariable("id") Long id){
         service.delete(id);
     }
 }
