@@ -18,22 +18,22 @@ public class NewsDao implements INewsDao {
 	private Connection conn;
 
 	private static final String ID = "id";
-	private static final String TITLE = "manchete";
-	private static final String DESCRIPTION = "descricao";
-	private static final String CONTENT = "conteudo";
-	private static final String SOURCE = "fonte";
+	private static final String TITLE = "title";
+	private static final String DESCRIPTION = "description";
+	private static final String CONTENT = "content";
+	private static final String SOURCE = "source";
 	private static final String URL = "link";
-	private static final String URL_IMAGE = "link_imagem";
-	private static final String LOCALITY = "localidade";
-	private static final String RELEVANCE = "engajamento";
-	private static final String ENTITY = "noticia";
-	private static String DATE = "data_hora";
+	private static final String URL_IMAGE = "link_image";
+	private static final String LOCALITY = "locality";
+	private static final String RELEVANCE = "engagement";
+	private static final String DATE = "date_hour";
+	private static final String ENTITY = "news";
 
 	@Override
 	public void create(News news) {
 		String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + TITLE + "," + DESCRIPTION + "," + CONTENT + "," + SOURCE
 				+ "," + URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE
-				+ ") VALUES (nextval('noticia_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ ") VALUES (nextval('news_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
 

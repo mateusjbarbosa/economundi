@@ -38,7 +38,7 @@ public class NewsBlackListController {
 				httpHeaders.add("Location", "/balcklist/" + name.getId());
 				return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
 			} else {
-				errors.put("Nome", "Já se encontra no dicionário!");
+				errors.put("Nome", "Item já está na black list!");
 			}
 		}
 		

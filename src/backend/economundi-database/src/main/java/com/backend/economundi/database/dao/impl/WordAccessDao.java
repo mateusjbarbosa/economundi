@@ -15,10 +15,10 @@ public class WordAccessDao implements IWordAccessDao{
     
     private Connection conn;
     
-    private static final String WORD_ACCESS_ID = "palavra_id";
-    private static final String ENTITY_WORD_ACCESS = "palavra_acesso";
-    private static final String ENTITY_WORD = "palavra";
-    private static final String WORD_NAME = "nome";
+    private static final String WORD_ACCESS_ID = "word_id";
+    private static final String ENTITY_WORD_ACCESS = "word_access";
+    private static final String ENTITY_WORD = "word";
+    private static final String WORD_NAME = "name";
     private static final String WORD_ID = "id";
 
     @Override

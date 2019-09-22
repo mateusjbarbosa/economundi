@@ -1,6 +1,7 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.entity.News;
+import com.backend.economundi.database.dao.entity.NewsBlackList;
 import com.backend.economundi.database.dao.impl.NewsDao;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NewsService {
     
+	private final String[] REMORE_IN_CONTENT = { "\n", "\t", "\r" };
     private final Integer LIMIT = 6;
     
     /**
@@ -22,11 +24,17 @@ public class NewsService {
     public void create(News news) {
         NewsDao newsDao = new NewsDao();
         
-        if (news != null) {
+        if (news != null && validate(news)) {
+        	news.setRelevance(100L);
             newsDao.create(news);
         }
     }
     
+    /**
+     * Realiza a leitura de uma notícia.
+     * @param id Identificador da notícia.
+     * @return Notícia pesquisada.
+     */
     public News readById(Long id) {
     	News news = null;
     	NewsDao newsDao = new NewsDao();
@@ -100,6 +108,38 @@ public class NewsService {
             _item.setRelevance(newRelevance);
             update(_item);
         });
+    }
+    
+    /**
+     * Valida a nova notícia e informa se deve ou não persistir.
+     * @param news Notícia a ser validada.
+     * @return Booleana indicando se passou pela black list.
+     */
+    private Boolean validate (News news) {
+    	NewsBlackListService serviceNewsBL = new NewsBlackListService();
+    	List<NewsBlackList> newsBLList = serviceNewsBL.readAll();
+    	Boolean create = true;
+    	
+    	news.setTitle(news.getTitle().split(" -")[0]);
+    	
+		for (NewsBlackList newsBL : newsBLList) {
+			if (news.getTitle().toUpperCase().contains(newsBL.getName())) {
+				create = false;
+				break;
+			}
+			
+			if (create) {
+				String content = news.getContent();
+
+				for (String remove : REMORE_IN_CONTENT) {
+					content = content.replaceAll(remove, " ");
+				}
+				
+				news.setContent(content);
+			}
+		}
+		
+		return create;
     }
 
     /**
