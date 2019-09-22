@@ -71,6 +71,7 @@ public class WordService {
     /**
      * Atualiza a palavra.
      * @param word Palavra com suas modificações.
+     * @return Motivo de erro, caso exista.
      */
     public Map <String, String> update(Map<String, String> body) {
     	Word word = merge(body);

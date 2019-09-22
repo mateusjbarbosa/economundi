@@ -84,7 +84,7 @@ public class WordController {
     
     /**
      * Atualiza um ou mais valores na palavra.
-     * @param id O id da palavra a ser editado.
+     * @param id O identificador da palavra a ser editado.
      * @param body Conjunto com chave e valor da edição.
      * @return Motivo do erro, caso exista algum campo inválido.
      */
