@@ -63,7 +63,7 @@ public class NewsService {
             newsInfoMap.put("description", news.getDescription());
             newsInfoMap.put("url", news.getUrl());
             newsInfoMap.put("titleToImage", news.getUrlToImage());
-            newsInfoMap.put("title", news.getSource().getName());
+            newsInfoMap.put("source", news.getSource().getName());
             
             newsMap.put(news.getId(), newsInfoMap);
         });
