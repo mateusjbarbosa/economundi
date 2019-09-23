@@ -14,15 +14,15 @@ public class WordDao implements IWordDao {
 
     private Connection conn;
     
-    private static final String NAME = "nome";
+    private static final String NAME = "name";
     private static final String ID = "id";
-    private static final String DESCRIPTION = "descricao";
-    private static final String ENTITY = "palavra";
+    private static final String DESCRIPTION = "description";
+    private static final String ENTITY = "word";
 
     @Override
     public void create(Word word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
-                + "," + DESCRIPTION + ") VALUES (nextval('palavra_id_seq')"
+                + "," + DESCRIPTION + ") VALUES (nextval('word_id_seq')"
                 + ", ?, ?) RETURNING " + ID;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -30,6 +30,7 @@ public class WordDao implements IWordDao {
         try {
             conn = ConnectionFactory.getConnection();
             conn.setAutoCommit(false);
+
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, word.getName());

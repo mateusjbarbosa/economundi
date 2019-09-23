@@ -71,6 +71,7 @@ public class WordService {
     /**
      * Atualiza a palavra.
      * @param word Palavra com suas modificações.
+     * @return Motivo de erro, caso exista.
      */
     public Map <String, String> update(Map<String, String> body) {
     	Word word = merge(body);
@@ -118,7 +119,7 @@ public class WordService {
                 
                 if (word != null)
                 {
-                    String key = "nome";
+                    String key = "name";
                     
                     merged = new Word();
                     
@@ -127,13 +128,13 @@ public class WordService {
                     merged.setDescription(word.getDescription());
                     
                     if (data.containsKey(key)) {
-                        merged.setName(data.get(key));
+                        merged.setName(data.get(key).toUpperCase().trim());
                     }
                     
-                    key = "descricao";
+                    key = "description";
                     
                     if (data.containsKey(key)) {
-                        merged.setDescription(data.get(key));
+                        merged.setDescription(data.get(key).trim());
                     }
                 }
             }
