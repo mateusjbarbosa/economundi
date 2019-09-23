@@ -4,12 +4,10 @@ import "./boxText.scss";
 
 const BoxText = ({ title, content }) => {
   return (
-    <div className="box">
-      <div className="box-title">
-        <h2>{title}</h2>
-      </div>
+    <div className="box-text">
+      <h2>{title}</h2>
 
-      <p className="box-text">{content}</p>
+      <p className="box-text-content">{content}</p>
     </div>
   );
 };

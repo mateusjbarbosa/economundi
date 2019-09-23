@@ -108,7 +108,7 @@ class Dictionary extends Component {
 
     return (
       <>
-        <div className="title">
+        <div className="dictionary-title">
           <h1>Dicionário</h1>
         </div>
         <div className="search">
@@ -121,7 +121,7 @@ class Dictionary extends Component {
           />
           {this.renderSuggestions()}
         </div>
-        <div className="box-container">
+        <div className="dictionary-box-container">
           <BoxList title="Mais pesquisadas" content={topSearched} />
           <BoxText title="Definição" content={description} />
         </div>

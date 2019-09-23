@@ -1,7 +1,7 @@
 @import "../../styles/color-pallete.scss";
 @import "../../styles/tags.scss";
 
-.box {
+.box-list {
   width: 100%;
   height: 30vh;
 
@@ -13,10 +13,14 @@
   background: #ffffff;
 
   &-content {
-    text-align: center;
+    margin-top: 5%;
+
+    & p {
+      text-align: center;
+    }
   }
 
-  &-list {
+  &-item {
     padding: 1.5%;
 
     font-weight: 800;
@@ -28,7 +32,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .box {
+  .box-list {
     &-content {
       text-align: left;
       margin-left: 2%;
