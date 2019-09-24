@@ -8,10 +8,10 @@ const BoxNews = ({ news }) => {
       <img src={news.titleToImage} alt={news.description} />
       <span />
       <div className="box-news-title">
-        <h2>{news.title}</h2>
+        <h2>{news.source}</h2>
       </div>
       <div className="box-news-description">
-        <p>{news.description}</p>
+        <p>{news.title}</p>
       </div>
     </div>
   );
