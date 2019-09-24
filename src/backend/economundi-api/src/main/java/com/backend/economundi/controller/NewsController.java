@@ -26,7 +26,7 @@ public class NewsController {
      */
     @GetMapping(PATH_URL + "brasil/"+ "{page}")
     public ResponseEntity<Map<Long, Map<String, String>>> getNewsBrazil(@PathVariable("page") Long page) {
-        return new ResponseEntity<>(service.readByPage(page, "Brasil"), null, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(service.readByPage(page, "Brazil"), null, HttpStatus.ACCEPTED);
     }
     
     /**

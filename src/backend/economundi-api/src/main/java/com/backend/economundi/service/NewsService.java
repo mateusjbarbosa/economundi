@@ -121,6 +121,7 @@ public class NewsService {
     	Boolean create = true;
     	
     	news.setTitle(news.getTitle().split(" -")[0]);
+        news.getSource().setName(news.getSource().getName().split(".com")[0]);
     	
 		for (NewsBlackList newsBL : newsBLList) {
 			if (news.getTitle().toUpperCase().contains(newsBL.getName())) {
