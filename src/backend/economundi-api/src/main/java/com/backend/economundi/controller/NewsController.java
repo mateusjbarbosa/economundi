@@ -16,36 +16,41 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class NewsController {
+
     private final String PATH_URL = "/api/v1/noticias/";
     private final NewsService service = new NewsService();
-    
+
     /**
      * Retorna as notícias de acordo com a página indicada.
+     *
      * @param page Valor inteiro informando a página.
+     * @param locality Localização da notícia.
      * @return Notícias de uma determinada página.
      */
-    @GetMapping(PATH_URL + "brasil/"+ "{page}")
-    public ResponseEntity<Map<Long, Map<String, String>>> getNewsBrazil(@PathVariable("page") Long page) {
-        return new ResponseEntity<>(service.readByPage(page, "Brazil"), null, HttpStatus.ACCEPTED);
+    @GetMapping(PATH_URL + "{locality}/" + "{page}")
+    public ResponseEntity<Map<Long, Map<String, String>>> getNewsBrazil(@PathVariable("locality") String locality,
+            @PathVariable("page") Long page) {
+        return new ResponseEntity<>(service.readByPage(page, locality), null, HttpStatus.ACCEPTED);
     }
-    
+
     /**
      * Retorna uma notícia com base no Id.
+     *
      * @param id Indentificação da notícia.
      * @return Notícia, caso encontre.
      */
     @GetMapping(PATH_URL + "{id}")
     public ResponseEntity<?> getNews(@PathVariable("id") Long id) {
-    	News news = service.readById(id);
-    	
-    	if(news != null) {
-    		return new ResponseEntity<>(news, null, HttpStatus.ACCEPTED);
-    	} else {
-    		Map<String, String> error = new HashMap<>();
-    		
-    		error.put("Erro", "Notícia não encontrada!");
-    		
-    		return new ResponseEntity<>(error, null, HttpStatus.ACCEPTED);
-    	}
+        News news = service.readById(id);
+
+        if (news != null) {
+            return new ResponseEntity<>(news, null, HttpStatus.ACCEPTED);
+        } else {
+            Map<String, String> error = new HashMap<>();
+
+            error.put("Erro", "Notícia não encontrada!");
+
+            return new ResponseEntity<>(error, null, HttpStatus.ACCEPTED);
+        }
     }
 }
