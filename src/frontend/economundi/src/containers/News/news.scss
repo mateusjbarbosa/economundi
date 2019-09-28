@@ -9,10 +9,15 @@ h1 {
   top: 15%;
 }
 
+.news-paginator {
+  position: absolute;
+  top: 22%;
+}
+
 .news-container {
   width: 80%;
 
-  margin-top: 25%;
+  margin-top: 30%;
 }
 
 @media screen and (min-width: 768px) {
@@ -39,10 +44,15 @@ h1 {
     top: 5%;
   }
 
+  .news-paginator {
+    position: absolute;
+    top: 15%;
+  }
+
   .news-container {
     width: 90%;
 
-    margin-top: 2%;
+    margin-top: 8%;
 
     display: grid;
     grid-template-rows: auto auto;
