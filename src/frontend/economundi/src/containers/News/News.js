@@ -37,7 +37,7 @@ class News extends Component {
         if (currentNews === "BRAZIL") {
           listNews = await this.getNewsBrazil();
         } else {
-          // listNews = await this.getNewsWorld();
+          listNews = await this.getNewsWorld();
         }
 
         if (
@@ -68,7 +68,7 @@ class News extends Component {
         if (currentNews === "BRAZIL") {
           listNews = await this.getNewsBrazil();
         } else {
-          // listNews = await this.getNewsWorld();
+          listNews = await this.getNewsWorld();
         }
 
         if (
@@ -89,17 +89,17 @@ class News extends Component {
 
   getNewsBrazil = async () => {
     const response = await api.get(
-      `/noticias/brasil/${this.state.currentPage}`
+      `/noticias/Brazil/${this.state.currentPage}`
     );
 
     return response.data;
   };
 
-  // getNewsWorld = async () => {
-  //   const response = await api.get(`/noticias/mundo/${this.state.currentPage}`);
+  getNewsWorld = async () => {
+    const response = await api.get(`/noticias/World/${this.state.currentPage}`);
 
-  //   return response.data;
-  // };
+    return response.data;
+  };
 
   render() {
     const { listNews } = this.state;
