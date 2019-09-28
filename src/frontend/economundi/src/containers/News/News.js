@@ -11,29 +11,95 @@ class News extends Component {
     super(props);
 
     this.state = {
-      listNews: []
+      listNews: [],
+      currentNews: "BRAZIL",
+      currentPage: 0
     };
   }
 
   async componentDidMount() {
-    const list = await this.getNewsBrazil();
+    let listNews = [];
 
-    this.setState({
-      listNews: list
-    });
+    listNews = await this.getNewsBrazil();
+
+    this.setState({ listNews: listNews });
   }
 
-  getNewsBrazil = async (page = 0) => {
-    const response = await api.get(`/noticias/brasil/${page}`);
+  increasePage = async () => {
+    const { currentNews } = this.state;
+    let listNews = [];
+
+    this.setState(
+      {
+        currentPage: this.state.currentPage + 1
+      },
+      async () => {
+        if (currentNews === "BRAZIL") {
+          listNews = await this.getNewsBrazil();
+        } else {
+          // listNews = await this.getNewsWorld();
+        }
+
+        if (
+          !(
+            Object.entries(listNews).length === 0 &&
+            listNews.constructor === Object
+          )
+        ) {
+          this.setState({ listNews: listNews });
+        } else {
+          this.setState({
+            currentPage: this.state.currentPage - 1
+          });
+        }
+      }
+    );
+  };
+
+  decreasePage = () => {
+    const { currentNews } = this.state;
+    let listNews = [];
+
+    this.setState(
+      {
+        currentPage: this.state.currentPage - 1
+      },
+      async () => {
+        if (currentNews === "BRAZIL") {
+          listNews = await this.getNewsBrazil();
+        } else {
+          // listNews = await this.getNewsWorld();
+        }
+
+        if (
+          !(
+            Object.entries(listNews).length === 0 &&
+            listNews.constructor === Object
+          )
+        ) {
+          this.setState({ listNews: listNews });
+        } else {
+          this.setState({
+            currentPage: this.state.currentPage + 1
+          });
+        }
+      }
+    );
+  };
+
+  getNewsBrazil = async () => {
+    const response = await api.get(
+      `/noticias/brasil/${this.state.currentPage}`
+    );
 
     return response.data;
   };
 
-  getNewsWorld = async (page = 0) => {
-    const response = await api.get(`/noticias/mundo/${page}`);
+  // getNewsWorld = async () => {
+  //   const response = await api.get(`/noticias/mundo/${this.state.currentPage}`);
 
-    return response.data;
-  };
+  //   return response.data;
+  // };
 
   render() {
     const { listNews } = this.state;
@@ -43,6 +109,14 @@ class News extends Component {
       <>
         <div className="news-title">
           <h1>Notícias</h1>
+        </div>
+        <div className="news-paginator">
+          <button className="news-btn-prev" onClick={this.decreasePage}>
+            Voltar!
+          </button>
+          <button className="news-btn-next" onClick={this.increasePage}>
+            Próximo!
+          </button>
         </div>
         <div className="news-container">
           {listKeys.map(key => (
