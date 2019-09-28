@@ -123,12 +123,12 @@ public class NewsService {
         List<NewsBlackList> newsBLList = serviceNewsBL.readAll();
         Boolean create = true;
 
-        if (news != null && news.getDescription() != null && 
-                news.getDescription().length() > 0 &&
-                news.getContent() != null && news.getContent().length() > 0 &&
-                news.getTitle() != null && news.getTitle().length() > 0 &&
-                news.getUrlToImage() != null &&
-                news.getUrlToImage().length() > 0) {
+        if (news != null && news.getDescription() != null
+                && news.getDescription().length() > 0
+                && news.getContent() != null && news.getContent().length() > 0
+                && news.getTitle() != null && news.getTitle().length() > 0
+                && news.getUrlToImage() != null
+                && news.getUrlToImage().length() > 0) {
             news.setTitle(news.getTitle().split(" -")[0]);
             news.getSource().setName(news.getSource().getName().split(".com")[0]);
 
