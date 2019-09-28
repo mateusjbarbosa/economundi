@@ -2,6 +2,11 @@ import React, { Component } from "react";
 
 import { BoxNews } from "../../components";
 
+import PrevIcon from "../../img/prev-icon.png";
+import PrevIconDisable from "../../img/prev-icon-disable.png";
+import NextIcon from "../../img/next-icon.png";
+import NextIconDisable from "../../img/next-icon-disable.png";
+
 import api from "../../services/api";
 
 import "./news.scss";
@@ -13,7 +18,9 @@ class News extends Component {
     this.state = {
       listNews: [],
       currentNews: "BRAZIL",
-      currentPage: 0
+      currentPage: 0,
+      firstPage: true,
+      lastPage: false
     };
   }
 
@@ -46,10 +53,11 @@ class News extends Component {
             listNews.constructor === Object
           )
         ) {
-          this.setState({ listNews: listNews });
+          this.setState({ listNews: listNews, firstPage: false });
         } else {
           this.setState({
-            currentPage: this.state.currentPage - 1
+            currentPage: this.state.currentPage - 1,
+            lastPage: true
           });
         }
       }
@@ -77,10 +85,11 @@ class News extends Component {
             listNews.constructor === Object
           )
         ) {
-          this.setState({ listNews: listNews });
+          this.setState({ listNews: listNews, lastPage: false });
         } else {
           this.setState({
-            currentPage: this.state.currentPage + 1
+            currentPage: this.state.currentPage + 1,
+            firstPage: true
           });
         }
       }
@@ -102,7 +111,7 @@ class News extends Component {
   };
 
   render() {
-    const { listNews } = this.state;
+    const { listNews, firstPage, lastPage } = this.state;
     const listKeys = Object.keys(listNews);
 
     return (
@@ -111,12 +120,35 @@ class News extends Component {
           <h1>Notícias</h1>
         </div>
         <div className="news-paginator">
-          <button className="news-btn-prev" onClick={this.decreasePage}>
-            Voltar!
-          </button>
-          <button className="news-btn-next" onClick={this.increasePage}>
-            Próximo!
-          </button>
+          {firstPage ? (
+            <img
+              src={PrevIconDisable}
+              alt="Página anterior"
+              className="news-btn-prev"
+            />
+          ) : (
+            <img
+              src={PrevIcon}
+              alt="Página anterior"
+              className="news-btn-prev"
+              onClick={this.decreasePage}
+            />
+          )}
+
+          {lastPage ? (
+            <img
+              src={NextIconDisable}
+              alt="Próxima página"
+              className="news-btn-next"
+            />
+          ) : (
+            <img
+              src={NextIcon}
+              alt="Próxima página"
+              className="news-btn-next"
+              onClick={this.increasePage}
+            />
+          )}
         </div>
         <div className="news-container">
           {listKeys.map(key => (
