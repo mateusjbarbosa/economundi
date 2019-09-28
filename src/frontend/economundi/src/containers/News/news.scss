@@ -12,12 +12,23 @@ h1 {
 .news-paginator {
   position: absolute;
   top: 22%;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.news-btn-prev,
+.news-btn-next {
+  width: 10%;
 }
 
 .news-container {
   width: 80%;
 
-  margin-top: 30%;
+  margin-top: 35%;
 }
 
 @media screen and (min-width: 768px) {
