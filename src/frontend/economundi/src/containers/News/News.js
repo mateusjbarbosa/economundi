@@ -96,29 +96,105 @@ class News extends Component {
     );
   };
 
+  changeArea = () => {
+    let { currentNews } = this.state;
+    let listNews = [];
+
+    if (currentNews === "BRAZIL") {
+      this.setState(
+        {
+          currentNews: "WORLD",
+          listNews: [],
+          currentPage: 0,
+          firstPage: true,
+          lastPage: false
+        },
+        async () => {
+          listNews = await this.getNewsWorld();
+
+          this.setState({ listNews: listNews });
+        }
+      );
+    } else {
+      this.setState(
+        {
+          currentNews: "BRAZIL",
+          listNews: [],
+          currentPage: 0,
+          firstPage: true,
+          lastPage: false
+        },
+        async () => {
+          listNews = await this.getNewsBrazil();
+
+          this.setState({ listNews: listNews });
+        }
+      );
+    }
+  };
+
   getNewsBrazil = async () => {
-    const response = await api.get(
-      `/noticias/Brazil/${this.state.currentPage}`
-    );
+    const { currentPage } = this.state;
+
+    const response = await api.get(`/noticias/Brazil/${currentPage}`);
 
     return response.data;
   };
 
   getNewsWorld = async () => {
-    const response = await api.get(`/noticias/World/${this.state.currentPage}`);
+    const { currentPage } = this.state;
+
+    const response = await api.get(`/noticias/World/${currentPage}`);
 
     return response.data;
   };
 
   render() {
-    const { listNews, firstPage, lastPage } = this.state;
+    const { currentNews, firstPage, lastPage, listNews } = this.state;
     const listKeys = Object.keys(listNews);
 
     return (
       <>
-        <div className="news-title">
-          <h1>Notícias</h1>
+        <div className="news-area-selector">
+          {currentNews === "BRAZIL" ? (
+            <>
+              <img
+                src={PrevIconDisable}
+                alt="Notícias do Brasil"
+                className="news-btn-prev"
+              />
+              <img
+                src={NextIcon}
+                alt="Notícias do Mundo"
+                className="news-btn-next"
+                onClick={this.changeArea}
+              />
+            </>
+          ) : (
+            <>
+              <img
+                src={PrevIcon}
+                alt="Notícias do Brasil"
+                className="news-btn-prev"
+                onClick={this.changeArea}
+              />
+              <img
+                src={NextIconDisable}
+                alt="Notícias do Mundo"
+                className="news-btn-next"
+              />
+            </>
+          )}
         </div>
+        {currentNews === "BRAZIL" ? (
+          <div className="news-title">
+            <h1>Principais notícias pelo Brasil</h1>
+          </div>
+        ) : (
+          <div className="news-title">
+            <h1>Principais notícias pelo Mundo</h1>
+          </div>
+        )}
         <div className="news-paginator">
           {firstPage ? (
             <img
