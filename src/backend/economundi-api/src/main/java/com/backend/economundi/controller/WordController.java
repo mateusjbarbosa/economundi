@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WordController {
     
-    private final String PATH_URL = "/api/v1/palavra/";
+    private final String PATH_URL = "/api/v1/word/";
     private final WordService service = new WordService();
     
     /**
