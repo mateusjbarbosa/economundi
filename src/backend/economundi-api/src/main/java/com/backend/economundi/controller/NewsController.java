@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NewsController {
 
-    private final String PATH_URL = "/api/v1/noticias/";
+    private final String PATH_URL = "/api/v1/news/";
     private final NewsService service = new NewsService();
 
     /**
