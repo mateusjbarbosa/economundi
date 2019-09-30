@@ -51,7 +51,7 @@ create table user_like_comment (
     id serial primary key,
     type_like character varying (2) check (type_like in ('Like', 'Did Not Like')) NOT NULL,
     user_id integer references _user(id) on update cascade NOT NULL,
-    commet_id integer references comment(id) on update cascade on delete cascade NOT NULL,
+    comment_id integer references comment(id) on update cascade on delete cascade NOT NULL,
     unique (user_id, commet_id)
 );
 
@@ -77,18 +77,18 @@ create table word_access (
     unique (word_id, data_hour)
 );
 
-create table yield (
+create table news_black_list (
+    id serial primary key,
+    name character varying (50) unique NOT NULL
+);
+
+create table investment (
     id serial primary key,
     name character varying (50) unique NOT NULL,
     description text NOT NULL,
     _group character varying (50) NOT NULL, -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IRÃO EXISTIR
     period integer NOT NULL,
-    rendimento double precision NOT NULL
-);
-
-create table news_black_list (
-    id serial primary key,
-    name character varying (50) unique NOT NULL
+    yield double precision NOT NULL
 );
 
 create table simulation (
