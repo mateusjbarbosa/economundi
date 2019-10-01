@@ -10,7 +10,7 @@
 
   border-radius: 1em;
 
-  background: #ffffff;
+  background: $color-component-primary;
 
   &-content {
     margin-top: 5%;
@@ -33,6 +33,11 @@
 
 @media screen and (min-width: 768px) {
   .box-list {
+    width: 35vw;
+    height: 40vh;
+
+    margin-top: 0;
+
     &-content {
       text-align: left;
       margin-left: 2%;

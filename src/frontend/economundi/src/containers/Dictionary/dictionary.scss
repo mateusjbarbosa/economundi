@@ -85,9 +85,7 @@ h1 {
   }
 
   .dictionary-box-container {
-    width: 90%;
-
-    margin-top: 20%;
+    margin-top: 10%;
 
     display: grid;
     grid-template-rows: auto;
@@ -112,10 +110,5 @@ h1 {
 
   .input {
     height: 5em;
-  }
-
-  .dictionary-box-container {
-    margin-top: 15%;
-    margin-left: 1.5%;
   }
 }
