@@ -96,11 +96,6 @@ h1 {
     top: 5%;
   }
 
-  .news-paginator {
-    position: absolute;
-    top: 15%;
-  }
-
   .news-container {
     width: 90%;
 
@@ -110,5 +105,17 @@ h1 {
     grid-template-rows: auto auto;
     grid-template-columns: repeat(3, auto);
     grid-template-areas: "box" "box" "box";
+  }
+}
+
+@media screen and (min-width: 1125px) {
+  .news-area-selector {
+    width: 30%;
+  }
+
+  .news-paginator {
+    top: 14%;
+
+    width: 30%;
   }
 }
