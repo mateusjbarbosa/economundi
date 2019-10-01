@@ -31,7 +31,7 @@ create table news (
 
 create table user_like_news (
     id serial primary key,
-    type_like character varying (2) check (type_like in ('Like', 'Did Not Like')) NOT NULL,
+    type_like character varying (12) check (type_like in ('Like', 'Did Not Like')) NOT NULL,
     user_id integer references _user(id) on update cascade NOT NULL,
     news_id integer references news(id) on update cascade on delete cascade NOT NULL,
     unique (user_id, news_id)
@@ -49,10 +49,10 @@ create table comment (
 
 create table user_like_comment (
     id serial primary key,
-    type_like character varying (2) check (type_like in ('Like', 'Did Not Like')) NOT NULL,
+    type_like character varying (12) check (type_like in ('Like', 'Did Not Like')) NOT NULL,
     user_id integer references _user(id) on update cascade NOT NULL,
-    commet_id integer references comment(id) on update cascade on delete cascade NOT NULL,
-    unique (user_id, commet_id)
+    comment_id integer references comment(id) on update cascade on delete cascade NOT NULL,
+    unique (user_id, comment_id)
 );
 
 create table word (
@@ -77,27 +77,27 @@ create table word_access (
     unique (word_id, data_hour)
 );
 
-create table yield (
+create table news_black_list (
+    id serial primary key,
+    name character varying (50) unique NOT NULL
+);
+
+create table investment (
     id serial primary key,
     name character varying (50) unique NOT NULL,
     description text NOT NULL,
     _group character varying (50) NOT NULL, -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IRÃO EXISTIR
     period integer NOT NULL,
-    rendimento double precision NOT NULL
-);
-
-create table news_black_list (
-    id serial primary key,
-    name character varying (50) unique NOT NULL
+    yield double precision NOT NULL
 );
 
 create table simulation (
     id serial primary key,
     initial_value money NOT NULL,
     final_value money NOT NULL,
-    data_hour timestamp without time zone NOT NULL,
+    date_hour timestamp without time zone NOT NULL,
     user_id integer references _user(id) on update cascade NOT NULL,
-    yeild_id integer references yield(id) on update cascade NOT NULL
+    investment_id integer references investment(id) on update cascade NOT NULL
 );
 
 commit;
