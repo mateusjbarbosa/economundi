@@ -136,7 +136,7 @@ class News extends Component {
   getNewsBrazil = async () => {
     const { currentPage } = this.state;
 
-    const response = await api.get(`/noticias/Brazil/${currentPage}`);
+    const response = await api.get(`/news/Brazil/${currentPage}`);
 
     return response.data;
   };
@@ -144,7 +144,7 @@ class News extends Component {
   getNewsWorld = async () => {
     const { currentPage } = this.state;
 
-    const response = await api.get(`/noticias/World/${currentPage}`);
+    const response = await api.get(`/news/World/${currentPage}`);
 
     return response.data;
   };
