@@ -57,9 +57,11 @@ h1 {
 @media screen and (min-width: 768px) {
   .news-area-selector {
     top: 5%;
-    right: -9%;
+    right: 7%;
 
     width: 40%;
+
+    justify-content: flex-end;
   }
 
   .news-title {
@@ -69,9 +71,11 @@ h1 {
 
   .news-paginator {
     top: 12%;
-    right: -9%;
+    right: 7%;
 
     width: 40%;
+
+    justify-content: flex-end;
   }
 
   .news-container {
@@ -92,11 +96,6 @@ h1 {
     top: 5%;
   }
 
-  .news-paginator {
-    position: absolute;
-    top: 15%;
-  }
-
   .news-container {
     width: 90%;
 
@@ -106,5 +105,17 @@ h1 {
     grid-template-rows: auto auto;
     grid-template-columns: repeat(3, auto);
     grid-template-areas: "box" "box" "box";
+  }
+}
+
+@media screen and (min-width: 1125px) {
+  .news-area-selector {
+    width: 30%;
+  }
+
+  .news-paginator {
+    top: 14%;
+
+    width: 30%;
   }
 }
