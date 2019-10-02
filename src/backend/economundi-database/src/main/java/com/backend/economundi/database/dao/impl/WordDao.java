@@ -219,7 +219,7 @@ public class WordDao implements IWordDao {
     @Override
     public List<Word> readByName(String name) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " ilike "
-                + "'%" + name + "%' order by " + NAME + " asc limit 5";
+                + "'" + name + "%' order by " + NAME + " asc limit 5";
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Word> wordList = new ArrayList<>();
