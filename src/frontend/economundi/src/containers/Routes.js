@@ -1,7 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { Dictionary, HighlightNews, News, Login, Profile } from "../containers";
+import {
+  Dictionary,
+  HighlightNews,
+  News,
+  Login,
+  Profile,
+  Register
+} from "../containers";
 
 const Routes = () => (
   <Switch>
@@ -10,6 +17,7 @@ const Routes = () => (
     <Route path="/dicionario" component={Dictionary} />
     <Route exact path="/perfil" component={Profile} />
     <Route path="/perfil/login" component={Login} />
+    <Route path="/perfil/cadastrar" component={Register} />
   </Switch>
 );
 
