@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import api from "../../services/api";
-
 import FacebookIcon from "../../img/facebook-icon.png";
 import GoogleIcon from "../../img/google-icon.png";
 
@@ -37,7 +35,7 @@ class Register extends Component {
           <button className="btn-login">Cadastrar</button>
         </div>
 
-        <a href="#">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
+        <a href="/cadastrar">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
       </>
     );
   }
