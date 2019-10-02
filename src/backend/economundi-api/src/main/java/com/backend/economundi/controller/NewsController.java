@@ -4,7 +4,7 @@ import com.backend.economundi.database.dao.entity.News;
 import com.backend.economundi.service.NewsService;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;   
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +28,10 @@ public class NewsController {
      * @return Notícias de uma determinada página.
      */
     @GetMapping(PATH_URL + "{locality}/" + "{page}")
-    public ResponseEntity<Map<Long, Map<String, String>>> getNewsBrazil(@PathVariable("locality") String locality,
+    public ResponseEntity<Object> getNewsByPage(@PathVariable("locality") String locality,
             @PathVariable("page") Long page) {
-        return new ResponseEntity<>(service.readByPage(page, locality), null, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(service.readByPage(page, locality).toString(),
+                null, HttpStatus.ACCEPTED);
     }
 
     /**

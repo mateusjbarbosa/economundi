@@ -8,6 +8,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,7 +41,7 @@ public class NewsService {
      * @return Notícia pesquisada.
      */
     public News readById(Long id) {
-        News news = null;
+        News news;
         NewsDao newsDao = new NewsDao();
 
         news = newsDao.read(id);
@@ -52,11 +56,13 @@ public class NewsService {
      * @param locality Localidade da notícia;x
      * @return Lista de notícias.
      */
-    public Map<Long, Map<String, String>> readByPage(Long page, String locality) {
+    public JSONObject readByPage(Long page, String locality) {
         NewsDao newsDao = new NewsDao();
         Long pageBegin = page * LIMIT;
         List<News> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
+        Long amount = (newsDao.getAmountNewsByLocality(locality) / LIMIT);
         Map<Long, Map<String, String>> newsMap = new HashMap<>();
+        JSONObject json = new JSONObject();
 
         newsList.stream().forEach((news) -> {
             Map<String, String> newsInfoMap = new HashMap<>();
@@ -69,8 +75,19 @@ public class NewsService {
 
             newsMap.put(news.getId(), newsInfoMap);
         });
+        
+        if (amount % LIMIT != 0) {
+            amount++;
+        }
+        
+        try {
+            json.put("data", newsMap);
+            json.put("amount-page", amount.intValue());
+        } catch (JSONException ex) {
+            Logger.getLogger(NewsService.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        return newsMap;
+        return json;
     }
 
     /**

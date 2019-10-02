@@ -8,4 +8,6 @@ public interface INewsDao extends IBaseDao<News> {
     public List<News> readNewsWithRelevance();
     
     public List<News> readByPage(Long pageBegin, Integer size, String locality);
+    
+    public Long getAmountNewsByLocality(String locality);
 }
