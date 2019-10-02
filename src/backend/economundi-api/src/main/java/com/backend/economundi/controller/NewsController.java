@@ -28,9 +28,9 @@ public class NewsController {
      * @return Notícias de uma determinada página.
      */
     @GetMapping(PATH_URL + "{locality}/" + "{page}")
-    public ResponseEntity<Object> getNewsByPage(@PathVariable("locality") String locality,
+    public ResponseEntity<?> getNewsByPage(@PathVariable("locality") String locality,
             @PathVariable("page") Long page) {
-        return new ResponseEntity<>(service.readByPage(page, locality).toString(),
+        return new ResponseEntity<>(service.readByPage(page, locality),
                 null, HttpStatus.ACCEPTED);
     }
 

@@ -2,16 +2,14 @@ package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.entity.News;
 import com.backend.economundi.database.dao.entity.NewsBlackList;
+import com.backend.economundi.database.dao.entity.NewsDto;
 import com.backend.economundi.database.dao.impl.NewsDao;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,40 +52,33 @@ public class NewsService {
      *
      * @param page Página das notícias;
      * @param locality Localidade da notícia;x
-     * @return Lista de notícias.
+     * @return Lista de notícias e quantidade de páginas total.
      */
-    public JSONObject readByPage(Long page, String locality) {
+    public Map<String, Object> readByPage(Long page, String locality) {
         NewsDao newsDao = new NewsDao();
+        List<NewsDto> newsDtoList = new ArrayList<>();
         Long pageBegin = page * LIMIT;
         List<News> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
         Long amount = (newsDao.getAmountNewsByLocality(locality) / LIMIT);
-        Map<Long, Map<String, String>> newsMap = new HashMap<>();
-        JSONObject json = new JSONObject();
+        Map<String, Object> newsMap = new HashMap<>();
 
         newsList.stream().forEach((news) -> {
-            Map<String, String> newsInfoMap = new HashMap<>();
-
-            newsInfoMap.put("title", news.getTitle());
-            newsInfoMap.put("description", news.getDescription());
-            newsInfoMap.put("url", news.getUrl());
-            newsInfoMap.put("titleToImage", news.getUrlToImage());
-            newsInfoMap.put("source", news.getSource().getName());
-
-            newsMap.put(news.getId(), newsInfoMap);
-        });
+            NewsDto newsDto = new NewsDto();
+            newsDto.setTitle(news.getTitle());
+            newsDto.setDescription(news.getDescription());
+            newsDto.setUrl(news.getUrl());
+            newsDto.setUrlToImage(news.getUrlToImage());
+            newsDto.setSource(news.getSource().getName());
+            newsDto.setAmountLike(10);
+            newsDto.setLiked(true);
+            
+            newsDtoList.add(newsDto);
+        });        
         
-        if (amount % LIMIT != 0) {
-            amount++;
-        }
-        
-        try {
-            json.put("data", newsMap);
-            json.put("amount-page", amount.intValue());
-        } catch (JSONException ex) {
-            Logger.getLogger(NewsService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        newsMap.put("data", newsDtoList);
+        newsMap.put("amountPage", amount.intValue());
 
-        return json;
+        return newsMap;
     }
 
     /**
