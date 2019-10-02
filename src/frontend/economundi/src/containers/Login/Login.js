@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 
-import api from "../../services/api";
-
 import FacebookIcon from "../../img/facebook-icon.png";
 import GoogleIcon from "../../img/google-icon.png";
 
 import "./login.scss";
 
 class Login extends Component {
-  getLogin = async () => {
-    const response = await api.get("");
-  };
-
   render() {
     return (
       <>
@@ -30,7 +24,7 @@ class Login extends Component {
           </div>
         </div>
 
-        <a href="#">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
+        <a href="/login">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
       </>
     );
   }
