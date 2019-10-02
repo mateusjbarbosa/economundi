@@ -74,10 +74,6 @@ public class NewsService {
             
             newsDtoList.add(newsDto);
         });        
-
-        if (amount % LIMIT != 0) {
-            amount++;
-        }
         
         newsMap.put("data", newsDtoList);
         newsMap.put("amountPage", amount.intValue());
