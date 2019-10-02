@@ -1,11 +1,12 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.config.JWTAuthenticationFilter;
 import com.backend.economundi.error.ResourceNotFoundException;
 import com.backend.economundi.model.UserEntity;
-import com.backend.economundi.payload.LoginRequest;
 import com.backend.economundi.repository.UserRepository;
 import com.backend.economundi.util.JwtUtil;
+import com.backend.economundi.util.PasswordEncoder;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,32 +35,29 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class UserController {/*EndPoint e ponto final onde os usuarios vao acessar nossa api  */
 
-//    private JWTAuthenticationFilter tokenAuth;
-//    private AuthenticationManager authenticationManager;
-    
+    @Autowired
+    private final PasswordEncoder passEncoder = null;
+
     @Autowired
     private final JwtUtil jwt = null;
 
-    
-    private final UserRepository userDao;   
-   
+    private final UserRepository userDao;
+
     @Autowired
     public UserController(UserRepository userDao) {
         this.userDao = userDao;
-    } 
-    
+    }
+
     @GetMapping(path = "public/getlogin")
-    public ResponseEntity getLogin() {      
-        
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();       
-        
-        String username = auth.getName().toString();          
-        
-        UserEntity user = new UserEntity();          
-               
+    public ResponseEntity getLogin() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = auth.getName().toString();
+
         String token = jwt.generateToken(username);
-        
-        return new ResponseEntity<>( token, HttpStatus.OK);
+
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @GetMapping(path = "protected/users")
@@ -77,15 +73,15 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
             Authentication authentication) {
 
         System.out.println("Usuario" + authentication);
-        
+
         verifyIfUserExists(id);
         Optional<UserEntity> user = userDao.findById(id);
 
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
-    @GetMapping(path = "protected/users/findbyname/{name}")
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @GetMapping(path = "protected/users/findByEmail/{email}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity findUserByEmail(@PathVariable String email) {
 
         return new ResponseEntity<>(userDao.findByEmail(email), HttpStatus.OK);
@@ -94,6 +90,17 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @PostMapping(path = "public/create")
     public ResponseEntity save(@Valid @RequestBody UserEntity user) {
 
+        String password = user.getPassword();
+        String passwordEncoded = passEncoder.encodeUserPassword(password);
+
+        Instant instant = Instant.now();
+        long timeStampMillis = instant.toEpochMilli();
+
+        Timestamp dateSign_in = new Timestamp(timeStampMillis);
+
+        user.setDate_hour_register(dateSign_in);
+
+        user.setPassword(passwordEncoded);
         return new ResponseEntity(userDao.save(user), HttpStatus.CREATED);
     }
 
@@ -107,7 +114,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     }
 
     @PutMapping(path = "protected/update")
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity update(@RequestBody UserEntity user) {
         verifyIfUserExists(user.getId());
         userDao.save(user);

@@ -17,16 +17,18 @@ public class EconomundiApplication {
     private final long MINUTO = SEGUNDO * 60;
     private final long HORA = MINUTO * 60;
     @SuppressWarnings("unused")
-	private final long DIA = 24 * HORA;
-    
+    private final long DIA = 24 * HORA;
+
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
+        
     }
 
     @Scheduled(fixedDelay = HORA)
     public void reportCurrentTime() throws IOException {
         ApiNewsConsumer api = new ApiNewsConsumer();
-        
+
         api.refreshNews();
     }
+
 }

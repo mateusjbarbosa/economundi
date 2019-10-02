@@ -14,12 +14,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    
+
     final private String PATH_PACKAGE = "com.backend.economundi.controller";
     final private String TITLE = "EconoMundi API";
     final private String DESCRIPTION = "Portal agregador do mundo econômico!";
-    final private String VERSION = "1.0";
-    
+    final private String VERSION = "1.0.0";
+
     @Value("${swagger.enabled}")
     private boolean swaggerEnabled;
 
@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .apiInfo(getAppInfo())
                 .enable(swaggerEnabled);
     }
-    
+
     private ApiInfo getAppInfo() {
         return new ApiInfoBuilder().title(TITLE)
                 .description(DESCRIPTION)
