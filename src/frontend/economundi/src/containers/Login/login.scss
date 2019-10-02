@@ -1,0 +1,68 @@
+@import "../../styles/color-pallete.scss";
+
+a {
+  width: 90vw;
+
+  font-size: 0.8em;
+
+  color: $color-text-primary;
+
+  cursor: pointer;
+}
+
+.login {
+  width: 90vw;
+
+  color: $color-text-primary;
+
+  & input {
+    width: 98%;
+    height: 3em;
+
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+    padding-left: 2%;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+
+    &::placeholder {
+      font-size: 0.8em;
+    }
+  }
+
+  & button {
+    width: 70%;
+    height: 3em;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+    text-transform: uppercase;
+
+    background: $color-primary;
+    color: $color-text-primary;
+  }
+}
+
+.social {
+  width: 90vw;
+
+  margin-top: -13%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  & img {
+    width: 12%;
+
+    margin-right: 1vw;
+
+    cursor: pointer;
+  }
+}
