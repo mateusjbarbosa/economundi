@@ -31,7 +31,7 @@ class Profile extends Component {
       });
 
       this.setState({
-        greeting: `Olá, ${response.data.nameValuePairs.FirstName}!`
+        greeting: `Olá, ${response.data.FirstName}!`
       });
     }
   };
