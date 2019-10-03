@@ -10,7 +10,9 @@ import java.util.List;
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsBlackList;
 import com.backend.economundi.database.dao.entity.NewsBlackList;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NewsBlackListDao implements INewsBlackList {
 	private Connection conn;
 
