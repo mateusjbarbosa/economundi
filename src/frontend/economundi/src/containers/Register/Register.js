@@ -124,12 +124,10 @@ class Register extends Component {
 
     const errors = await this.validate();
 
-    let response = "";
-
     if (errors.length > 0) {
       this.setState({ render: true, errors: errors });
     } else {
-      response = await api.post("/api/v1/public/create", {
+      const response = await api.post("/api/v1/public/create", {
         date_birth: dateBirth,
         date_hour_register: "",
         economic_profile: "None",

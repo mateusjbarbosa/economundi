@@ -5,10 +5,13 @@ import com.backend.economundi.model.UserEntity;
 import com.backend.economundi.repository.UserRepository;
 import com.backend.economundi.util.JwtUtil;
 import com.backend.economundi.util.PasswordEncoder;
+import com.google.gson.Gson;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;
 import javax.validation.Valid;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -49,15 +52,35 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     }
 
     @GetMapping(path = "public/getlogin")
-    public ResponseEntity getLogin() {
+    public ResponseEntity getLogin() throws JSONException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        String username = auth.getName().toString();
+        Gson gson = new Gson();
+        String json = null;
+        //Cria um Objeto JSON
+        JSONObject jsonObject = new JSONObject();
 
-        String token = jwt.generateToken(username);
+        String username = auth.getName();
 
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        if ("anonymousUser".equals(username)) {
+
+            jsonObject.put("erro", "Usuario não Identificado");
+            json = gson.toJson(jsonObject);
+            return new ResponseEntity(json, HttpStatus.OK);
+        }
+
+        UserEntity user = userDao.findByEmail(username);
+
+        //Armazena dados em um Objeto JSON
+        jsonObject.put("email", user.getEmail());
+        jsonObject.put("permission", user.getPermission());
+        jsonObject.put("FirstName", user.getFirst_name());
+        jsonObject.put("LastName", user.getLast_name());
+
+        //converte Object para json
+        json = gson.toJson(jsonObject);
+        return new ResponseEntity(json, HttpStatus.OK);
     }
 
     @GetMapping(path = "protected/users")

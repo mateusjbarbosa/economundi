@@ -18,11 +18,15 @@ class Profile extends Component {
   componentDidMount() {
     this.setState({ userLogged: this.existsToken() }, async () => {
       if (this.state.userLogged) {
-        const response = await api.get(
-          `/user/${localStorage.getItem("@economundi/tokenUser")}`
-        );
+        const response = await api.get("api/v1/public/getlogin", {
+          headers: {
+            Authorization: localStorage.getItem("tokenUser")
+          }
+        });
 
-        this.setState({ greeting: `Olá, ${response.data.firstName}` });
+        this.setState({
+          greeting: `Olá, ${response.data.nameValuePairs.FirstName}!`
+        });
       }
     });
   }
@@ -45,7 +49,19 @@ class Profile extends Component {
         </div>
 
         {userLogged ? (
-          <h1>Opa!</h1>
+          <>
+            <Link to="/perfil/dados">
+              <div className="profile-box-my-data">
+                <h2>Meus dados</h2>
+              </div>
+            </Link>
+
+            <Link to="/perfil/perfil-economico">
+              <div className="profile-box-my-api">
+                <h2>Meu perfil econômico</h2>
+              </div>
+            </Link>
+          </>
         ) : (
           <>
             <Link to="/perfil/login">
