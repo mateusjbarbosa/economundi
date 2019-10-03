@@ -1,6 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.database.dao.entity.Word;
+import com.backend.economundi.database.dao.entity.WordEntity;
 import com.backend.economundi.service.WordService;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class WordController {
         
         try {
             Long id = Long.parseLong(search);
-            Word word = service.readById(id);
+            WordEntity word = service.readById(id);
             
             if (word != null) {
                 return new ResponseEntity<>(word, null, HttpStatus.ACCEPTED);
@@ -66,7 +66,7 @@ public class WordController {
      * erro.
      */
     @PostMapping(PATH_URL)
-    public ResponseEntity<?> add(@RequestBody Word word) {
+    public ResponseEntity<?> add(@RequestBody WordEntity word) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, String> errors = service.create(word);
         

@@ -1,4 +1,4 @@
-package com.backend.economundi.shared;
+package com.backend.economundi.util;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -11,7 +11,7 @@ public class Utils {
 	private final Random RANDOM = new SecureRandom();
 	private final String ALPHABET = "0123456789ABCDEFGHIJKLMONPQRSTUVXYZabcdefghijklmnopqrstuvxyz";
 
-	public String generatedUserId(int length) {
+	public String generatedEmailToken(int length) {
 		return generateRandomString(length);
 	}
 

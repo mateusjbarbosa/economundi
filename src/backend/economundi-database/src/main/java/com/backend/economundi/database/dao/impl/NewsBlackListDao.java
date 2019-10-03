@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsBlackList;
-import com.backend.economundi.database.dao.entity.NewsBlackList;
+import com.backend.economundi.database.dao.entity.NewsBlackListEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,7 +21,7 @@ public class NewsBlackListDao implements INewsBlackList {
 	private static final String ENTITY = "news_black_list";
 
 	@Override
-	public void create(NewsBlackList name) {
+	public void create(NewsBlackListEntity name) {
 		String sql = "INSERT INTO " + ENTITY + "(" + ID + ", " + NAME
 				+ ") VALUES (nextval('news_black_list_id_seq'), ?) RETURNING " + ID;
 		PreparedStatement stmt = null;
@@ -66,11 +66,11 @@ public class NewsBlackListDao implements INewsBlackList {
 	}
 
 	@Override
-	public NewsBlackList read(Long id) {
+	public NewsBlackListEntity read(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        NewsBlackList name = null;
+        NewsBlackListEntity name = null;
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -80,7 +80,7 @@ public class NewsBlackListDao implements INewsBlackList {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-            	name = new NewsBlackList();
+            	name = new NewsBlackListEntity();
             	name.setId(rs.getLong(ID));
                 name.setName(rs.getString(NAME));
             }
@@ -116,7 +116,7 @@ public class NewsBlackListDao implements INewsBlackList {
 	}
 
 	@Override
-	public void update(NewsBlackList entity) {
+	public void update(NewsBlackListEntity entity) {
 		String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ? WHERE " + ID + " = ?";
 		PreparedStatement stmt = null;
 
@@ -156,7 +156,7 @@ public class NewsBlackListDao implements INewsBlackList {
 	}
 
 	@Override
-	public void delete(NewsBlackList name) {
+	public void delete(NewsBlackListEntity name) {
 		String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -204,11 +204,11 @@ public class NewsBlackListDao implements INewsBlackList {
 	}
 
 	@Override
-	public List<NewsBlackList> readAll() {
+	public List<NewsBlackListEntity> readAll() {
 		String sql = "SELECT * FROM " + ENTITY;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<NewsBlackList> nameList = new ArrayList<>();
+		List<NewsBlackListEntity> nameList = new ArrayList<>();
 
 		try {
 			conn = ConnectionFactory.getConnection();
@@ -218,7 +218,7 @@ public class NewsBlackListDao implements INewsBlackList {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				NewsBlackList name = new NewsBlackList();
+				NewsBlackListEntity name = new NewsBlackListEntity();
 
 				name.setId(rs.getLong(ID));
 				name.setName(rs.getString(NAME));

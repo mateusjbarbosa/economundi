@@ -1,9 +1,9 @@
 package com.backend.economundi.database.dao.entity;
 
-public class News {
+public class NewsEntity {
 
     private Long id;
-    private Source source;
+    private SourceEntity source;
     private String title;
     private String description;
     private String url;
@@ -32,11 +32,11 @@ public class News {
         this.id = id;
     }
     
-    public Source getSource() {
+    public SourceEntity getSource() {
         return source;
     }
 
-    public void setSource(Source source) {
+    public void setSource(SourceEntity source) {
         this.source = source;
     }
 

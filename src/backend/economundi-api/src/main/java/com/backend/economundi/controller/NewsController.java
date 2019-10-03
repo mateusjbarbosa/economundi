@@ -1,6 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.database.dao.entity.News;
+import com.backend.economundi.database.dao.entity.NewsEntity;
 import com.backend.economundi.service.NewsService;
 
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class NewsController {
      */
     @GetMapping(PATH_URL + "{id}")
     public ResponseEntity<?> getNews(@PathVariable("id") Long id) {
-        News news = service.readById(id);
+        NewsEntity news = service.readById(id);
 
         if (news != null) {
             return new ResponseEntity<>(news, null, HttpStatus.ACCEPTED);

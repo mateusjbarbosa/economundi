@@ -2,8 +2,8 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.INewsDao;
-import com.backend.economundi.database.dao.entity.News;
-import com.backend.economundi.database.dao.entity.Source;
+import com.backend.economundi.database.dao.entity.NewsEntity;
+import com.backend.economundi.database.dao.entity.SourceEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +32,7 @@ public class NewsDao implements INewsDao {
     private static final String ENTITY = "news";
 
     @Override
-    public void create(News news) {
+    public void create(NewsEntity news) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + TITLE + "," + DESCRIPTION + "," + CONTENT + "," + SOURCE
                 + "," + URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE
                 + ") VALUES (nextval('news_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -79,9 +79,9 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public News read(Long id) {
+    public NewsEntity read(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + ID + "= ?";
-        News news = null;
+        NewsEntity news = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -94,7 +94,7 @@ public class NewsDao implements INewsDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                news = new News();
+                news = new NewsEntity();
                 news.setContent(rs.getString(CONTENT));
                 news.setDate(rs.getString(DATE));
                 news.setDescription(rs.getString(DESCRIPTION));
@@ -105,7 +105,7 @@ public class NewsDao implements INewsDao {
                 news.setUrl(rs.getString(URL));
                 news.setUrlToImage(rs.getString(URL_IMAGE));
 
-                Source source = new Source();
+                SourceEntity source = new SourceEntity();
 
                 source.setName(rs.getString(SOURCE));
                 news.setSource(source);
@@ -142,7 +142,7 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public void update(News news) {
+    public void update(NewsEntity news) {
         String sql = "UPDATE " + ENTITY + " SET " + RELEVANCE + "= ?"
                 + " WHERE " + ID + "= ?";
 
@@ -184,15 +184,15 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public void delete(News entity) {
+    public void delete(NewsEntity entity) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public List<News> readNewsWithRelevance() {
+    public List<NewsEntity> readNewsWithRelevance() {
         String sql = "SELECT * from " + ENTITY + " WHERE " + RELEVANCE + "> 0";
-        List<News> newsList = new ArrayList<>();
+        List<NewsEntity> newsList = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -203,7 +203,7 @@ public class NewsDao implements INewsDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                News news = new News();
+                NewsEntity news = new NewsEntity();
 
                 news.setContent(rs.getString(CONTENT));
                 news.setDate(rs.getString(DATE));
@@ -215,7 +215,7 @@ public class NewsDao implements INewsDao {
                 news.setUrl(rs.getString(URL));
                 news.setUrlToImage(rs.getString(URL_IMAGE));
 
-                Source source = new Source();
+                SourceEntity source = new SourceEntity();
 
                 source.setName(rs.getString(SOURCE));
                 news.setSource(source);
@@ -254,8 +254,8 @@ public class NewsDao implements INewsDao {
     }
 
     @Override
-    public List<News> readByPage(Long pageBegin, Integer size, String locality) {
-        List<News> newsList = new ArrayList<>();
+    public List<NewsEntity> readByPage(Long pageBegin, Integer size, String locality) {
+        List<NewsEntity> newsList = new ArrayList<>();
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + LOCALITY + " = ?"
                 + " ORDER BY " + RELEVANCE + " DESC, " + TITLE
                 + " LIMIT ? OFFSET ?";
@@ -273,7 +273,7 @@ public class NewsDao implements INewsDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                News news = new News();
+                NewsEntity news = new NewsEntity();
 
                 news.setContent(rs.getString(CONTENT));
                 news.setDate(rs.getString(DATE));
@@ -285,7 +285,7 @@ public class NewsDao implements INewsDao {
                 news.setUrl(rs.getString(URL));
                 news.setUrlToImage(rs.getString(URL_IMAGE));
 
-                Source source = new Source();
+                SourceEntity source = new SourceEntity();
 
                 source.setName(rs.getString(SOURCE));
                 news.setSource(source);

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.backend.economundi.database.dao.entity.NewsBlackList;
+import com.backend.economundi.database.dao.entity.NewsBlackListEntity;
 import com.backend.economundi.database.dao.impl.NewsBlackListDao;
 
 public class NewsBlackListService {
@@ -18,7 +18,7 @@ public class NewsBlackListService {
      * @param name Novo item a ser adicionado.
      * @return Motivo de erro, caso exista.
      */
-    public Map<String, String> create(NewsBlackList name) {
+    public Map<String, String> create(NewsBlackListEntity name) {
         Map<String, String> errors = validate(name);
 
         if (errors.isEmpty()) {
@@ -35,8 +35,8 @@ public class NewsBlackListService {
      *
      * @return Black list.
      */
-    public List<NewsBlackList> readAll() {
-        List<NewsBlackList> newsBLList = newsBLDao.readAll();
+    public List<NewsBlackListEntity> readAll() {
+        List<NewsBlackListEntity> newsBLList = newsBLDao.readAll();
 
         return newsBLList;
     }
@@ -48,7 +48,7 @@ public class NewsBlackListService {
      * @return Motivo de erro, caso exista.
      */
     public Map<String, String> update(Map<String, String> body) {
-        NewsBlackList newsBL = merge(body);
+        NewsBlackListEntity newsBL = merge(body);
         Map<String, String> errors = validate(newsBL);
 
         if (errors.isEmpty()) {
@@ -64,7 +64,7 @@ public class NewsBlackListService {
      * @param id Identificador do elemento.
      */
     public void delete(Long id) {
-        NewsBlackList newsBL = newsBLDao.read(id);
+        NewsBlackListEntity newsBL = newsBLDao.read(id);
 
         if (newsBL != null) {
             newsBLDao.delete(newsBL);
@@ -77,7 +77,7 @@ public class NewsBlackListService {
      * @param name Item a ser analizado.
      * @return Erro, caso exista.
      */
-    private Map<String, String> validate(NewsBlackList name) {
+    private Map<String, String> validate(NewsBlackListEntity name) {
         Map<String, String> errors = new HashMap<>();
 
         if (name != null) {
@@ -97,19 +97,19 @@ public class NewsBlackListService {
      * @param data Mapeamento dos campos a se alterado o id do elemento.
      * @return Entidade com os campos alterados.
      */
-    private NewsBlackList merge(Map<String, String> data) {
-        NewsBlackList merged = null;
+    private NewsBlackListEntity merge(Map<String, String> data) {
+        NewsBlackListEntity merged = null;
 
         if (data != null) {
             Long id = Long.parseLong(data.get("id"));
 
             if (id != 0) {
-                NewsBlackList newsBL = newsBLDao.read(id);
+                NewsBlackListEntity newsBL = newsBLDao.read(id);
 
                 if (newsBL != null) {
                     String key = "name";
 
-                    merged = new NewsBlackList();
+                    merged = new NewsBlackListEntity();
 
                     merged.setId(id);
                     merged.setName(newsBL.getName());

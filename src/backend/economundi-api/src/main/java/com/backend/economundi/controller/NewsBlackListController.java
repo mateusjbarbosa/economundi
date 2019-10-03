@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.economundi.database.dao.entity.NewsBlackList;
+import com.backend.economundi.database.dao.entity.NewsBlackListEntity;
 import com.backend.economundi.service.NewsBlackListService;
 
 @CrossOrigin
@@ -29,7 +29,7 @@ public class NewsBlackListController {
      * @return	Erros, se houver.
      */
 	@PostMapping(PATH_URL)
-	public ResponseEntity<?> add(@RequestBody NewsBlackList name) {
+	public ResponseEntity<?> add(@RequestBody NewsBlackListEntity name) {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		Map<String, String> errors = service.create(name);
 		

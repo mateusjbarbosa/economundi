@@ -5,7 +5,7 @@
  */
 package com.backend.economundi.service;
 
-import com.backend.economundi.model.UserEntity;
+import com.backend.economundi.database.dao.entity.UserEntity;
 import com.backend.economundi.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;

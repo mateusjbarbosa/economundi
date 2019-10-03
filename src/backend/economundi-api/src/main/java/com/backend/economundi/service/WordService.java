@@ -1,7 +1,7 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.IWordDao;
-import com.backend.economundi.database.dao.entity.Word;
+import com.backend.economundi.database.dao.entity.WordEntity;
 import com.backend.economundi.database.dao.impl.WordAccessDao;
 import com.backend.economundi.database.dao.impl.WordDao;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class WordService {
      * @param word Nova palavra a ser criada.
      * @return Houve ou não sucesso na criação.
      */
-    public Map<String, String> create(Word word) {
+    public Map<String, String> create(WordEntity word) {
         Map<String, String> errors = validate(word);
 
         if (errors.isEmpty()) {
@@ -40,8 +40,8 @@ public class WordService {
      * @param id Identificador da palavra a ser encontrada.
      * @return Palavra caso exista.
      */
-    public Word readById(Long id) {
-        Word word = wordDao.read(id);
+    public WordEntity readById(Long id) {
+        WordEntity word = wordDao.read(id);
 
         if (word != null) {
             WordAccessDao wordAccessDao = new WordAccessDao();
@@ -58,7 +58,7 @@ public class WordService {
      * @return Id e nome da palabra que contém a substring.
      */
     public Map<Long, String> readBySubString(String substring) {
-        List<Word> wordList = wordDao.readByName(substring);
+        List<WordEntity> wordList = wordDao.readByName(substring);
         Map<Long, String> wordMap = new HashMap<>();
 
         wordList.forEach((word) -> {
@@ -75,7 +75,7 @@ public class WordService {
      * @return Motivo de erro, caso exista.
      */
     public Map<String, String> update(Map<String, String> body) {
-        Word word = merge(body);
+        WordEntity word = merge(body);
         Map<String, String> errors = validate(word);
 
         if (errors.isEmpty()) {
@@ -91,7 +91,7 @@ public class WordService {
      * @param id Identificador da palavra que se deseja deletar.
      */
     public void delete(Long id) {
-        Word word = wordDao.read(id);
+        WordEntity word = wordDao.read(id);
 
         if (word != null) {
             wordDao.delete(word);
@@ -104,19 +104,19 @@ public class WordService {
      * @param data Mapeamento com um conjunto de chave e valor.
      * @return Palavra editada, se houver.
      */
-    private Word merge(Map<String, String> data) {
-        Word merged = null;
+    private WordEntity merge(Map<String, String> data) {
+        WordEntity merged = null;
 
         if (data != null) {
             Long id = Long.parseLong(data.get("id"));
 
             if (id != 0) {
-                Word word = wordDao.read(id);
+                WordEntity word = wordDao.read(id);
 
                 if (word != null) {
                     String key = "name";
 
-                    merged = new Word();
+                    merged = new WordEntity();
 
                     merged.setId(word.getId());
                     merged.setName(word.getName());
@@ -144,7 +144,7 @@ public class WordService {
      * @param word Palavra a ser validada.
      * @return Mapeamento com os erros, se houver.
      */
-    private Map<String, String> validate(Word word) {
+    private Map<String, String> validate(WordEntity word) {
         Map<String, String> errors = new HashMap<>();
 
         if (word != null) {

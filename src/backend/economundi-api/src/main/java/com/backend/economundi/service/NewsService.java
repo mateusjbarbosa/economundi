@@ -1,9 +1,9 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.INewsDao;
-import com.backend.economundi.database.dao.entity.News;
-import com.backend.economundi.database.dao.entity.NewsBlackList;
+import com.backend.economundi.database.dao.entity.NewsBlackListEntity;
 import com.backend.economundi.database.dao.entity.NewsDto;
+import com.backend.economundi.database.dao.entity.NewsEntity;
 import com.backend.economundi.database.dao.impl.NewsDao;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class NewsService {
      *
      * @param news Artigo a ser criado.
      */
-    public void create(News news) {
+    public void create(NewsEntity news) {
         if (news != null && validate(news)) {
             news.setRelevance(100L);
             newsDao.create(news);
@@ -38,8 +38,8 @@ public class NewsService {
      * @param id Identificador da notícia.
      * @return Notícia pesquisada.
      */
-    public News readById(Long id) {
-        News news;
+    public NewsEntity readById(Long id) {
+        NewsEntity news;
         news = newsDao.read(id);
 
         return news;
@@ -55,7 +55,7 @@ public class NewsService {
     public Map<String, Object> readByPage(Long page, String locality) {
         List<NewsDto> newsDtoList = new ArrayList<>();
         Long pageBegin = page * LIMIT;
-        List<News> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
+        List<NewsEntity> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
         Long amount = (newsDao.getAmountNewsByLocality(locality) / LIMIT);
         Map<String, Object> newsMap = new HashMap<>();
 
@@ -83,7 +83,7 @@ public class NewsService {
      *
      * @param news Notícia a ser atualizada.
      */
-    public void update(News news) {
+    public void update(NewsEntity news) {
         if (news != null) {
             if (news.getId() != null) {
                 newsDao.update(news);
@@ -97,7 +97,7 @@ public class NewsService {
     public void updateAllNewsWithRelevance() {
         Date now = new Date();
         Timestamp tsNow = new Timestamp(now.getTime());
-        List<News> newsList = newsDao.readNewsWithRelevance();
+        List<NewsEntity> newsList = newsDao.readNewsWithRelevance();
 
         newsList.forEach((_item) -> {
             Timestamp tsNews = Timestamp.valueOf(_item.getDate());
@@ -120,9 +120,9 @@ public class NewsService {
      * @param news Notícia a ser validada.
      * @return Booleana indicando se passou pela black list.
      */
-    private Boolean validate(News news) {
+    private Boolean validate(NewsEntity news) {
         NewsBlackListService serviceNewsBL = new NewsBlackListService();
-        List<NewsBlackList> newsBLList = serviceNewsBL.readAll();
+        List<NewsBlackListEntity> newsBLList = serviceNewsBL.readAll();
         Boolean create = true;
 
         if (news != null && news.getDescription() != null
@@ -134,7 +134,7 @@ public class NewsService {
             news.setTitle(news.getTitle().split(" -")[0]);
             news.getSource().setName(news.getSource().getName().split(".com")[0]);
 
-            for (NewsBlackList newsBL : newsBLList) {
+            for (NewsBlackListEntity newsBL : newsBLList) {
                 if (news.getTitle().toUpperCase().contains(newsBL.getName())) {
                     create = false;
                     break;

@@ -5,7 +5,7 @@
  */
 package com.backend.economundi.config;
 
-import com.backend.economundi.model.UserEntity;
+import com.backend.economundi.database.dao.entity.UserEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

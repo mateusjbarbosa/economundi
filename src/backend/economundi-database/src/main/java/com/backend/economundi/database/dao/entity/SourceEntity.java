@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao.entity;
 
-public class Source {
+public class SourceEntity {
     private String id;
     private String name;
 
