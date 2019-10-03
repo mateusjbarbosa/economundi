@@ -72,7 +72,9 @@ class Login extends Component {
           </div>
         </div>
 
-        <a href="/login">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
+        <a href="/login" className="link-reminder">
+          Esqueceu a senha? Relaxa, recupere-a aqui!
+        </a>
       </>
     );
   }

@@ -210,8 +210,6 @@ class Register extends Component {
             Cadastrar
           </button>
         </div>
-
-        <a href="/cadastrar">Esqueceu a senha? Relaxa, recupere-a aqui!</a>
       </>
     );
   }
