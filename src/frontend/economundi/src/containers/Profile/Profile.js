@@ -10,34 +10,30 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      userLogged: false,
       greeting: "Olá!"
     };
   }
 
   componentDidMount() {
-    this.setState({ userLogged: this.existsToken() }, async () => {
-      if (this.state.userLogged) {
-        const response = await api.get("api/v1/public/getlogin", {
-          headers: {
-            Authorization: localStorage.getItem("tokenUser")
-          }
-        });
-
-        this.setState({
-          greeting: `Olá, ${response.data.nameValuePairs.FirstName}!`
-        });
-      }
-    });
+    this.existsToken();
   }
 
-  existsToken = () => {
+  existsToken = async () => {
     const token = localStorage.getItem("tokenUser");
-    let status = false;
 
-    if (token !== null) status = true;
+    let response = "";
 
-    return status;
+    if (token !== null) {
+      response = await api.get("api/v1/public/getlogin", {
+        headers: {
+          Authorization: localStorage.getItem("tokenUser")
+        }
+      });
+
+      this.setState({
+        greeting: `Olá, ${response.data.nameValuePairs.FirstName}!`
+      });
+    }
   };
 
   render() {
