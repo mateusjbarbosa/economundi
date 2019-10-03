@@ -13,6 +13,7 @@
   width: 80vw;
   height: 30vh;
 
+  margin-top: 10%;
   margin-left: 5%;
 
   border-radius: 1em;
@@ -51,4 +52,43 @@
 
     text-decoration: none;
   }
+}
+
+.profile-box-my-data {
+  width: 80vw;
+  height: 30vh;
+
+  margin-top: 10%;
+  margin-left: 5%;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-secundary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
+}
+
+.profile-box-my-api {
+  width: 80vw;
+  height: 30vh;
+
+  margin-left: 5%;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-primary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
 }
