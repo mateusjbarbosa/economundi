@@ -110,7 +110,7 @@ class News extends Component {
         async () => {
           listNews = await this.getNewsWorld();
 
-          this.setState({ listNews: listNews });
+          this.setState({ listNews: listNews.data });
         }
       );
     } else {
@@ -125,7 +125,7 @@ class News extends Component {
         async () => {
           listNews = await this.getNewsBrazil();
 
-          this.setState({ listNews: listNews });
+          this.setState({ listNews: listNews.data });
         }
       );
     }

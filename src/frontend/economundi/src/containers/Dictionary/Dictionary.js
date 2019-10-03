@@ -45,19 +45,19 @@ class Dictionary extends Component {
   };
 
   getWord = async word => {
-    const response = await api.get(`word/${word}`);
+    const response = await api.get(`/api/v1/word/${word}`);
 
     return this.jsonByWordObject(response.data);
   };
 
   getDescriptionWord = async id => {
-    const response = await api.get(`word/${id}`);
+    const response = await api.get(`/api/v1/word/${id}`);
 
     this.setState({ description: response.data.description });
   };
 
   getTopSearched = async () => {
-    const response = await api.get("word/top");
+    const response = await api.get("/api/v1/word/top");
     const list = this.jsonByWordObject(response.data);
 
     return list;
