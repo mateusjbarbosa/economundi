@@ -11,8 +11,9 @@ create table _user (
     last_name character varying (50) NOT NULL,
     password character varying (200) check (length(password) > 8) NOT NULL,
     date_birth date check (date_birth < now()) NOT NULL,
+    emailVerificationToken character varying (200), 
     permission character varying(30) check(permission in ('ADMIN','USER')) NOT NULL,
-    economic_profile character varying (20) check (economic_profile in ('Conservative', 'Moderate', 'Moderate-Aggressive', 'Aggressive')),
+    economic_profile character varying (20) check (economic_profile in ('Conservative', 'Moderate', 'Moderate-Aggressive', 'Aggressive','None')) default 'None',
     date_hour_register timestamp without time zone default now() NOT NULL
 );
 
