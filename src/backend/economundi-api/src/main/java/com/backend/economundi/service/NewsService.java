@@ -1,5 +1,6 @@
 package com.backend.economundi.service;
 
+import com.backend.economundi.database.dao.INewsDao;
 import com.backend.economundi.database.dao.entity.News;
 import com.backend.economundi.database.dao.entity.NewsBlackList;
 import com.backend.economundi.database.dao.entity.NewsDto;
@@ -17,6 +18,7 @@ public class NewsService {
 
     private final String[] REMORE_IN_CONTENT = {"\n", "\t", "\r"};
     private final Integer LIMIT = 6;
+    private final INewsDao newsDao = new NewsDao();
 
     /**
      * Cria um novo artigo no sistema.
@@ -24,8 +26,6 @@ public class NewsService {
      * @param news Artigo a ser criado.
      */
     public void create(News news) {
-        NewsDao newsDao = new NewsDao();
-
         if (news != null && validate(news)) {
             news.setRelevance(100L);
             newsDao.create(news);
@@ -40,8 +40,6 @@ public class NewsService {
      */
     public News readById(Long id) {
         News news;
-        NewsDao newsDao = new NewsDao();
-
         news = newsDao.read(id);
 
         return news;
@@ -55,7 +53,6 @@ public class NewsService {
      * @return Lista de notícias e quantidade de páginas total.
      */
     public Map<String, Object> readByPage(Long page, String locality) {
-        NewsDao newsDao = new NewsDao();
         List<NewsDto> newsDtoList = new ArrayList<>();
         Long pageBegin = page * LIMIT;
         List<News> newsList = newsDao.readByPage(pageBegin, LIMIT, locality);
@@ -87,8 +84,6 @@ public class NewsService {
      * @param news Notícia a ser atualizada.
      */
     public void update(News news) {
-        NewsDao newsDao = new NewsDao();
-
         if (news != null) {
             if (news.getId() != null) {
                 newsDao.update(news);
@@ -100,7 +95,6 @@ public class NewsService {
      * Realiza a atualização apenas das notícias com relevância.
      */
     public void updateAllNewsWithRelevance() {
-        NewsDao newsDao = new NewsDao();
         Date now = new Date();
         Timestamp tsNow = new Timestamp(now.getTime());
         List<News> newsList = newsDao.readNewsWithRelevance();
