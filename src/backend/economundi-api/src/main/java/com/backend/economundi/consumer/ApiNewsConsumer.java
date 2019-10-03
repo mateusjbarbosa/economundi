@@ -1,6 +1,6 @@
 package com.backend.economundi.consumer;
 
-import com.backend.economundi.database.dao.entity.ResultNews;
+import com.backend.economundi.database.dao.entity.ResultNewsEntity;
 import com.backend.economundi.service.NewsService;
 import java.io.IOException;
 
@@ -14,8 +14,8 @@ public class ApiNewsConsumer {
     public void refreshNews() throws IOException {
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         NewsService service = new NewsService();
-        ResultNews resultBr = generic.getData(URL_BR, ResultNews.class);
-        ResultNews resultWorld = generic.getData(URL_WORLD, ResultNews.class);
+        ResultNewsEntity resultBr = generic.getData(URL_BR, ResultNewsEntity.class);
+        ResultNewsEntity resultWorld = generic.getData(URL_WORLD, ResultNewsEntity.class);
 
         createNews("Brazil", resultBr);
         createNews("World", resultWorld);
@@ -23,7 +23,7 @@ public class ApiNewsConsumer {
         service.updateAllNewsWithRelevance();
     }
 
-    private void createNews(String locality, ResultNews resultNews) {
+    private void createNews(String locality, ResultNewsEntity resultNews) {
         NewsService service = new NewsService();
         
         resultNews.getArticles().forEach((news) -> {

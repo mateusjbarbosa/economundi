@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao.entity;
 
-public class Word {
+public class WordEntity {
     private Long id;
     private String name;
     private String description;

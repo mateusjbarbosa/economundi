@@ -1,6 +1,6 @@
 package com.backend.economundi.consumer;
 
-import com.backend.economundi.database.dao.entity.ResultNews;
+import com.backend.economundi.database.dao.entity.ResultNewsEntity;
 import java.io.IOException;
 
 public class ApiIpcaConsumer {
@@ -10,6 +10,6 @@ public class ApiIpcaConsumer {
     
     public void getIpca() throws IOException {
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
-        ResultNews result = generic.getData(url, ResultNews.class);
+        ResultNewsEntity result = generic.getData(url, ResultNewsEntity.class);
     }
 }

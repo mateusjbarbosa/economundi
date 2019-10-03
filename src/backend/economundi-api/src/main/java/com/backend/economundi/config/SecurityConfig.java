@@ -7,7 +7,6 @@ package com.backend.economundi.config;
 
 import com.backend.economundi.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("**/*/public/**").permitAll()
                 .antMatchers("**/*/login/**").permitAll()
+                .antMatchers("**/*/sign-out/**").permitAll()
                 .antMatchers("**/*/protected/**").hasRole("USER")
                 .antMatchers("**/*/admin/**").hasRole("ADMIN")
                 .and()

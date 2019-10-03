@@ -5,16 +5,13 @@
  */
 package com.backend.economundi.util;
 
-import com.backend.economundi.config.SecurityConfig;
 import com.backend.economundi.config.SecurityConstants;
-import com.backend.economundi.model.UserEntity;
-import com.backend.economundi.payload.LoginRequest;
+import com.backend.economundi.database.dao.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**

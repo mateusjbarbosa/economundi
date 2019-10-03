@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao.entity;
 
-public class NewsBlackList {
+public class NewsBlackListEntity {
 	private String name;
 	private Long id;
 

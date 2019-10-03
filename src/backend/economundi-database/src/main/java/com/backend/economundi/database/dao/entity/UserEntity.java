@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.backend.economundi.model;
+package com.backend.economundi.database.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -19,29 +22,44 @@ import javax.validation.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "_user")
-public class UserEntity extends AbstractEntity {
+public class UserEntity {
 
-    @NotEmpty
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotEmpty(message = "O EMAIL NÃO PODE SER NULL")
+    @Email(message = "O EMAIL NÃO É VALIDO")
     @Column(unique = true)
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "O CAMPO FIRSTNAME NÃO PODE SER NULL")
     private String first_name;
 
-    @NotEmpty
+    @NotEmpty(message = "O CAMPO LASTNAME NÃO PODE NULL")
     private String last_name;
 
-    @NotEmpty   
+    @NotEmpty(message = "O CAMPO SENHA NÃO PODE SER NULL")    
     private String password;
-    
-    private Date date_birth;   
 
-    @NotEmpty
+    private Date date_birth;
+
+    @NotEmpty(message = "O CAMPO PERMISSION NÃO PODE SER NULL")
     private String permission;
 
-    private String economic_profile;    
-    
-    private Timestamp date_hour_register; 
+    private String economic_profile;
+
+    private String emailVerificationToken;
+
+    private Timestamp date_hour_register;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -99,6 +117,14 @@ public class UserEntity extends AbstractEntity {
         this.economic_profile = economic_profile;
     }
 
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
+    }
+
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
+    }
+
     public Timestamp getDate_hour_register() {
         return date_hour_register;
     }
@@ -106,7 +132,5 @@ public class UserEntity extends AbstractEntity {
     public void setDate_hour_register(Timestamp date_hour_register) {
         this.date_hour_register = date_hour_register;
     }
-
-   
 
 }

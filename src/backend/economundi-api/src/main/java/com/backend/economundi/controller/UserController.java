@@ -1,17 +1,21 @@
 package com.backend.economundi.controller;
 
+import com.backend.economundi.database.dao.entity.UserEntity;
 import com.backend.economundi.error.ResourceNotFoundException;
-import com.backend.economundi.model.UserEntity;
+import com.backend.economundi.payload.EmailTemplates;
+import com.backend.economundi.payload.RecoveryRequest;
 import com.backend.economundi.repository.UserRepository;
+import com.backend.economundi.service.EmailService;
 import com.backend.economundi.util.JwtUtil;
 import com.backend.economundi.util.PasswordEncoder;
+import com.backend.economundi.util.Utils;
 import com.google.gson.Gson;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
-import org.json.JSONException;
-import org.json.JSONObject;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,7 +46,13 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     private final PasswordEncoder passEncoder = null;
 
     @Autowired
-    private final JwtUtil jwt = null;
+    private EmailService emailService;
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private EmailTemplates emailTemplates;
 
     private final UserRepository userDao;
 
@@ -52,7 +62,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     }
 
     @GetMapping(path = "public/getlogin")
-    public ResponseEntity getLogin() throws JSONException {
+    public ResponseEntity getLogin() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -75,7 +85,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
         //Armazena dados em um Objeto JSON
         jsonObject.put("email", user.getEmail());
         jsonObject.put("permission", user.getPermission());
-        jsonObject.put("FirstName", user.getFirst_name());
+        jsonObject.put("Firstname", user.getFirst_name());
         jsonObject.put("LastName", user.getLast_name());
 
         //converte Object para json
@@ -111,20 +121,54 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     }
 
     @PostMapping(path = "public/create")
-    public ResponseEntity save(@Valid @RequestBody UserEntity user) {
+    public ResponseEntity save(@Valid @RequestBody UserEntity user) throws MessagingException {
 
-        String password = user.getPassword();
-        String passwordEncoded = passEncoder.encodeUserPassword(password);
+        user = prepareNewUser(user);
+        userDao.save(user);
+        emailService.sendMail(user.getEmail(), "Cadastro Com Sucesso", emailTemplates.getTemplateSign(user.getFirst_name()));
 
-        Instant instant = Instant.now();
-        long timeStampMillis = instant.toEpochMilli();
+        return new ResponseEntity("Cadastro Realizado Com Sucesso", HttpStatus.CREATED);
+    }
 
-        Timestamp dateSign_in = new Timestamp(timeStampMillis);
+    @GetMapping(path = "public/recovery/findByEmail/{email}")
+    public ResponseEntity recovery(@PathVariable String email) throws MessagingException {
 
-        user.setDate_hour_register(dateSign_in);
+        UserEntity user = new UserEntity();
 
-        user.setPassword(passwordEncoded);
-        return new ResponseEntity(userDao.save(user), HttpStatus.CREATED);
+        user = userDao.findByEmail(email);
+        emailService.sendMail(user.getEmail(), "Redefinir Senha", emailTemplates.getTemplateRecovery(user));
+
+        return new ResponseEntity("Link de Redefinição de senha enviado por email", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "public/recovery/findByToken/{token}")
+    public ResponseEntity findUserByToken(@PathVariable String token) {
+
+        UserEntity user = new UserEntity();
+
+        user = userDao.findByEmailVerificationToken(token);
+
+        if (user == null) {
+            return new ResponseEntity("A página não existe", HttpStatus.OK);
+        }
+
+        return new ResponseEntity("Usuario Encontrado", HttpStatus.OK);
+    }
+
+    @PostMapping(path = "public/recovery")
+    public ResponseEntity recoveryPassword(@Valid RecoveryRequest recoveryRequest) {
+
+        UserEntity user = new UserEntity();
+
+        user = userDao.findByEmailVerificationToken(recoveryRequest.getEmailVerificationToken());
+        if (user != null) {
+            user.setEmailVerificationToken(utils.generatedEmailToken(60));
+            userDao.save(user);
+        } else {
+            return new ResponseEntity("Erro ao Atualizar Senha.", HttpStatus.OK);
+        }
+
+        return new ResponseEntity("Senha Atualizada com Sucesso", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "admin/users/{id}")
@@ -148,7 +192,30 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     private void verifyIfUserExists(Long id) {
 
         if (!userDao.findById(id).isPresent()) {
-            throw new ResourceNotFoundException("Student Not Found for id = " + id);
+            throw new ResourceNotFoundException("User Not Found for id = " + id);
         }
+    }
+
+    private UserEntity prepareNewUser(UserEntity newUser) {
+
+        String password = newUser.getPassword();
+        String passwordEncoded = passEncoder.encodeUserPassword(password);
+
+        Instant instant = Instant.now();
+        long timeStampMillis = instant.toEpochMilli();
+
+        Timestamp dateSign_in = new Timestamp(timeStampMillis);
+        newUser.setDate_hour_register(dateSign_in);
+        newUser.setPassword(passwordEncoded);
+        
+        if(newUser.getPermission() == null){
+            newUser.setPermission("USER");
+        }
+        
+        newUser.setEmailVerificationToken(utils.generatedEmailToken(60));
+
+        newUser.setEconomic_profile("None");
+
+        return newUser;
     }
 }

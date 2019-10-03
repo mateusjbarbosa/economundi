@@ -2,14 +2,16 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.IWordDao;
-import com.backend.economundi.database.dao.entity.Word;
+import com.backend.economundi.database.dao.entity.WordEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WordDao implements IWordDao {
 
     private Connection conn;
@@ -20,7 +22,7 @@ public class WordDao implements IWordDao {
     private static final String ENTITY = "word";
 
     @Override
-    public void create(Word word) {
+    public void create(WordEntity word) {
         String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + NAME
                 + "," + DESCRIPTION + ") VALUES (nextval('word_id_seq')"
                 + ", ?, ?) RETURNING " + ID;
@@ -76,11 +78,11 @@ public class WordDao implements IWordDao {
     }
     
 	@Override
-	public Word read(Long id) {
+	public WordEntity read(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " w WHERE w.id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Word word = null;
+        WordEntity word = null;
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -90,7 +92,7 @@ public class WordDao implements IWordDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                word = new Word();
+                word = new WordEntity();
                 word.setId(rs.getLong(ID));
                 word.setName(rs.getString(NAME));
                 word.setDescription(rs.getString(DESCRIPTION));
@@ -127,7 +129,7 @@ public class WordDao implements IWordDao {
 	}
 	
     @Override
-    public void update(Word word) {
+    public void update(WordEntity word) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?,"
                 + DESCRIPTION + "= ? WHERE " + ID + "= ?";
         PreparedStatement stmt = null;
@@ -169,7 +171,7 @@ public class WordDao implements IWordDao {
     }
     
     @Override
-    public void delete(Word word) {
+    public void delete(WordEntity word) {
         String sql = "DELETE FROM " + ENTITY + " WHERE " + ID + "= ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -217,12 +219,12 @@ public class WordDao implements IWordDao {
     }
 
     @Override
-    public List<Word> readByName(String name) {
+    public List<WordEntity> readByName(String name) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " ilike "
                 + "'" + name + "%' order by " + NAME + " asc limit 5";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Word> wordList = new ArrayList<>();
+        List<WordEntity> wordList = new ArrayList<>();
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -232,7 +234,7 @@ public class WordDao implements IWordDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Word word = new Word();
+                WordEntity word = new WordEntity();
                 
                 word.setId(rs.getLong(ID));
                 word.setName(rs.getString(NAME));
