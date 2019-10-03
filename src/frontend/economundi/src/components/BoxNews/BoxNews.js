@@ -5,7 +5,7 @@ import "./boxNews.scss";
 const BoxNews = ({ news }) => {
   return (
     <div className="box-news">
-      <img src={news.titleToImage} alt="Portal EconoMundi" />
+      <img src={news.urlToImage} alt="Portal EconoMundi" />
       <span />
       <div className="box-news-source">
         <h2>{news.source}</h2>

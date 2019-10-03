@@ -19,6 +19,7 @@ class News extends Component {
       listNews: [],
       currentNews: "BRAZIL",
       currentPage: 0,
+      amountPage: 0,
       firstPage: true,
       lastPage: false
     };
@@ -29,16 +30,20 @@ class News extends Component {
 
     listNews = await this.getNewsBrazil();
 
-    this.setState({ listNews: listNews });
+    this.setState({
+      listNews: listNews.data,
+      amountPage: listNews.amountPage
+    });
   }
 
   increasePage = async () => {
-    const { currentNews } = this.state;
-    let listNews = [];
+    const { currentNews, currentPage, amountPage } = this.state;
+
+    let listNews;
 
     this.setState(
       {
-        currentPage: this.state.currentPage + 1
+        currentPage: currentPage + 1
       },
       async () => {
         if (currentNews === "BRAZIL") {
@@ -47,26 +52,22 @@ class News extends Component {
           listNews = await this.getNewsWorld();
         }
 
-        if (
-          !(
-            Object.entries(listNews).length === 0 &&
-            listNews.constructor === Object
-          )
-        ) {
-          this.setState({ listNews: listNews, firstPage: false });
-        } else {
+        if (currentPage >= amountPage - 1) {
           this.setState({
-            currentPage: this.state.currentPage - 1,
+            listNews: listNews.data,
             lastPage: true
           });
+        } else {
+          this.setState({ listNews: listNews.data, firstPage: false });
         }
       }
     );
   };
 
   decreasePage = () => {
-    const { currentNews } = this.state;
-    let listNews = [];
+    const { currentNews, currentPage, amountPage } = this.state;
+
+    let listNews;
 
     this.setState(
       {
@@ -79,18 +80,15 @@ class News extends Component {
           listNews = await this.getNewsWorld();
         }
 
-        if (
-          !(
-            Object.entries(listNews).length === 0 &&
-            listNews.constructor === Object
-          )
-        ) {
-          this.setState({ listNews: listNews, lastPage: false });
-        } else {
+        console.log(amountPage + " " + currentPage);
+
+        if (currentPage <= 1) {
           this.setState({
-            currentPage: this.state.currentPage + 1,
+            listNews: listNews.data,
             firstPage: true
           });
+        } else {
+          this.setState({ listNews: listNews.data, lastPage: false });
         }
       }
     );
@@ -136,7 +134,7 @@ class News extends Component {
   getNewsBrazil = async () => {
     const { currentPage } = this.state;
 
-    const response = await api.get(`/news/Brazil/${currentPage}`);
+    const response = await api.get(`/api/v1/news/Brazil/${currentPage}`);
 
     return response.data;
   };
@@ -144,7 +142,7 @@ class News extends Component {
   getNewsWorld = async () => {
     const { currentPage } = this.state;
 
-    const response = await api.get(`/news/World/${currentPage}`);
+    const response = await api.get(`/api/v1/news/World/${currentPage}`);
 
     return response.data;
   };
