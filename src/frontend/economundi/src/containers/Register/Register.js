@@ -130,7 +130,7 @@ class Register extends Component {
       const response = await api.post("/api/v1/public/create", {
         date_birth: dateBirth,
         date_hour_register: "",
-        economic_profile: "None",
+        economic_profile: "NONE",
         email: email,
         first_name: firstName,
         last_name: lastName,
