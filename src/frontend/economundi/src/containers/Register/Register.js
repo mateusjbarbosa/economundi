@@ -7,6 +7,12 @@ import api from "../../services/api";
 
 import "./register.scss";
 
+const register = {
+  WAIT: 0,
+  CREATED: 1,
+  ERROR: 2
+};
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +27,9 @@ class Register extends Component {
       confirmPassword: "",
 
       errors: [],
-      render: false
+      render: false,
+
+      statusRegister: register.WAIT
     };
   }
 
@@ -138,7 +146,43 @@ class Register extends Component {
         permission: "USER"
       });
 
-      window.history.back();
+      if (response.status === 201) {
+        this.setState({ statusRegister: register.CREATED });
+        window.scrollTo(0, 0);
+      } else {
+        this.setState({ statusRegister: register.ERROR });
+      }
+    }
+  };
+
+  renderStatusRegister = () => {
+    const { statusRegister } = this.state;
+    switch (statusRegister) {
+      case register.WAIT:
+        return <div></div>;
+
+      case register.CREATED:
+        return (
+          <div className="pop-up-green">
+            <h2>
+              Usuário criado com sucesso, ative sua conta através do e-mail que
+              enviamos!
+            </h2>
+          </div>
+        );
+
+      case register.ERROR:
+        return (
+          <div className="pop-up-red">
+            <h2>
+              Desculpe-nos, algo de errado aconteceu! Verifique os campos e
+              tente novamente, por favor!
+            </h2>
+          </div>
+        );
+
+      default:
+        return <div></div>;
     }
   };
 
@@ -147,7 +191,12 @@ class Register extends Component {
 
     return (
       <>
-        <h1>Cadastrar</h1>
+        <div className="register-title">
+          <h1>Cadastrar</h1>
+        </div>
+
+        {this.renderStatusRegister()}
+
         {render ? (
           <div className="register-validation">
             <p>Alguns campos estão errados:</p>
