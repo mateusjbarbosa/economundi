@@ -6,7 +6,6 @@ import com.backend.economundi.payload.EmailTemplates;
 import com.backend.economundi.payload.RecoveryRequest;
 import com.backend.economundi.repository.UserRepository;
 import com.backend.economundi.service.EmailService;
-import com.backend.economundi.util.JwtUtil;
 import com.backend.economundi.util.PasswordEncoder;
 import com.backend.economundi.util.Utils;
 import com.google.gson.Gson;
@@ -42,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class UserController {/*EndPoint e ponto final onde os usuarios vao acessar nossa api  */
 
+
     @Autowired
     private final PasswordEncoder passEncoder = null;
 
@@ -63,11 +63,10 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
 
     @GetMapping(path = "public/getlogin")
     public ResponseEntity getLogin() {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         Gson gson = new Gson();
-        String json = null;
+        String json;
+        
         //Cria um Objeto JSON
         JSONObject jsonObject = new JSONObject();
 
@@ -133,7 +132,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @GetMapping(path = "public/recovery/findByEmail/{email}")
     public ResponseEntity recovery(@PathVariable String email) throws MessagingException {
 
-        UserEntity user = new UserEntity();
+        UserEntity user;
 
         user = userDao.findByEmail(email);
         emailService.sendMail(user.getEmail(), "Redefinir Senha", emailTemplates.getTemplateRecovery(user));
@@ -144,7 +143,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @GetMapping(path = "public/recovery/findByToken/{token}")
     public ResponseEntity findUserByToken(@PathVariable String token) {
 
-        UserEntity user = new UserEntity();
+        UserEntity user;
 
         user = userDao.findByEmailVerificationToken(token);
 
@@ -158,7 +157,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @PostMapping(path = "public/recovery")
     public ResponseEntity recoveryPassword(@Valid RecoveryRequest recoveryRequest) {
 
-        UserEntity user = new UserEntity();
+        UserEntity user;
 
         user = userDao.findByEmailVerificationToken(recoveryRequest.getEmailVerificationToken());
         if (user != null) {
@@ -207,11 +206,11 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
         Timestamp dateSign_in = new Timestamp(timeStampMillis);
         newUser.setDate_hour_register(dateSign_in);
         newUser.setPassword(passwordEncoded);
-        
-        if(newUser.getPermission() == null){
+
+        if (newUser.getPermission() == null) {
             newUser.setPermission("USER");
         }
-        
+
         newUser.setEmailVerificationToken(utils.generatedEmailToken(60));
 
         newUser.setEconomic_profile("None");
