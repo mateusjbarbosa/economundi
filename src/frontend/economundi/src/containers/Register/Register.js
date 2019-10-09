@@ -121,7 +121,7 @@ class Register extends Component {
 
     const errors = await this.validate();
 
-    if (!errors) {
+    if (errors) {
       this.setState({ render: true, errors: errors });
     } else {
       const response = await api.post("/api/v1/public/create", {

@@ -159,7 +159,8 @@
       margin-bottom: 1%;
     }
 
-    &-user {
+    &-user,
+    &-user-error {
       display: flex;
       justify-content: space-between;
 
