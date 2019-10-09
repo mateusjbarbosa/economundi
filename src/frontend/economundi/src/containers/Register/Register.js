@@ -18,16 +18,16 @@ class Register extends Component {
     super(props);
 
     this.state = {
+      confirmEmail: "",
+      confirmPassword: "",
       dateBirth: "",
       email: "",
       firstName: "",
       lastName: "",
       password: "",
-      confirmEmail: "",
-      confirmPassword: "",
 
-      errors: [],
-      render: false,
+      error_credentials: false,
+      error_dataUser: false,
 
       statusRegister: register.WAIT
     };
@@ -86,45 +86,34 @@ class Register extends Component {
       confirmPassword
     } = this.state;
 
-    let errors = [];
+    let error = false;
 
-    if (firstName === "") {
-      errors.push("Nome");
+    this.setState({ error_credentials: false, error_dataUser: false });
+
+    if (firstName === "" || lastName === "" || dateBirth === "") {
+      error = true;
+
+      this.setState({ error_dataUser: true });
     }
 
-    if (lastName === "") {
-      errors.push("Sobrenome");
-    }
+    if (
+      email === "" ||
+      password === "" ||
+      confirmEmail === "" ||
+      confirmPassword === ""
+    ) {
+      error = true;
 
-    if (dateBirth === "") {
-      errors.push("Nascimento");
-    }
-
-    if (email === "") {
-      errors.push("E-mail");
-    }
-
-    if (!confirmEmail) {
-      errors.push("Confirmar e-mail");
+      this.setState({ error_credentials: true });
     } else {
-      if (confirmEmail !== email) {
-        errors.push("Confirmar e-mail");
+      if (email !== confirmEmail || password !== confirmPassword) {
+        error = true;
+
+        this.setState({ error_credentials: true });
       }
     }
 
-    if (password === "") {
-      errors.push("Senha");
-    }
-
-    if (!confirmPassword) {
-      errors.push("Confirmar senha");
-    } else {
-      if (confirmPassword !== password) {
-        errors.push("Confirmar senha");
-      }
-    }
-
-    return errors;
+    return error;
   };
 
   onRegisterSubmit = async e => {
@@ -185,72 +174,97 @@ class Register extends Component {
     }
   };
 
-  renderErrorsRegister = () => {
-    const { render, errors } = this.state;
-
-    return render ? (
-      <div className="register-validation">
-        <p>Alguns campos estão errados:</p>
-        <ul>
-          {errors.map(error => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul>
-      </div>
-    ) : (
-      <div></div>
-    );
-  };
-
   render() {
+    const { error_credentials, error_dataUser } = this.state;
+
     return (
       <>
         <div className="register-title">
           <h1>Cadastrar</h1>
         </div>
 
-        {this.renderErrorsRegister()}
-
         <div className="data">
           <h2>Seus dados</h2>
-          <div className="data-user">
-            <input
-              type="text"
-              onChange={this.onFirstNameChanged}
-              placeholder="Qual seu nome?"
-            />
-            <input
-              type="text"
-              onChange={this.onLastNameChanged}
-              placeholder="Qual o seu sobrenome?"
-            />
-            <input type="date" onChange={this.onBirthChanged} />
-          </div>
+          {error_dataUser ? (
+            <div className="data-user-error">
+              <input
+                type="text"
+                onChange={this.onFirstNameChanged}
+                placeholder="Qual seu nome?"
+              />
+              <input
+                type="text"
+                onChange={this.onLastNameChanged}
+                placeholder="Qual o seu sobrenome?"
+              />
+              <input type="date" onChange={this.onBirthChanged} />
+            </div>
+          ) : (
+            <div className="data-user">
+              <input
+                type="text"
+                onChange={this.onFirstNameChanged}
+                placeholder="Qual seu nome?"
+              />
+              <input
+                type="text"
+                onChange={this.onLastNameChanged}
+                placeholder="Qual o seu sobrenome?"
+              />
+              <input type="date" onChange={this.onBirthChanged} />
+            </div>
+          )}
 
-          <div className="data-credentials">
-            <h2>E-mail</h2>
-            <input
-              type="email"
-              onChange={this.onEmailChanged}
-              placeholder="Qual o seu e-mail?"
-            />
-            <input
-              type="email"
-              onChange={this.onConfirmEmailChanged}
-              placeholder="Confirme o seu e-mail!"
-            />
-            <h2>Senha</h2>
-            <input
-              type="password"
-              onChange={this.onPassChanged}
-              placeholder="Insira uma senha!"
-            />
-            <input
-              type="password"
-              onChange={this.onConfirmPassChanged}
-              placeholder="Repita, por favor!"
-            />
-          </div>
+          <h2>E-mail</h2>
+          {error_credentials ? (
+            <div className="data-credentials-error">
+              <input
+                type="email"
+                onChange={this.onEmailChanged}
+                placeholder="Qual o seu e-mail?"
+              />
+              <input
+                type="email"
+                onChange={this.onConfirmEmailChanged}
+                placeholder="Confirme o seu e-mail!"
+              />
+              <h2>Senha</h2>
+              <input
+                type="password"
+                onChange={this.onPassChanged}
+                placeholder="Insira uma senha!"
+              />
+              <input
+                type="password"
+                onChange={this.onConfirmPassChanged}
+                placeholder="Repita, por favor!"
+              />
+            </div>
+          ) : (
+            <div className="data-credentials">
+              <input
+                type="email"
+                onChange={this.onEmailChanged}
+                placeholder="Qual o seu e-mail?"
+              />
+              <input
+                type="email"
+                onChange={this.onConfirmEmailChanged}
+                placeholder="Confirme o seu e-mail!"
+              />
+              <h2>Senha</h2>
+              <input
+                type="password"
+                onChange={this.onPassChanged}
+                placeholder="Insira uma senha!"
+              />
+              <input
+                type="password"
+                onChange={this.onConfirmPassChanged}
+                placeholder="Repita, por favor!"
+              />
+            </div>
+          )}
 
           <div className="register-social">
             <p>Ou então cadastre-se pelo:</p>
