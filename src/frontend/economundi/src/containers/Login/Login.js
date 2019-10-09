@@ -39,13 +39,14 @@ class Login extends Component {
   render() {
     return (
       <>
-        <h1>Login</h1>
+        <div className="login-title">
+          <h1>Login</h1>
+        </div>
 
         <div className="login">
           <h2>E-mail:</h2>
           <input
             type="email"
-            className="input"
             onChange={this.onEmailChanged}
             placeholder="Qual o seu e-mail?"
           />
@@ -53,16 +54,11 @@ class Login extends Component {
           <h2>Senha:</h2>
           <input
             type="password"
-            className="input"
             onChange={this.onPassChanged}
             placeholder="Insira uma senha!"
           />
 
-          <button
-            type="submit"
-            className="btn-login"
-            onClick={this.onLoginSubmit}
-          >
+          <button type="submit" onClick={this.onLoginSubmit}>
             Logar
           </button>
 
