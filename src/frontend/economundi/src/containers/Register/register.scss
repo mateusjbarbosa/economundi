@@ -1,30 +1,15 @@
 @import "../../styles/color-pallete.scss";
 
+.register-title {
+  position: absolute;
+  top: 10%;
+}
+
 .data {
   width: 90vw;
-
-  margin-top: 5%;
+  margin-top: 15%;
 
   color: $color-text-primary;
-
-  & input {
-    width: 98%;
-    height: 3em;
-
-    margin-top: 0.5em;
-    margin-bottom: 1.5em;
-    padding-left: 2%;
-
-    border: none;
-    border-radius: 0.5em;
-    outline: none;
-
-    font-weight: 600;
-
-    &::placeholder {
-      font-size: 0.8em;
-    }
-  }
 
   & button {
     width: 100%;
@@ -45,6 +30,54 @@
   }
 }
 
+.data-user,
+.data-credentials {
+  & input {
+    width: 98%;
+    height: 3em;
+
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 2%;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+
+    color: black;
+
+    &::placeholder {
+      font-size: 0.8em;
+    }
+  }
+}
+
+.data-user-error,
+.data-credentials-error {
+  & input {
+    width: 98%;
+    height: 3em;
+
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 2%;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+
+    color: red;
+
+    &::placeholder {
+      font-size: 0.8em;
+    }
+  }
+}
+
 .register-social {
   width: 90vw;
 
@@ -61,17 +94,17 @@
   width: 85vw;
   padding: 0.5em;
 
-  margin-top: 5%;
+  margin-top: 15%;
 
   font-weight: 600;
   text-align: center;
 
   border-radius: 0.5em;
 
-  background: #fff;
+  background: $color-component-primary;
 
   & ul {
-    margin-top: 5%;
+    margin-top: 2%;
 
     list-style-type: none;
 
@@ -81,9 +114,57 @@
   }
 }
 
+.pop-up-green,
+.pop-up-red {
+  width: 85vw;
+  padding: 0.5em;
+
+  margin-top: 0%;
+  margin-bottom: 5%;
+
+  font-weight: 600;
+  text-align: center;
+
+  border-radius: 0.5em;
+
+  & h2 {
+    font-size: 1em;
+
+    color: $color-text-primary;
+  }
+}
+
+.pop-up-green {
+  background: green;
+}
+
+.pop-up-red {
+  background: red;
+}
+
 @media screen and (min-width: 768px) {
+  .register-title {
+    top: 3%;
+  }
+
   .data {
     width: 70vw;
+
+    margin-top: 8%;
+
+    & button {
+      margin-top: 2%;
+      margin-bottom: 1%;
+    }
+
+    &-user {
+      display: flex;
+      justify-content: space-between;
+
+      & input {
+        width: 30%;
+      }
+    }
   }
 
   .register-social {
@@ -98,7 +179,29 @@
     }
   }
 
+  .register-validation,
+  .pop-up-green,
+  .pop-up-red {
+    width: 60vw;
+
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   .register-validation {
-    width: 70vw;
+    margin-top: 15%;
+  }
+
+  .pop-up-green,
+  .pop-up-red {
+    & h2 {
+      font-size: 1em;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .data {
+    margin-top: 5%;
   }
 }
