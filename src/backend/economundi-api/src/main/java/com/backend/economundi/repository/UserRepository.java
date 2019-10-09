@@ -5,20 +5,12 @@
  */
 package com.backend.economundi.repository;
 
-
 import com.backend.economundi.database.dao.entity.UserEntity;
-import java.util.List;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-/**
- *
- * @author Alexandre
- */
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
    
     UserEntity findByEmail(String email); 
     
     UserEntity findByEmailVerificationToken(String token);
-   
 }
