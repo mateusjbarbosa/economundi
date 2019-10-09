@@ -148,7 +148,6 @@ class Register extends Component {
 
       if (response.status === 201) {
         this.setState({ statusRegister: register.CREATED });
-        window.scrollTo(0, 0);
       } else {
         this.setState({ statusRegister: register.ERROR });
       }
@@ -210,8 +209,6 @@ class Register extends Component {
           <h1>Cadastrar</h1>
         </div>
 
-        {this.renderStatusRegister()}
-
         {this.renderErrorsRegister()}
 
         <div className="data">
@@ -265,6 +262,8 @@ class Register extends Component {
             Cadastrar
           </button>
         </div>
+
+        {this.renderStatusRegister()}
       </>
     );
   }
