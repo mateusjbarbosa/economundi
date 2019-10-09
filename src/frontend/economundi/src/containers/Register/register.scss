@@ -8,7 +8,7 @@
 .data {
   width: 90vw;
 
-  margin-top: 10%;
+  margin-top: 15%;
 
   color: $color-text-primary;
 
@@ -17,7 +17,7 @@
     height: 3em;
 
     margin-top: 0.5em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
     padding-left: 2%;
 
     border: none;
@@ -124,11 +124,22 @@
 
 @media screen and (min-width: 768px) {
   .register-title {
-    top: 5%;
+    top: 3%;
   }
 
   .data {
     width: 70vw;
+
+    margin-top: 10%;
+
+    &-user {
+      display: flex;
+      justify-content: space-between;
+
+      & input {
+        width: 30%;
+      }
+    }
   }
 
   .register-social {
@@ -147,5 +158,11 @@
   .pop-up-green,
   .pop-up-red {
     width: 70vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .data {
+    margin-top: 5%;
   }
 }

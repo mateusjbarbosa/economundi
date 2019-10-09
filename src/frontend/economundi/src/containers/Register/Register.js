@@ -186,9 +186,24 @@ class Register extends Component {
     }
   };
 
-  render() {
+  renderErrorsRegister = () => {
     const { render, errors } = this.state;
 
+    return render ? (
+      <div className="register-validation">
+        <p>Alguns campos estão errados:</p>
+        <ul>
+          {errors.map(error => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <div></div>
+    );
+  };
+
+  render() {
     return (
       <>
         <div className="register-title">
@@ -197,57 +212,48 @@ class Register extends Component {
 
         {this.renderStatusRegister()}
 
-        {render ? (
-          <div className="register-validation">
-            <p>Alguns campos estão errados:</p>
-            <ul>
-              {errors.map(error => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div></div>
-        )}
+        {this.renderErrorsRegister()}
+
         <div className="data">
-          <h2>Nome:</h2>
-          <input
-            type="text"
-            onChange={this.onFirstNameChanged}
-            placeholder="Qual seu nome?"
-          />
-          <h2>Sobrenome:</h2>
-          <input
-            type="text"
-            onChange={this.onLastNameChanged}
-            placeholder="Qual o seu sobrenome?"
-          />
-          <h2>Nascimento:</h2>
-          <input type="date" onChange={this.onBirthChanged} />
-          <h2>E-mail:</h2>
-          <input
-            type="email"
-            onChange={this.onEmailChanged}
-            placeholder="Qual o seu e-mail?"
-          />
-          <h2>Confirmar e-mail:</h2>
-          <input
-            type="email"
-            onChange={this.onConfirmEmailChanged}
-            placeholder="Confirme o seu e-mail!"
-          />
-          <h2>Senha:</h2>
-          <input
-            type="password"
-            onChange={this.onPassChanged}
-            placeholder="Insira uma senha!"
-          />
-          <h2>Confirmar senha:</h2>
-          <input
-            type="password"
-            onChange={this.onConfirmPassChanged}
-            placeholder="Repita, por favor!"
-          />
+          <h2>Seus dados</h2>
+          <div className="data-user">
+            <input
+              type="text"
+              onChange={this.onFirstNameChanged}
+              placeholder="Qual seu nome?"
+            />
+            <input
+              type="text"
+              onChange={this.onLastNameChanged}
+              placeholder="Qual o seu sobrenome?"
+            />
+            <input type="date" onChange={this.onBirthChanged} />
+          </div>
+
+          <div className="data-credentials">
+            <h2>E-mail</h2>
+            <input
+              type="email"
+              onChange={this.onEmailChanged}
+              placeholder="Qual o seu e-mail?"
+            />
+            <input
+              type="email"
+              onChange={this.onConfirmEmailChanged}
+              placeholder="Confirme o seu e-mail!"
+            />
+            <h2>Senha</h2>
+            <input
+              type="password"
+              onChange={this.onPassChanged}
+              placeholder="Insira uma senha!"
+            />
+            <input
+              type="password"
+              onChange={this.onConfirmPassChanged}
+              placeholder="Repita, por favor!"
+            />
+          </div>
 
           <div className="register-social">
             <p>Ou então cadastre-se pelo:</p>
