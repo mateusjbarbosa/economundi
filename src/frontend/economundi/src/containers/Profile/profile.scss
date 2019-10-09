@@ -1,0 +1,97 @@
+@import "../../styles/color-pallete.scss";
+
+* {
+  text-decoration: none;
+}
+
+.profile-title {
+  position: absolute;
+  top: 10%;
+}
+
+.profile-box-login {
+  width: 80vw;
+  height: 30vh;
+
+  margin-top: 10%;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-secundary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
+}
+
+.profile-box-register {
+  width: 80vw;
+  height: 30vh;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-primary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
+}
+
+.profile-box-my-data {
+  width: 80vw;
+  height: 30vh;
+
+  margin-top: 10%;
+  margin-left: 5%;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-secundary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
+}
+
+.profile-box-my-api {
+  width: 80vw;
+  height: 30vh;
+
+  margin-left: 5%;
+
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: $color-primary;
+
+  background: $color-component-primary;
+
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-box-login {
+    width: 50vw;
+
+    margin-top: 20%;
+  }
+
+  .profile-box-register {
+    width: 50vw;
+  }
+}

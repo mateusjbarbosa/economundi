@@ -1,3 +1,17 @@
+/src/backend/economundi-database/target/
+/.metadata/
+
+src/backend/economundi-database/.classpath
+
+src/backend/economundi-database/.project
+
+src/backend/economundi-database/.settings/org.eclipse.core.resources.prefs
+
+src/backend/economundi-database/.settings/org.eclipse.jdt.core.prefs
+
+src/backend/economundi-database/.settings/org.eclipse.m2e.core.prefs
+
+src/backend/economundi-api/target/
 
 *.bak
 

@@ -1,0 +1,121 @@
+@import "../../styles/color-pallete.scss";
+
+h1 {
+  color: $color-text-primary;
+}
+
+.news-area-selector {
+  position: absolute;
+  top: 10%;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.news-title {
+  position: absolute;
+  top: 18%;
+}
+
+.news-paginator {
+  position: absolute;
+  top: 30%;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.news-btn-prev,
+.news-btn-next {
+  width: 10%;
+}
+
+.news-container {
+  width: 80%;
+
+  margin-top: 50%;
+}
+
+@media screen and (min-width: 375px) {
+  .news-container {
+    margin-top: 45%;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .news-container {
+    margin-top: 40%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .news-area-selector {
+    top: 5%;
+    right: 7%;
+
+    width: 40%;
+
+    justify-content: flex-end;
+  }
+
+  .news-title {
+    top: 5%;
+    left: 15%;
+  }
+
+  .news-paginator {
+    top: 12%;
+    right: 7%;
+
+    width: 40%;
+
+    justify-content: flex-end;
+  }
+
+  .news-container {
+    width: 90%;
+
+    margin-top: 15%;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "box" "box" "box";
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .news-title {
+    position: absolute;
+    top: 5%;
+  }
+
+  .news-container {
+    width: 90%;
+
+    margin-top: 8%;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "box" "box" "box";
+  }
+}
+
+@media screen and (min-width: 1125px) {
+  .news-area-selector {
+    width: 30%;
+  }
+
+  .news-paginator {
+    top: 14%;
+
+    width: 30%;
+  }
+}

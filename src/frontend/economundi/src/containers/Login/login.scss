@@ -1,0 +1,135 @@
+@import "../../styles/color-pallete.scss";
+
+.login {
+  width: 90vw;
+
+  margin-top: -25%;
+
+  color: $color-text-primary;
+
+  & a {
+    width: 90vw;
+
+    margin-bottom: 5%;
+
+    font-size: 0.8em;
+
+    color: $color-text-primary;
+
+    cursor: pointer;
+  }
+}
+
+.input {
+  width: 98%;
+  height: 3em;
+
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  padding-left: 2%;
+
+  border: none;
+  border-radius: 0.5em;
+  outline: none;
+
+  font-weight: 600;
+
+  &::placeholder {
+    font-size: 0.8em;
+  }
+}
+
+.btn-login {
+  width: 70%;
+  height: 3em;
+
+  border: none;
+  border-radius: 0.5em;
+  outline: none;
+
+  font-weight: 600;
+  text-transform: uppercase;
+
+  background: $color-primary;
+  color: $color-text-primary;
+}
+
+.login-social {
+  width: 90vw;
+
+  margin-top: -13%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  & img {
+    width: 12%;
+
+    margin-right: 1vw;
+
+    cursor: pointer;
+  }
+}
+
+.link-reminder {
+  width: 90vw;
+
+  margin-top: -25%;
+  margin-bottom: 5%;
+
+  font-size: 0.8em;
+
+  color: $color-text-primary;
+
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .login {
+    width: 70vw;
+  }
+
+  .login-social {
+    width: 70vw;
+
+    margin-top: -7.6%;
+
+    & img {
+      width: 7.5%;
+
+      margin-right: 1vw;
+
+      cursor: pointer;
+    }
+  }
+
+  .link-reminder {
+    width: 70vw;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .login {
+    margin-top: -15%;
+  }
+  .btn-login {
+    width: 85%;
+  }
+
+  .login-social {
+    width: 70vw;
+    margin-top: -4%;
+
+    & img {
+      width: 4%;
+
+      margin-right: 1vw;
+
+      cursor: pointer;
+    }
+  }
+
+  .link-reminder {
+    margin-top: -20%;
+  }
+}

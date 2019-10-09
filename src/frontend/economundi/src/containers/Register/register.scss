@@ -1,0 +1,104 @@
+@import "../../styles/color-pallete.scss";
+
+.data {
+  width: 90vw;
+
+  margin-top: 5%;
+
+  color: $color-text-primary;
+
+  & input {
+    width: 98%;
+    height: 3em;
+
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+    padding-left: 2%;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+
+    &::placeholder {
+      font-size: 0.8em;
+    }
+  }
+
+  & button {
+    width: 100%;
+    height: 3em;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    border: none;
+    border-radius: 0.5em;
+    outline: none;
+
+    font-weight: 600;
+    text-transform: uppercase;
+
+    background: $color-primary;
+    color: $color-text-primary;
+  }
+}
+
+.register-social {
+  width: 90vw;
+
+  display: flex;
+  justify-content: center;
+
+  & img {
+    width: 10%;
+    margin-left: 2%;
+  }
+}
+
+.register-validation {
+  width: 85vw;
+  padding: 0.5em;
+
+  margin-top: 5%;
+
+  font-weight: 600;
+  text-align: center;
+
+  border-radius: 0.5em;
+
+  background: #fff;
+
+  & ul {
+    margin-top: 5%;
+
+    list-style-type: none;
+
+    & li {
+      margin-top: 2%;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .data {
+    width: 70vw;
+  }
+
+  .register-social {
+    width: 70vw;
+
+    display: flex;
+    justify-content: center;
+
+    & img {
+      width: 6%;
+      margin-left: 2%;
+    }
+  }
+
+  .register-validation {
+    width: 70vw;
+  }
+}

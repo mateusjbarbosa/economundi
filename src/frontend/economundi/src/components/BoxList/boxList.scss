@@ -1,0 +1,57 @@
+@import "../../styles/color-pallete.scss";
+@import "../../styles/tags.scss";
+
+.box-list {
+  width: 100%;
+  height: 30vh;
+
+  margin-top: 5%;
+  padding-top: 2%;
+
+  border-radius: 1em;
+
+  background: $color-component-primary;
+
+  &-content {
+    margin-top: 5%;
+
+    & p {
+      text-align: center;
+    }
+  }
+
+  &-item {
+    padding: 1.5%;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    color: $color-primary;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .box-list {
+    width: 35vw;
+    height: 40vh;
+
+    margin-top: 0;
+
+    &-content {
+      text-align: left;
+      margin-left: 2%;
+      font-size: 1.25em;
+    }
+
+    &-list {
+      padding-top: 5%;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      color: $color-primary;
+    }
+  }
+}

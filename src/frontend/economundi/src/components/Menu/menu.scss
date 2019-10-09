@@ -1,0 +1,41 @@
+@import "../../styles/color-pallete.scss";
+
+.menu {
+  grid-area: "menu";
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: $color-secundary;
+
+  & a {
+    color: $color-text-default;
+
+    text-decoration: none;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+
+  & img {
+    width: 10vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .menu {
+    flex-direction: column;
+
+    & img {
+      width: 8vw;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .menu img {
+    width: 6vw;
+  }
+}
