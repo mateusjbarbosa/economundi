@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import api from "../../services/api";
 
+import AvatarIcon from "../../img/avatar-default.png";
+
 import "./profile.scss";
 
 class Profile extends Component {
@@ -31,7 +33,8 @@ class Profile extends Component {
       });
 
       this.setState({
-        greeting: `Olá, ${response.data.FirstName}!`
+        greeting: `Olá, ${response.data.FirstName}!`,
+        userLogged: true
       });
     }
   };
@@ -46,17 +49,23 @@ class Profile extends Component {
 
         {userLogged ? (
           <>
-            <Link to="/perfil/dados">
-              <div className="profile-box-my-data">
-                <h2>Meus dados</h2>
-              </div>
-            </Link>
+            <div className="profile-photo">
+              <img src={AvatarIcon} alt="Sua foto de perfil" />
+            </div>
 
-            <Link to="/perfil/perfil-economico">
-              <div className="profile-box-my-api">
-                <h2>Meu perfil econômico</h2>
-              </div>
-            </Link>
+            <div className="profile-cards">
+              <Link to="/perfil/dados">
+                <div className="profile-box-my-data">
+                  <h2>Meus dados</h2>
+                </div>
+              </Link>
+
+              <Link to="/perfil/perfil-economico">
+                <div className="profile-box-my-api">
+                  <h2>Meu perfil econômico</h2>
+                </div>
+              </Link>
+            </div>
           </>
         ) : (
           <>

@@ -13,7 +13,11 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+
       error_login: false,
+
+      loading: false,
+
       statusLogin: true
     };
   }
@@ -47,96 +51,108 @@ class Login extends Component {
   };
 
   onLoginSubmit = async e => {
-    const errors = await this.validate();
+    this.setState({ loading: true }, async () => {
+      const errors = await this.validate();
 
-    if (!errors) {
-      const response = await api.post("/login", {
-        email: this.state.email,
-        password: this.state.password
-      });
+      if (!errors) {
+        const response = await api.post("/login", {
+          email: this.state.email,
+          password: this.state.password
+        });
 
-      if (response.status === 200) {
-        localStorage.setItem("tokenUser", response.data);
+        if (response.status === 200) {
+          localStorage.setItem("tokenUser", response.data);
 
-        window.history.back();
+          this.setState({ loading: false });
+
+          window.history.back();
+        } else {
+          this.setState({ statusLogin: false, loading: false });
+        }
       } else {
-        this.setState({ statusLogin: false });
+        this.setState({ loading: false });
       }
-    }
+    });
   };
 
   render() {
-    const { error_login, statusLogin } = this.state;
+    const { error_login, statusLogin, loading } = this.state;
 
     return (
       <>
-        <div className="login-title">
-          <h1>Login</h1>
-        </div>
-
-        {error_login ? (
-          <div className="login-error">
-            <h2>E-mail:</h2>
-            <input
-              type="email"
-              onChange={this.onEmailChanged}
-              placeholder="Qual o seu e-mail?"
-            />
-
-            <h2>Senha:</h2>
-            <input
-              type="password"
-              onChange={this.onPassChanged}
-              placeholder="Insira uma senha!"
-            />
-
-            <button type="submit" onClick={this.onLoginSubmit}>
-              Logar
-            </button>
-
-            <div className="login-social">
-              <img src={FacebookIcon} alt="Facebook" />
-              <img src={GoogleIcon} alt="Google" />
-            </div>
-          </div>
+        {loading ? (
+          <h1>Enviando sua requisição...</h1>
         ) : (
-          <div className="login">
-            <h2>E-mail:</h2>
-            <input
-              type="email"
-              onChange={this.onEmailChanged}
-              placeholder="Qual o seu e-mail?"
-            />
-
-            <h2>Senha:</h2>
-            <input
-              type="password"
-              onChange={this.onPassChanged}
-              placeholder="Insira uma senha!"
-            />
-
-            <button type="submit" onClick={this.onLoginSubmit}>
-              Logar
-            </button>
-
-            <div className="login-social">
-              <img src={FacebookIcon} alt="Facebook" />
-              <img src={GoogleIcon} alt="Google" />
+          <>
+            <div className="login-title">
+              <h1>Login</h1>
             </div>
-          </div>
-        )}
 
-        {!statusLogin ? (
-          <div className="pop-up-red">
-            <h2>Login não encontrado, tente novamente!</h2>
-          </div>
-        ) : (
-          <div></div>
-        )}
+            {error_login ? (
+              <div className="login-error">
+                <h2>E-mail:</h2>
+                <input
+                  type="email"
+                  onChange={this.onEmailChanged}
+                  placeholder="Qual o seu e-mail?"
+                />
 
-        <a href="/login" className="link-reminder">
-          Esqueceu a senha? Relaxa, recupere-a aqui!
-        </a>
+                <h2>Senha:</h2>
+                <input
+                  type="password"
+                  onChange={this.onPassChanged}
+                  placeholder="Insira uma senha!"
+                />
+
+                <button type="submit" onClick={this.onLoginSubmit}>
+                  Logar
+                </button>
+
+                <div className="login-social">
+                  <img src={FacebookIcon} alt="Facebook" />
+                  <img src={GoogleIcon} alt="Google" />
+                </div>
+              </div>
+            ) : (
+              <div className="login">
+                <h2>E-mail:</h2>
+                <input
+                  type="email"
+                  onChange={this.onEmailChanged}
+                  placeholder="Qual o seu e-mail?"
+                />
+
+                <h2>Senha:</h2>
+                <input
+                  type="password"
+                  onChange={this.onPassChanged}
+                  placeholder="Insira uma senha!"
+                />
+
+                <button type="submit" onClick={this.onLoginSubmit}>
+                  Logar
+                </button>
+
+                <div className="login-social">
+                  <img src={FacebookIcon} alt="Facebook" />
+                  <img src={GoogleIcon} alt="Google" />
+                </div>
+              </div>
+            )}
+
+            {!statusLogin ? (
+              <div className="pop-up-red">
+                <h2>Login não encontrado, tente novamente!</h2>
+              </div>
+            ) : (
+              <div></div>
+            )}
+
+            <a href="/login" className="link-reminder">
+              Esqueceu a senha? Relaxa, recupere-a aqui!
+            </a>
+          </>
+        )}
       </>
     );
   }
