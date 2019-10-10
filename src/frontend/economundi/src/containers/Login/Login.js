@@ -55,8 +55,6 @@ class Login extends Component {
         password: this.state.password
       });
 
-      console.log(response);
-
       if (response.status === 200) {
         localStorage.setItem("tokenUser", response.data);
 
