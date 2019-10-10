@@ -35,13 +35,14 @@ public class ValidateUserService {
     private Utils utils;
 
     public boolean verifyEmailExists(String email) {
+        
         UserEntity newUser = userDao.findByEmail(email);
-
-        if (email.equalsIgnoreCase(newUser.getEmail())) {
+        
+        if(newUser == null){
+            return false;
+        }else{
             return true;
-        }
-
-        return false;
+        }       
     }
 
     public UserEntity prepareNewUser(UserEntity newUser) {
@@ -91,10 +92,12 @@ public class ValidateUserService {
         UserEntity user = userDao.findByEmail(username);
 
         //Armazena dados em um Objeto JSON
+        jsonObject.put("id",user.getId());
         jsonObject.put("email", user.getEmail());
         jsonObject.put("permission", user.getPermission());
         jsonObject.put("Firstname", user.getFirst_name());
         jsonObject.put("LastName", user.getLast_name());
+        jsonObject.put("birth",user.getDate_birth());
 
         //converte Object para json
         json = gson.toJson(jsonObject);
