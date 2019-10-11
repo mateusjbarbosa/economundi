@@ -88,7 +88,7 @@ create table investment (
     id serial primary key,
     name character varying (50) unique NOT NULL,
     description text NOT NULL,
-    _group character varying (50) NOT NULL, -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IR�O EXISTIR
+    _group character varying (50) NOT NULL, -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IRÃO EXISTIR
     period integer NOT NULL,
     yield double precision NOT NULL
 );
@@ -102,7 +102,7 @@ create table quote (
     id serial primary key,
     data_hour timestamp without time zone unique NOT NULL default now(),
     buy money check (buy >= 0::money) NOT NULL,
-    sell money check (sell >= 0::money) NOT NULL,
+    sell money check (sell >= 0::money),
     variation double precision NOT NULL
 );
 
