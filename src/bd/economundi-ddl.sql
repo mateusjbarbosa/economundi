@@ -103,7 +103,9 @@ create table quote (
     data_hour timestamp without time zone unique NOT NULL default now(),
     buy money check (buy >= 0::money) NOT NULL,
     sell money check (sell >= 0::money),
-    variation double precision NOT NULL
+    variation double precision NOT NULL,
+    currency_id integer references currency(id) on update cascade,
+    unique(currency_id, data_hour)
 );
 
 create table simulation (
