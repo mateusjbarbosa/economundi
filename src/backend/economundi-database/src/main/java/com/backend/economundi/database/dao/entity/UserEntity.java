@@ -28,23 +28,23 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "O EMAIL NÃO PODE SER NULL")
+    @NotEmpty(message = "O EMAIL NÃO PODE SER VAZIO")
     @Email(message = "O EMAIL NÃO É VALIDO")
     @Column(unique = true)
     private String email;
 
-    @NotEmpty(message = "O CAMPO FIRSTNAME NÃO PODE SER NULL")
+    @NotEmpty(message = "O CAMPO FIRSTNAME NÃO PODE SER VAZIO")
     private String first_name;
 
-    @NotEmpty(message = "O CAMPO LASTNAME NÃO PODE NULL")
+    @NotEmpty(message = "O CAMPO LASTNAME NÃO PODE VAZIO")
     private String last_name;
 
-    @NotEmpty(message = "O CAMPO SENHA NÃO PODE SER NULL")    
+    @NotEmpty(message = "O CAMPO SENHA NÃO PODE SER VAZIO")    
     private String password;
 
     private Date date_birth;
 
-    @NotEmpty(message = "O CAMPO PERMISSION NÃO PODE SER NULL")
+    @NotEmpty(message = "O CAMPO PERMISSION NÃO PODE SER VAZIO")
     private String permission;
 
     private String economic_profile;
@@ -52,6 +52,8 @@ public class UserEntity {
     private String emailVerificationToken;
 
     private Timestamp date_hour_register;
+    
+    private String profile_picture;
 
     public Long getId() {
         return id;
@@ -132,5 +134,15 @@ public class UserEntity {
     public void setDate_hour_register(Timestamp date_hour_register) {
         this.date_hour_register = date_hour_register;
     }
+
+    public String getProfile_picture() {
+        return profile_picture;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
+    }
+    
+    
 
 }
