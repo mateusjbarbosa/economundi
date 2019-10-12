@@ -6,6 +6,8 @@ import com.backend.economundi.database.dao.entity.coin.Currencies;
 import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
 import com.backend.economundi.database.dao.impl.CurrencyDao;
 import com.backend.economundi.database.dao.impl.QuoteDao;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CurrencyService {
 
@@ -22,12 +24,48 @@ public class CurrencyService {
 
         checkExistence(currencies);
 
+        // Peso Argentino.
         currency.setBuy(currencies.getARS().getBuy());
         currency.setSell(currencies.getARS().getSell());
         currency.setVariation(currencies.getARS().getVariation());
         currency.setId(currencies.getARS().getId());
         quoteDao.create(currency);
 
+        // Bitcoin.
+        currency.setBuy(currencies.getBTC().getBuy());
+        currency.setSell(currencies.getBTC().getSell());
+        currency.setVariation(currencies.getBTC().getVariation());
+        currency.setId(currencies.getBTC().getId());
+        quoteDao.create(currency);
+
+        // Euro.
+        currency.setBuy(currencies.getEUR().getBuy());
+        currency.setSell(currencies.getEUR().getSell());
+        currency.setVariation(currencies.getEUR().getVariation());
+        currency.setId(currencies.getEUR().getId());
+        quoteDao.create(currency);
+
+        // Libra Esterlina.
+        currency.setBuy(currencies.getGBP().getBuy());
+        currency.setSell(currencies.getGBP().getSell());
+        currency.setVariation(currencies.getGBP().getVariation());
+        currency.setId(currencies.getGBP().getId());
+        quoteDao.create(currency);
+
+        // Dólar.
+        currency.setBuy(currencies.getUSD().getBuy());
+        currency.setSell(currencies.getUSD().getSell());
+        currency.setVariation(currencies.getUSD().getVariation());
+        currency.setId(currencies.getUSD().getId());
+        quoteDao.create(currency);
+    }
+
+    public Map<String, Object> getIndexes() {
+        Map<String, Object> indexes = new HashMap<>();
+
+        indexes.put("currencies", quoteDao.readQuote());
+
+        return indexes;
     }
 
     /**
@@ -51,7 +89,7 @@ public class CurrencyService {
             currencies.getARS().setId(currency.getId());
         }
 
-        if (currency.getSell() == null) {
+        if (currencies.getARS().getSell() == null) {
             currencies.getARS().setSell(0F);
         }
 
@@ -69,7 +107,7 @@ public class CurrencyService {
             currencies.getBTC().setId(currency.getId());
         }
 
-        if (currency.getSell() == null) {
+        if (currencies.getBTC().getSell() == null) {
             currencies.getBTC().setSell(0F);
         }
 
@@ -87,7 +125,7 @@ public class CurrencyService {
             currencies.getEUR().setId(currency.getId());
         }
 
-        if (currency.getSell() == null) {
+        if (currencies.getEUR().getSell() == null) {
             currencies.getEUR().setSell(0F);
         }
 
@@ -105,7 +143,7 @@ public class CurrencyService {
             currencies.getGBP().setId(currency.getId());
         }
 
-        if (currency.getSell() == null) {
+        if (currencies.getGBP().getSell() == null) {
             currencies.getGBP().setSell(0F);
         }
 
@@ -123,7 +161,7 @@ public class CurrencyService {
             currencies.getUSD().setId(currency.getId());
         }
 
-        if (currency.getSell() == null) {
+        if (currencies.getUSD().getSell() == null) {
             currencies.getUSD().setSell(0F);
         }
     }

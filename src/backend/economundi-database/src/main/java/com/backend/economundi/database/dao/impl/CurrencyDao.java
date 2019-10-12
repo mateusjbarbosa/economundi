@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,7 +35,7 @@ public class CurrencyDao implements ICurrencyDao {
 
             stmt.setString(1, entity.getName());
             rs = stmt.executeQuery();
-            
+
             if (rs.next()) {
                 entity.setId(rs.getLong(ID));
             }
@@ -128,7 +130,7 @@ public class CurrencyDao implements ICurrencyDao {
             stmt.setString(1, entity.getName());
             stmt.setLong(2, entity.getId());
             stmt.execute();
-            
+
             conn.commit();
         } catch (SQLException ex) {
             try {
@@ -162,15 +164,14 @@ public class CurrencyDao implements ICurrencyDao {
 
     @Override
     public CurrencyGeneric readByName(String name) {
-        String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'" +
-                name + "'";
+        String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'"
+                + name + "'";
         CurrencyGeneric currency = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
             conn = ConnectionFactory.getConnection();
-            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
             rs = stmt.executeQuery();
@@ -210,6 +211,57 @@ public class CurrencyDao implements ICurrencyDao {
         }
 
         return currency;
+    }
+
+    @Override
+    public List<CurrencyGeneric> readAll() {
+        String sql = "SELECT * FROM " + ENTITY;
+        List<CurrencyGeneric> currencyList = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CurrencyGeneric currency = new CurrencyGeneric();
+
+                currency.setId(rs.getLong(ID));
+                currency.setName(rs.getString(NAME));
+                currencyList.add(currency);
+            }
+        } catch (SQLException ex) {
+
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
+        
+        return currencyList;
     }
 
 }

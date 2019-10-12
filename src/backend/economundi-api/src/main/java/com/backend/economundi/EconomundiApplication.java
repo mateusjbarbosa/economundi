@@ -24,7 +24,7 @@ public class EconomundiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
-        
+
     }
 
     @Scheduled(fixedDelay = HORA)
@@ -32,17 +32,15 @@ public class EconomundiApplication {
         SimpleDateFormat sdf = new SimpleDateFormat("hh a");
         ApiNewsConsumer api = new ApiNewsConsumer();
 
-        //api.refreshNews();
-        
+        api.refreshNews();
+
         Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
         String initials = sdf.format(new Date()).split(" ")[1];
-        
-        if ((initials.equals("AM") && hour >= 10) ||
-                (initials.equals("PM") && hour <= 6)) {
-            
+
+        if ((initials.equals("AM") && hour >= 10)
+                || (initials.equals("PM") && hour <= 6)) {
+            ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
+            apiIdx.getCurrencies();
         }
-        
-        ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
-        apiIdx.getCurrencies();
     }
 }
