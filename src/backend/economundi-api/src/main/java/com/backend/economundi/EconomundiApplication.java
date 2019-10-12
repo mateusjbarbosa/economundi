@@ -1,7 +1,10 @@
 package com.backend.economundi;
 
+import com.backend.economundi.consumer.ApiIndexesConsumer;
 import com.backend.economundi.consumer.ApiNewsConsumer;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,14 +24,23 @@ public class EconomundiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EconomundiApplication.class, args);
-        
+
     }
 
     @Scheduled(fixedDelay = HORA)
     public void reportCurrentTime() throws IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh a");
         ApiNewsConsumer api = new ApiNewsConsumer();
 
         api.refreshNews();
-    }
 
+        Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
+        String initials = sdf.format(new Date()).split(" ")[1];
+
+        if ((initials.equals("AM") && hour >= 10)
+                || (initials.equals("PM") && hour <= 6)) {
+            ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
+            apiIdx.getCurrencies();
+        }
+    }
 }
