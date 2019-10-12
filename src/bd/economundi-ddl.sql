@@ -1,7 +1,3 @@
-create database economundi encoding 'utf-8';
-
-\c economundi;
-
 begin;
 
 create table _user (
@@ -90,6 +86,21 @@ create table investment (
     _group character varying (50) NOT NULL, -- ENTRA UM CHECK QUANDO DECIDIRMOS QUAIS GRUPOS IRÃO EXISTIR
     period integer NOT NULL,
     yield double precision NOT NULL
+);
+
+create table currency (
+    id serial primary key,
+    name character varying (50) unique NOT NULL
+);
+
+create table quote (
+    id serial primary key,
+    data_hour timestamp without time zone unique NOT NULL default now(),
+    buy money check (buy >= 0::money) NOT NULL,
+    sell money check (sell >= 0::money),
+    variation double precision NOT NULL,
+    currency_id integer references currency(id) on update cascade,
+    unique(currency_id, data_hour)
 );
 
 create table simulation (

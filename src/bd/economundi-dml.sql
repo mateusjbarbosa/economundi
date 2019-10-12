@@ -1,5 +1,3 @@
-\c economundi;
-
 BEGIN;
 
 -- Inserindo black list.
@@ -40,7 +38,7 @@ INSERT INTO word (name, description) VALUES ('CARDENETA DE PREDIAL', 'Livrete em
 INSERT INTO word (name, description) VALUES ('CARDENETA DE ENCARGOS', 'Documento que contém a descrição pormenorizada dos materiais, dimensões e regras técnicas de uma obra a edificar, bem como dos termos e condições a que o adjudicatário terá de obedecer.');
 INSERT INTO word (name, description) VALUES ('CARDENETA DE REIVINDICATIVO', 'Texto que enumera as exigências ou condições contratuais em negociação entre pessoas coletivas, designadamente entre entidades patronais e trabalhadores, representados pelos respetivos sindicatos.');
 INSERT INTO word (name, description) VALUES ('CAIXA', 'Conta contabilística que se descrevem as operações de pagamentos e recebimento, efetuadas em numerário ou valores convertíveis `a vista, e registadas em livro auxiliar. Seção de uma empresa, de um banco, de uma instituição ou de uma repartição pública, onde se fazem pagamentos e recebimentos.');
-INSERT INTO word (name, description) VALUES ('CAIXA AUTOMÁTICA', 'Máquina ligada ao centro eletrónico bancário que permite aos clientes fazer levantamentos ou depósitos, obter extratos de conta, requisitar cheques e outras operações bancárias, mediante a utilização de um cartão pessoal codificado.');
+INSERT INTO word (name, description) VALUES ('CAIXA AUTOMÁTICA', 'Máquina ligada ao centro eletrônico bancário que permite aos clientes fazer levantamentos ou depósitos, obter extratos de conta, requisitar cheques e outras operações bancárias, mediante a utilização de um cartão pessoal codificado.');
 INSERT INTO word (name, description) VALUES ('CAIXA DE CRÉDITO AGRÍCOLA', 'Instituição financeira que atua como verdadeira dinamizadora das economias locais e que, com o seu apoio creditício, contribui para o progresso econômicoo e social das regiões onde está situada.');
 INSERT INTO word (name, description) VALUES ('CAIXA DE PREVIDÊNCIA', 'Organismo ligado à profissão, que tem por fim assegurar a subsistência ao trabalhador, em caso de perda de sua capacidade laborativa, a assistência em caso de doença, de velhice, de nascimento de filhos, etc. acumular recursos para garantir a sua tranquilidade no futuro, seja para manter o padrão de vida na aposentadoria, para realizar um projeto de vida ou até mesmo para garantir a assistência em caso de doença, velhice e mesmo o custeio da educação dos filhos.');
 INSERT INTO word (name, description) VALUES ('DAÇÃO EM PAGAMENTO', 'Situação que ocorre quando o devedor, com a anuência do credor, solve a sua obrigação mediante a entrega de outro bem que não seja dinheiro, em substituição da prestação originalmente acordada, extinguindo assim a obrigação existente.');

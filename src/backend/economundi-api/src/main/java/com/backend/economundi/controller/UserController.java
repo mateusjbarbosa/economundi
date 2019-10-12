@@ -6,22 +6,18 @@ import com.backend.economundi.payload.EmailTemplates;
 import com.backend.economundi.payload.RecoveryRequest;
 import com.backend.economundi.repository.UserRepository;
 import com.backend.economundi.service.EmailService;
+import com.backend.economundi.service.ValidateUserService;
 import com.backend.economundi.util.PasswordEncoder;
 import com.backend.economundi.util.Utils;
-import com.google.gson.Gson;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,12 +37,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class UserController {/*EndPoint e ponto final onde os usuarios vao acessar nossa api  */
 
-
     @Autowired
     private final PasswordEncoder passEncoder = null;
 
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private ValidateUserService userService;
 
     @Autowired
     private Utils utils;
@@ -63,32 +61,8 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
 
     @GetMapping(path = "public/getlogin")
     public ResponseEntity getLogin() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Gson gson = new Gson();
-        String json;
-        
-        //Cria um Objeto JSON
-        JSONObject jsonObject = new JSONObject();
 
-        String username = auth.getName();
-
-        if ("anonymousUser".equals(username)) {
-
-            jsonObject.put("erro", "Usuario não Identificado");
-            json = gson.toJson(jsonObject);
-            return new ResponseEntity(json, HttpStatus.OK);
-        }
-
-        UserEntity user = userDao.findByEmail(username);
-
-        //Armazena dados em um Objeto JSON
-        jsonObject.put("email", user.getEmail());
-        jsonObject.put("permission", user.getPermission());
-        jsonObject.put("FirstName", user.getFirst_name());
-        jsonObject.put("LastName", user.getLast_name());
-
-        //converte Object para json
-        json = gson.toJson(jsonObject);
+        String json = userService.verifyUserLogin();
         return new ResponseEntity(json, HttpStatus.OK);
     }
 
@@ -122,7 +96,16 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @PostMapping(path = "public/create")
     public ResponseEntity save(@Valid @RequestBody UserEntity user) throws MessagingException {
 
-        user = prepareNewUser(user);
+        String email = user.getEmail();
+        boolean emailAlreadyExists = false;
+
+        emailAlreadyExists = userService.verifyEmailExists(email);
+
+        if (emailAlreadyExists) {
+            return new ResponseEntity("Email Já Cadastrado", HttpStatus.BAD_REQUEST);
+        }
+        user = userService.prepareNewUser(user);
+
         userDao.save(user);
         emailService.sendMail(user.getEmail(), "Cadastro Com Sucesso", emailTemplates.getTemplateSign(user.getFirst_name()));
 
@@ -132,7 +115,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @GetMapping(path = "public/recovery/findByEmail/{email}")
     public ResponseEntity recovery(@PathVariable String email) throws MessagingException {
 
-        UserEntity user;
+        UserEntity user = new UserEntity();
 
         user = userDao.findByEmail(email);
         emailService.sendMail(user.getEmail(), "Redefinir Senha", emailTemplates.getTemplateRecovery(user));
@@ -143,7 +126,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @GetMapping(path = "public/recovery/findByToken/{token}")
     public ResponseEntity findUserByToken(@PathVariable String token) {
 
-        UserEntity user;
+        UserEntity user = new UserEntity();
 
         user = userDao.findByEmailVerificationToken(token);
 
@@ -157,7 +140,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
     @PostMapping(path = "public/recovery")
     public ResponseEntity recoveryPassword(@Valid RecoveryRequest recoveryRequest) {
 
-        UserEntity user;
+        UserEntity user = new UserEntity();
 
         user = userDao.findByEmailVerificationToken(recoveryRequest.getEmailVerificationToken());
         if (user != null) {
@@ -195,26 +178,6 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
         }
     }
 
-    private UserEntity prepareNewUser(UserEntity newUser) {
+    
 
-        String password = newUser.getPassword();
-        String passwordEncoded = passEncoder.encodeUserPassword(password);
-
-        Instant instant = Instant.now();
-        long timeStampMillis = instant.toEpochMilli();
-
-        Timestamp dateSign_in = new Timestamp(timeStampMillis);
-        newUser.setDate_hour_register(dateSign_in);
-        newUser.setPassword(passwordEncoded);
-
-        if (newUser.getPermission() == null) {
-            newUser.setPermission("USER");
-        }
-
-        newUser.setEmailVerificationToken(utils.generatedEmailToken(60));
-
-        newUser.setEconomic_profile("None");
-
-        return newUser;
-    }
 }

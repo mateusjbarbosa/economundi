@@ -11,6 +11,7 @@ public class ApiNewsConsumer {
     private final String URL_WORLD = "https://newsapi.org/v2/top-headlines?category="
             + "business&country=us&apiKey=e8f44036f3254db8bcd6e31c3c9ca1b0";
 
+    
     public void refreshNews() throws IOException {
         ApiConsumerGeneric generic = new ApiConsumerGeneric();
         NewsService service = new NewsService();
