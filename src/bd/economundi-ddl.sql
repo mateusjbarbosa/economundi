@@ -1,7 +1,3 @@
-create database economundi encoding 'utf-8';
-
-\c economundi;
-
 begin;
 
 create table _user (
