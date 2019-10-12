@@ -1,10 +1,20 @@
 package com.backend.economundi.database.dao.entity.coin;
 
 public abstract class CurrencyEntity {
+
+    private Long id;
     private String name;
     private Float buy;
     private Float sell;
-    private Float vatiation;
+    private Double variation;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Float getBuy() {
         return buy;
@@ -22,12 +32,12 @@ public abstract class CurrencyEntity {
         this.sell = sell;
     }
 
-    public Float getVatiation() {
-        return vatiation;
+    public Double getVariation() {
+        return variation;
     }
 
-    public void setVatiation(Float vatiation) {
-        this.vatiation = vatiation;
+    public void setVariation(Double vatiation) {
+        this.variation = vatiation;
     }
 
     public String getName() {

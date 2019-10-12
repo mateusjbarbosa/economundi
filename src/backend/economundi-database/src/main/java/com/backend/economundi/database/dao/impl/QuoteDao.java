@@ -1,0 +1,81 @@
+package com.backend.economundi.database.dao.impl;
+
+import com.backend.economundi.database.connection.ConnectionFactory;
+import com.backend.economundi.database.dao.IQuoteDao;
+import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import org.springframework.stereotype.Component;
+
+@Component
+public class QuoteDao implements IQuoteDao {
+    private static final String ENTITY = "quote";
+    private static final String ID = "id";
+    private static final String DATA_HOUR = "data_hour";
+    private static final String BUY = "buy";
+    private static final String SELL = "sell";
+    private static final String VARIATION = "variation";
+    private static final String CURRENCY_ID = "currency_id";
+    
+    private Connection conn;
+    
+    @Override
+    public void create(CurrencyGeneric entity) {
+        String sql = "INSERT INTO " + ENTITY + "(" + BUY + ", " + SELL +
+                "," + VARIATION + ", " + CURRENCY_ID + ") VALUES "
+                + "(?::NUMERIC::MONEY, ?::NUMERIC::MONEY, ?, ?)";
+
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setFloat(1, entity.getBuy());
+            stmt.setFloat(2, entity.getSell());
+            stmt.setDouble(3, entity.getVariation());
+            stmt.setLong(4, entity.getId());
+            stmt.execute();
+
+            conn.commit();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+            }
+        } finally {
+            try {
+                if (stmt != null && !stmt.isClosed()) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+    }
+
+    @Override
+    public CurrencyGeneric read(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(CurrencyGeneric entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(CurrencyGeneric entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

@@ -6,7 +6,7 @@ public class Currencies {
     private EUR EUR;
     private GBP GBP;
     private ARS ARS;
-    private BTC BRC;
+    private BTC BTC;
 
     public String getSource() {
         return source;
@@ -48,11 +48,11 @@ public class Currencies {
         this.ARS = ARS;
     }
 
-    public BTC getBRC() {
-        return BRC;
+    public BTC getBTC() {
+        return BTC;
     }
 
-    public void setBRC(BTC BRC) {
-        this.BRC = BRC;
+    public void setBTC(BTC BTC) {
+        this.BTC = BTC;
     }
 }

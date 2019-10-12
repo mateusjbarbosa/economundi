@@ -1,6 +1,7 @@
 package com.backend.economundi.consumer;
 
 import com.backend.economundi.database.dao.entity.coin.Currencies;
+import com.backend.economundi.service.CurrencyService;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +18,12 @@ public class ApiIndexesConsumer {
     private final String URL
             = "https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,"
             + "currencies&key=d590478c";
+    private final CurrencyService service = new CurrencyService();
 
+    /**
+     * Realiza o consumo das cotações das moedas.
+     * @throws IOException 
+     */
     public void getCurrencies() throws IOException {
         URLConnection connection = new URL("https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,currencies&key=d590478c").openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
@@ -30,7 +36,7 @@ public class ApiIndexesConsumer {
             Gson g = new Gson();
             
             currencies = g.fromJson(jsonObj.get("currencies").toString(), Currencies.class);
-            System.out.println(currencies.getARS().getBuy());
+            service.createQuote(currencies);
         } catch (JSONException ex) {
             Logger.getLogger(ApiIndexesConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
