@@ -110,6 +110,7 @@ create table quote (
 
 create table stock (
     id serial primary key,
+    name character varying (50) unique NOT NULL,
     points double precision default(0.00),
     variation double precision NOT NULL
 );

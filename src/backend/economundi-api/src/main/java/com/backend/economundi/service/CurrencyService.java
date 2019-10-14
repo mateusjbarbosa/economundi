@@ -2,10 +2,14 @@ package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.ICurrencyDao;
 import com.backend.economundi.database.dao.IQuoteDao;
+import com.backend.economundi.database.dao.IStockDao;
 import com.backend.economundi.database.dao.entity.coin.Currencies;
 import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.entity.stocks.StockEntity;
+import com.backend.economundi.database.dao.entity.stocks.Stocks;
 import com.backend.economundi.database.dao.impl.CurrencyDao;
 import com.backend.economundi.database.dao.impl.QuoteDao;
+import com.backend.economundi.database.dao.impl.SotckDao;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +17,7 @@ public class CurrencyService {
 
     private final ICurrencyDao currrecyDao = new CurrencyDao();
     private final IQuoteDao quoteDao = new QuoteDao();
+    private final IStockDao stockDao = new SotckDao();
 
     /**
      * Realiza a persistência das cotações das moedas.
@@ -22,7 +27,7 @@ public class CurrencyService {
     public void createQuote(Currencies currencies) {
         CurrencyGeneric currency = new CurrencyGeneric();
 
-        checkExistence(currencies);
+        checkExistenceCurrencies(currencies);
 
         // Peso Argentino.
         currency.setBuy(currencies.getARS().getBuy());
@@ -60,6 +65,78 @@ public class CurrencyService {
         quoteDao.create(currency);
     }
 
+    /**
+     * Cria ou atualiza os índices das bolsas.
+     *
+     * @param stocks Estrutura que contém os valores a serem inseridos.
+     */
+    public void createStocks(Stocks stocks) {
+        String name = stocks.getIBOVESPA().getName();
+        StockEntity stock = stockDao.readByName(name);
+
+        // IBOVESPA.
+        if (stocks.getIBOVESPA().getPoints() == null) {
+            stocks.getIBOVESPA().setPoints(0D);
+        }
+
+        if (stock == null) {
+            stockDao.create(stocks.getIBOVESPA());
+        } else {
+            stocks.getIBOVESPA().setId(stock.getId());
+            stockDao.update(stocks.getIBOVESPA());
+        }
+
+        // NASDAQ.
+        if (stocks.getNASDAQ().getPoints() == null) {
+            stocks.getNASDAQ().setPoints(0D);
+        }
+
+        name = stocks.getNASDAQ().getName();
+        stock = stockDao.readByName(name);
+
+        if (stock == null) {
+            stockDao.create(stocks.getNASDAQ());
+        } else {
+            stocks.getNASDAQ().setId(stock.getId());
+            stockDao.update(stocks.getNASDAQ());
+        }
+
+        // CAC.
+        if (stocks.getCAC().getPoints() == null) {
+            stocks.getCAC().setPoints(0D);
+        }
+
+        name = stocks.getCAC().getName();
+        stock = stockDao.readByName(name);
+
+        if (stock == null) {
+            stockDao.create(stocks.getCAC());
+        } else {
+            stocks.getCAC().setId(stock.getId());
+            stockDao.update(stocks.getCAC());
+        }
+
+        // NIKKEI.
+        if (stocks.getNIKKEI().getPoints() == null) {
+            stocks.getNIKKEI().setPoints(0D);
+        }
+
+        name = stocks.getNIKKEI().getName();
+        stock = stockDao.readByName(name);
+
+        if (stock == null) {
+            stockDao.create(stocks.getNIKKEI());
+        } else {
+            stocks.getNIKKEI().setId(stock.getId());
+            stockDao.update(stocks.getNIKKEI());
+        }
+    }
+
+    /**
+     * Coleta os índices econômicos: câmbio, bolsa e ações.
+     *
+     * @return Map com os valores de cada índice.
+     */
     public Map<String, Object> getIndexes() {
         Map<String, Object> indexes = new HashMap<>();
 
@@ -73,7 +150,7 @@ public class CurrencyService {
      *
      * @param currencies Cotações das moedas.
      */
-    private void checkExistence(Currencies currencies) {
+    private void checkExistenceCurrencies(Currencies currencies) {
 
         // Peso argentino.
         String name = currencies.getARS().getName();

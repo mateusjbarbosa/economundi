@@ -39,8 +39,11 @@ public class EconomundiApplication {
 
         if ((initials.equals("AM") && hour >= 10)
                 || (initials.equals("PM") && hour <= 6)) {
-            ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
-            apiIdx.getCurrencies();
+            
+            
         }
+        ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
+        apiIdx.getCurrencies();
+        apiIdx.getStocks();
     }
 }
