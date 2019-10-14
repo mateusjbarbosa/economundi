@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -69,8 +71,8 @@ public class SotckDao implements IStockDao {
 
     @Override
     public void update(StockEntity entity) {
-                String sql = "UPDATE " + ENTITY + " SET " + POINTS + "= ?" + ", "
-                        + VARIATION + "= ? WHERE " + ID + "= ?";
+        String sql = "UPDATE " + ENTITY + " SET " + POINTS + "= ?" + ", "
+                + VARIATION + "= ? WHERE " + ID + "= ?";
 
         PreparedStatement stmt = null;
 
@@ -166,5 +168,37 @@ public class SotckDao implements IStockDao {
         return stock;
     }
 
-    
+    @Override
+    public Map<String, Map<String, Object>> readStocks() {
+        String sql = "SELECT * FROM " + ENTITY;
+        Map<String, Map<String, Object>> stockMap = new HashMap<>();
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> currencyMap = new HashMap<>();
+
+                currencyMap.put(POINTS, rs.getDouble(POINTS));
+                currencyMap.put(VARIATION, rs.getDouble(VARIATION));
+                stockMap.put(rs.getString(NAME), currencyMap);
+            }
+        } catch (SQLException ex) {
+
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
+
+        return stockMap;
+    }
 }

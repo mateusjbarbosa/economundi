@@ -13,7 +13,7 @@ import com.backend.economundi.database.dao.impl.SotckDao;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CurrencyService {
+public class IndexesService {
 
     private final ICurrencyDao currrecyDao = new CurrencyDao();
     private final IQuoteDao quoteDao = new QuoteDao();
@@ -141,6 +141,7 @@ public class CurrencyService {
         Map<String, Object> indexes = new HashMap<>();
 
         indexes.put("currencies", quoteDao.readQuote());
+        indexes.put("stocks", stockDao.readStocks());
 
         return indexes;
     }
