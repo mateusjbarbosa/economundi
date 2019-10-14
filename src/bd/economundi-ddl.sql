@@ -1,3 +1,8 @@
+drop database economundi;
+create database economundi encoding 'utf-8';
+
+\c economundi;
+
 begin;
 
 create table _user (
@@ -101,6 +106,12 @@ create table quote (
     variation double precision NOT NULL,
     currency_id integer references currency(id) on update cascade,
     unique(currency_id, data_hour)
+);
+
+create table stock (
+    id serial primary key,
+    points double precision default(0.00),
+    variation double precision NOT NULL
 );
 
 create table simulation (
