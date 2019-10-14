@@ -29,6 +29,8 @@ class Register extends Component {
       error_credentials: false,
       error_dataUser: false,
 
+      loading: false,
+
       statusRegister: register.WAIT
     };
   }
@@ -116,31 +118,35 @@ class Register extends Component {
     return error;
   };
 
-  onRegisterSubmit = async e => {
+  onRegisterSubmit = e => {
     const { dateBirth, email, firstName, lastName, password } = this.state;
 
-    const errors = await this.validate();
+    this.setState({ loading: true }, async () => {
+      const errors = await this.validate();
 
-    if (errors.length > 0) {
-      this.setState({ render: true, errors: errors });
-    } else {
-      const response = await api.post("/api/v1/public/create", {
-        date_birth: dateBirth,
-        date_hour_register: "",
-        economic_profile: "NONE",
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-        password: password,
-        permission: "USER"
-      });
-
-      if (response.status === 201) {
-        this.setState({ statusRegister: register.CREATED });
+      if (errors) {
+        this.setState({ render: true, errors: errors, loading: false });
       } else {
-        this.setState({ statusRegister: register.ERROR });
+        const response = await api.post("/api/v1/public/create", {
+          date_birth: dateBirth,
+          date_hour_register: "",
+          economic_profile: "NONE",
+          email: email,
+          first_name: firstName,
+          last_name: lastName,
+          password: password,
+          permission: "USER"
+        });
+
+        if (response.status === 201) {
+          this.setState({ statusRegister: register.CREATED, loading: false });
+
+          window.scrollTo(0, window.innerHeight);
+        } else {
+          this.setState({ statusRegister: register.ERROR });
+        }
       }
-    }
+    });
   };
 
   renderStatusRegister = () => {
@@ -175,109 +181,115 @@ class Register extends Component {
   };
 
   render() {
-    const { error_credentials, error_dataUser } = this.state;
+    const { error_credentials, error_dataUser, loading } = this.state;
 
     return (
       <>
-        <div className="register-title">
-          <h1>Cadastrar</h1>
-        </div>
-
-        <div className="data">
-          <h2>Seus dados</h2>
-          {error_dataUser ? (
-            <div className="data-user-error">
-              <input
-                type="text"
-                onChange={this.onFirstNameChanged}
-                placeholder="Qual seu nome?"
-              />
-              <input
-                type="text"
-                onChange={this.onLastNameChanged}
-                placeholder="Qual o seu sobrenome?"
-              />
-              <input type="date" onChange={this.onBirthChanged} />
+        {loading ? (
+          <h1>Enviando sua requisição...</h1>
+        ) : (
+          <>
+            <div className="register-title">
+              <h1>Cadastrar</h1>
             </div>
-          ) : (
-            <div className="data-user">
-              <input
-                type="text"
-                onChange={this.onFirstNameChanged}
-                placeholder="Qual seu nome?"
-              />
-              <input
-                type="text"
-                onChange={this.onLastNameChanged}
-                placeholder="Qual o seu sobrenome?"
-              />
-              <input type="date" onChange={this.onBirthChanged} />
+
+            <div className="data">
+              <h2>Seus dados</h2>
+              {error_dataUser ? (
+                <div className="data-user-error">
+                  <input
+                    type="text"
+                    onChange={this.onFirstNameChanged}
+                    placeholder="Qual seu nome?"
+                  />
+                  <input
+                    type="text"
+                    onChange={this.onLastNameChanged}
+                    placeholder="Qual o seu sobrenome?"
+                  />
+                  <input type="date" onChange={this.onBirthChanged} />
+                </div>
+              ) : (
+                <div className="data-user">
+                  <input
+                    type="text"
+                    onChange={this.onFirstNameChanged}
+                    placeholder="Qual seu nome?"
+                  />
+                  <input
+                    type="text"
+                    onChange={this.onLastNameChanged}
+                    placeholder="Qual o seu sobrenome?"
+                  />
+                  <input type="date" onChange={this.onBirthChanged} />
+                </div>
+              )}
+
+              <h2>E-mail</h2>
+              {error_credentials ? (
+                <div className="data-credentials-error">
+                  <input
+                    type="email"
+                    onChange={this.onEmailChanged}
+                    placeholder="Qual o seu e-mail?"
+                  />
+                  <input
+                    type="email"
+                    onChange={this.onConfirmEmailChanged}
+                    placeholder="Confirme o seu e-mail!"
+                  />
+                  <h2>Senha</h2>
+                  <input
+                    type="password"
+                    onChange={this.onPassChanged}
+                    placeholder="Insira uma senha!"
+                  />
+                  <input
+                    type="password"
+                    onChange={this.onConfirmPassChanged}
+                    placeholder="Repita, por favor!"
+                  />
+                </div>
+              ) : (
+                <div className="data-credentials">
+                  <input
+                    type="email"
+                    onChange={this.onEmailChanged}
+                    placeholder="Qual o seu e-mail?"
+                  />
+                  <input
+                    type="email"
+                    onChange={this.onConfirmEmailChanged}
+                    placeholder="Confirme o seu e-mail!"
+                  />
+                  <h2>Senha</h2>
+                  <input
+                    type="password"
+                    onChange={this.onPassChanged}
+                    placeholder="Insira uma senha!"
+                  />
+                  <input
+                    type="password"
+                    onChange={this.onConfirmPassChanged}
+                    placeholder="Repita, por favor!"
+                  />
+                </div>
+              )}
+
+              <div className="register-social">
+                <p>Ou então cadastre-se pelo:</p>
+                <img src={FacebookIcon} alt="Facebook" />
+                <img src={GoogleIcon} alt="Google" />
+              </div>
+
+              <button className="btn-login" onClick={this.onRegisterSubmit}>
+                Cadastrar
+              </button>
             </div>
-          )}
 
-          <h2>E-mail</h2>
-          {error_credentials ? (
-            <div className="data-credentials-error">
-              <input
-                type="email"
-                onChange={this.onEmailChanged}
-                placeholder="Qual o seu e-mail?"
-              />
-              <input
-                type="email"
-                onChange={this.onConfirmEmailChanged}
-                placeholder="Confirme o seu e-mail!"
-              />
-              <h2>Senha</h2>
-              <input
-                type="password"
-                onChange={this.onPassChanged}
-                placeholder="Insira uma senha!"
-              />
-              <input
-                type="password"
-                onChange={this.onConfirmPassChanged}
-                placeholder="Repita, por favor!"
-              />
-            </div>
-          ) : (
-            <div className="data-credentials">
-              <input
-                type="email"
-                onChange={this.onEmailChanged}
-                placeholder="Qual o seu e-mail?"
-              />
-              <input
-                type="email"
-                onChange={this.onConfirmEmailChanged}
-                placeholder="Confirme o seu e-mail!"
-              />
-              <h2>Senha</h2>
-              <input
-                type="password"
-                onChange={this.onPassChanged}
-                placeholder="Insira uma senha!"
-              />
-              <input
-                type="password"
-                onChange={this.onConfirmPassChanged}
-                placeholder="Repita, por favor!"
-              />
-            </div>
-          )}
-
-          <div className="register-social">
-            <p>Ou então cadastre-se pelo:</p>
-            <img src={FacebookIcon} alt="Facebook" />
-            <img src={GoogleIcon} alt="Google" />
-          </div>
-
-          <button className="btn-login" onClick={this.onRegisterSubmit}>
-            Cadastrar
-          </button>
-        </div>
-
-        {this.renderStatusRegister()}
+            {this.renderStatusRegister()}
+          </>
+        )}
       </>
     );
   }

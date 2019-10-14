@@ -18,19 +18,19 @@ const Menu = () => {
         <img src={LogoIcon} alt="Portal EconoMundi" />
       </Link>
       <Link to="/noticias">
-        <img src={NewsIcon} alt="Portal EconoMundi" />
+        <img src={NewsIcon} alt="Notícias" />
       </Link>
       <Link to="/indices">
-        <img src={IndicatorsIcon} alt="Portal EconoMundi" />
+        <img src={IndicatorsIcon} alt="Indíces econômicos" />
       </Link>
       <Link to="/simulacoes">
-        <img src={SimulationIcon} alt="Portal EconoMundi" />
+        <img src={SimulationIcon} alt="Simulações" />
       </Link>
       <Link to="/dicionario">
-        <img src={DictionaryIcon} alt="Portal EconoMundi" />
+        <img src={DictionaryIcon} alt="Dicionário" />
       </Link>
       <Link to="/sobre">
-        <img src={AboutIcon} alt="Portal EconoMundi" />
+        <img src={AboutIcon} alt="Sobre Nós" />
       </Link>
       <Link to="/perfil">
         <img src={AvatarIcon} alt="Portal EconoMundi" />

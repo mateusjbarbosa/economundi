@@ -1,1 +1,1 @@
-web: java -jar target/economundi-api.jar
+web: java -jar target/economundi-api-1.0.0.jar
