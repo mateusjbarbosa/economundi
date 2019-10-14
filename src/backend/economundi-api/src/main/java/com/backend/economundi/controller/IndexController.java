@@ -1,6 +1,6 @@
 package com.backend.economundi.controller;
 
-import com.backend.economundi.service.CurrencyService;
+import com.backend.economundi.service.IndexesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
     private final String PATH_URL = "/api/v1/indexes/";
-    private final CurrencyService service = new CurrencyService();
+    private final IndexesService service = new IndexesService();
     
     @GetMapping(PATH_URL)
     public ResponseEntity<?> getIndexes() {
