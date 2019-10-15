@@ -15,6 +15,11 @@ class ProfileData extends Component {
       birth: "",
       email: "",
 
+      newName: "",
+      newLastName: "",
+      newBirth: "",
+      newEmail: "",
+
       loading: true
     };
   }
@@ -41,6 +46,43 @@ class ProfileData extends Component {
     }
 
     this.alterBirthFormat();
+  };
+
+  onFirstNameChanged = async e => {
+    const value = e.target.value;
+
+    this.setState(() => ({ newName: value }));
+  };
+
+  onLastNameChanged = async e => {
+    const value = e.target.value;
+
+    this.setState(() => ({ newLastName: value }));
+  };
+
+  onBirthChanged = async e => {
+    const value = e.target.value;
+
+    this.setState(() => ({ newBirth: value }));
+  };
+
+  onEmailChanged = async e => {
+    const value = e.target.value;
+
+    this.setState(() => ({ newEmail: value }));
+  };
+
+  onUpdateSubmit = () => {
+    const { newBirth, newEmail, newLastName, newName } = this.state;
+
+    const response = api.put("api/v1/protected/update", {
+      date_birth: newBirth,
+      email: newEmail,
+      first_name: newName,
+      last_name: newLastName
+    });
+
+    console.log(response);
   };
 
   alterBirthFormat = () => {
@@ -128,8 +170,8 @@ class ProfileData extends Component {
           <h1>Carregando seus dados...</h1>
         ) : (
           <>
-            <div className="register-title">
-              <h1>Olá, {name}</h1>
+            <div className="update-title">
+              <h1>Olá, {name}!</h1>
             </div>
 
             <div className="data">
@@ -161,10 +203,13 @@ class ProfileData extends Component {
                 />
               </div>
 
-              <button className="btn-login" onClick={this.onRegisterSubmit}>
+              <button className="btn-save" onClick={this.onUpdateSubmit}>
+                Salvar alterações
+              </button>
+              <button className="btn-alter-pass" onClick={this.onAlterPassword}>
                 Redefinir senha
               </button>
-              <button className="btn-login" onClick={this.onRegisterSubmit}>
+              <button className="btn-delete-user" onClick={this.onDeleteUser}>
                 Deletar meu usuário
               </button>
             </div>
