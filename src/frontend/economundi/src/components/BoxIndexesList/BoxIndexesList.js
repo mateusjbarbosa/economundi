@@ -3,22 +3,28 @@ import React, { Component } from "react";
 import "./boxIndexesList.scss";
 
 class BoxIndexesList extends Component {
-  getTitlePortuguese = () => {
-    const { title } = this.props;
+  getTitlePortuguese = currency => {
+    let newTitle = "";
 
-    switch (title) {
+    switch (currency) {
       case "Pound Sterling":
-        return "Libra Esterlina";
+        newTitle = "Libra";
+        break;
 
       case "Bitcoin":
-        return title;
+        newTitle = currency;
+        break;
 
       case "Argentine Peso":
-        return "Peso Argentino";
+        newTitle = "Peso Argentino";
+        break;
 
       default:
-        return title;
+        newTitle = currency;
+        break;
     }
+
+    return newTitle.toUpperCase();
   };
 
   render() {
@@ -33,11 +39,11 @@ class BoxIndexesList extends Component {
         {currenciesTitle.map(currency =>
           list[currency].variation > 0 ? (
             <span key={currency} className="variation-item-positive">
-              {currency}
+              {this.getTitlePortuguese(currency)}
             </span>
           ) : (
             <span key={currency} className="variation-item-negative">
-              {currency}
+              {this.getTitlePortuguese(currency)}
             </span>
           )
         )}

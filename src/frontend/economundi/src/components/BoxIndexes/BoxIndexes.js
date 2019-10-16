@@ -6,16 +6,23 @@ class BoxIndexes extends Component {
   getTitlePortuguese = () => {
     const { title } = this.props;
 
+    let newTitle = "";
+
     switch (title) {
       case "Dollar":
-        return "Dólar";
+        newTitle = "Dólar";
+        break;
 
       case "Euro":
-        return title;
+        newTitle = title;
+        break;
 
       default:
-        return title;
+        newTitle = title;
+        break;
     }
+
+    return newTitle;
   };
 
   render() {
