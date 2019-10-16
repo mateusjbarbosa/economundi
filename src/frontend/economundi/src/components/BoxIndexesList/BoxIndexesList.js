@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import "./boxIndexesList.scss";
 
 class BoxIndexesList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { isInfo: false };
+  }
+
   getTitlePortuguese = currency => {
     let newTitle = "";
 
@@ -27,8 +33,19 @@ class BoxIndexesList extends Component {
     return newTitle.toUpperCase();
   };
 
+  onChangeInfo = () => {
+    const { isInfo } = this.state;
+
+    if (!isInfo) {
+      this.setState({ isInfo: true });
+    } else {
+      this.setState({ isInfo: false });
+    }
+  };
+
   render() {
     const { list } = this.props;
+    const { isInfo } = this.state;
 
     const currenciesTitle = Object.keys(list);
 
@@ -36,14 +53,28 @@ class BoxIndexesList extends Component {
       <div className="box-indexes-list">
         <h2>Moedas</h2>
 
+        <button className="box-indexes-button" onClick={this.onChangeInfo}>
+          Ver variação
+        </button>
+
         {currenciesTitle.map(currency =>
           list[currency].variation > 0 ? (
-            <span key={currency} className="variation-item-positive">
+            !isInfo ? (
+              <span key={currency} className="variation-item-positive">
+                {this.getTitlePortuguese(currency)}
+              </span>
+            ) : (
+              <span key={currency} className="variation-item-positive">
+                {list[currency].variation}
+              </span>
+            )
+          ) : !isInfo ? (
+            <span key={currency} className="variation-item-negative">
               {this.getTitlePortuguese(currency)}
             </span>
           ) : (
             <span key={currency} className="variation-item-negative">
-              {this.getTitlePortuguese(currency)}
+              {list[currency].variation}
             </span>
           )
         )}

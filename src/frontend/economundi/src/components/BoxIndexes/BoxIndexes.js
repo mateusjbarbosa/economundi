@@ -8,6 +8,7 @@ class BoxIndexes extends Component {
 
     this.state = { isInfo: false };
   }
+
   getTitlePortuguese = () => {
     const { title } = this.props;
 
