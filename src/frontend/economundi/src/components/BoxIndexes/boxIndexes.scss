@@ -64,3 +64,43 @@
   transition: 0.3s;
   cursor: pointer;
 }
+
+@media screen and (min-width: 425px) {
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 3%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .box-indexes {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+
+  .variation-positive,
+  .variation-negative {
+    margin-top: 35%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 20%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .box-indexes {
+    height: 40vh;
+  }
+
+  .variation-positive,
+  .variation-negative {
+    margin-top: 25%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 10%;
+  }
+}

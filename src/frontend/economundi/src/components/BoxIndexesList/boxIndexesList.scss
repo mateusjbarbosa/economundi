@@ -57,3 +57,40 @@
 .variation-item-negative {
   background: #ff0000;
 }
+
+@media screen and (min-width: 375px) {
+  .box-indexes-list {
+    height: 55vh;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .box-indexes-list {
+    height: 60vh;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .box-indexes-list {
+    height: 30vh;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .box-indexes-list {
+    height: 40vh;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+
+  .box-indexes-button {
+    margin-top: 2%;
+  }
+
+  .variation-item-positive,
+  .variation-item-negative {
+    margin-top: 3%;
+  }
+}

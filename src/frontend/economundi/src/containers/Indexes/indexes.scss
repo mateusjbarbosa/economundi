@@ -8,3 +8,11 @@
 
   width: 90vw;
 }
+
+@media screen and (min-width: 768px) {
+  .indexes-box {
+    display: flex;
+
+    width: 90vw;
+  }
+}
