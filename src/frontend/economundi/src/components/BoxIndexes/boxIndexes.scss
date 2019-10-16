@@ -28,12 +28,36 @@
   font-weight: 700;
 
   color: $color-text-primary;
+
+  transition: 0.3s;
 }
 
-.variation-positive {
+.variation-positive,
+.variation-info-positive {
   background: #008000;
 }
 
-.variation-negative {
+.variation-negative,
+.variation-info-negative {
   background: #ff0000;
+}
+
+.variation-info-positive,
+.variation-info-negative {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+
+  margin-top: 7%;
+  margin-left: 5%;
+  padding: 5%;
+
+  border-radius: 1em;
+
+  font-weight: 700;
+
+  color: $color-text-primary;
+
+  transition: 0.3s;
 }
