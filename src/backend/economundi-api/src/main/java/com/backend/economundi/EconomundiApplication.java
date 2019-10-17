@@ -29,16 +29,18 @@ public class EconomundiApplication {
 
     @Scheduled(fixedDelay = HORA)
     public void reportCurrentTime() throws IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh a EEEE");
         ApiNewsConsumer api = new ApiNewsConsumer();
-
         api.refreshNews();
 
         Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
         String initials = sdf.format(new Date()).split(" ")[1];
-
-        if ((initials.equals("AM") && hour >= 10)
-                || (initials.equals("PM") && hour <= 6)) {
+        String week = sdf.format(new Date()).split(" ")[2];
+        
+        if (((initials.equals("AM") && hour >= 10)
+                || (initials.equals("PM") && hour <= 6))
+                && ((!week.equals("Domingo") && !week.equals("Sunday")
+                && ((!week.equals("Sábado") && !week.equals("Saturday")))))) {
             ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
             
             apiIdx.getCurrencies();
