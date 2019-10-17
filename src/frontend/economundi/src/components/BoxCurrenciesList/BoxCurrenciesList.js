@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import "./boxIndexesList.scss";
+import "./boxCurrenciesList.scss";
 
-class BoxIndexesList extends Component {
+class BoxCurrenciesList extends Component {
   constructor(props) {
     super(props);
 
@@ -83,4 +83,4 @@ class BoxIndexesList extends Component {
   }
 }
 
-export default BoxIndexesList;
+export default BoxCurrenciesList;

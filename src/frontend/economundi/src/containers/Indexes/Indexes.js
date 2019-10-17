@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BoxIndexes, BoxIndexesList } from "../../components";
+import { BoxCurrency, BoxCurrenciesList } from "../../components";
 
 import api from "../../services/api";
 
@@ -65,19 +65,23 @@ class Indexes extends Component {
         {loading ? (
           <h1>Carregando...</h1>
         ) : (
-          <div className="indexes-box">
-            <BoxIndexes
-              key={currenciesTitle[1]}
-              title={currenciesTitle[1]}
-              index={currencies[currenciesTitle[1]]}
-            />
-            <BoxIndexes
-              key={currenciesTitle[3]}
-              title={currenciesTitle[3]}
-              index={currencies[currenciesTitle[3]]}
-            />
-            <BoxIndexesList list={newsCurrenciesList} />
-          </div>
+          <>
+            <div className="currencies-box">
+              <BoxCurrency
+                key={currenciesTitle[1]}
+                title={currenciesTitle[1]}
+                index={currencies[currenciesTitle[1]]}
+              />
+              <BoxCurrency
+                key={currenciesTitle[3]}
+                title={currenciesTitle[3]}
+                index={currencies[currenciesTitle[3]]}
+              />
+              <BoxCurrenciesList list={newsCurrenciesList} />
+            </div>
+
+            <div className="stocks-box"></div>
+          </>
         )}
       </>
     );
