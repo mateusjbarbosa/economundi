@@ -76,6 +76,7 @@ class ProfileData extends Component {
     const { newBirth, newEmail, newLastName, newName } = this.state;
 
     const response = api.put("api/v1/protected/update", {
+      id: id,
       date_birth: newBirth,
       email: newEmail,
       first_name: newName,
