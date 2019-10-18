@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
-import { BoxCurrency, BoxCurrenciesList } from "../../components";
+import {
+  BoxCurrency,
+  BoxCurrenciesList,
+  BoxStock,
+  BoxStocksList
+} from "../../components";
 
 import api from "../../services/api";
 
@@ -52,9 +57,13 @@ class Indexes extends Component {
 
     const currenciesTitle = Object.keys(currencies);
     let newsCurrenciesList = this.copyObject(currencies);
-
     delete newsCurrenciesList.Dollar;
     delete newsCurrenciesList.Euro;
+
+    let stocksTitle = Object.keys(stocks);
+    let newStocksList = this.copyObject(stocks);
+    stocksTitle = stocksTitle.sort();
+    delete newStocksList[stocksTitle[0]];
 
     return (
       <>
@@ -68,19 +77,20 @@ class Indexes extends Component {
           <>
             <div className="currencies-box">
               <BoxCurrency
-                key={currenciesTitle[1]}
                 title={currenciesTitle[1]}
                 index={currencies[currenciesTitle[1]]}
               />
               <BoxCurrency
-                key={currenciesTitle[3]}
                 title={currenciesTitle[3]}
                 index={currencies[currenciesTitle[3]]}
               />
-              <BoxCurrenciesList list={newsCurrenciesList} />
+              <BoxCurrenciesList currencies={newsCurrenciesList} />
             </div>
 
-            <div className="stocks-box"></div>
+            <div className="stocks-box">
+              <BoxStock title={stocksTitle[0]} stock={stocks[stocksTitle[0]]} />
+              <BoxStocksList stocks={newStocksList} />
+            </div>
           </>
         )}
       </>

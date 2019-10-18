@@ -44,10 +44,10 @@ class BoxCurrenciesList extends Component {
   };
 
   render() {
-    const { list } = this.props;
+    const { currencies } = this.props;
     const { isInfo } = this.state;
 
-    const currenciesTitle = Object.keys(list);
+    const currenciesTitle = Object.keys(currencies);
 
     return (
       <div className="box-indexes-list">
@@ -58,14 +58,14 @@ class BoxCurrenciesList extends Component {
         </button>
 
         {currenciesTitle.map(currency =>
-          list[currency].variation > 0 ? (
+          currencies[currency].variation > 0 ? (
             !isInfo ? (
               <span key={currency} className="variation-item-positive">
                 {this.getTitlePortuguese(currency)}
               </span>
             ) : (
               <span key={currency} className="variation-item-positive">
-                {list[currency].variation}
+                {currencies[currency].variation}%
               </span>
             )
           ) : !isInfo ? (
@@ -74,7 +74,7 @@ class BoxCurrenciesList extends Component {
             </span>
           ) : (
             <span key={currency} className="variation-item-negative">
-              {list[currency].variation}
+              {currencies[currency].variation}%
             </span>
           )
         )}

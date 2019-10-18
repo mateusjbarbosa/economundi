@@ -52,7 +52,9 @@ class BoxCurrency extends Component {
         <div onClick={this.onChangeInfo}>
           {index.variation > 0 ? (
             !isInfo ? (
-              <span className="variation-positive">+{index.variation}</span>
+              <span className="variation-positive">
+                +{index.variation.toFixed(2)}%
+              </span>
             ) : (
               <>
                 <span className="variation-info-positive">
@@ -64,7 +66,9 @@ class BoxCurrency extends Component {
               </>
             )
           ) : !isInfo ? (
-            <span className="variation-negative">{index.variation}</span>
+            <span className="variation-negative">
+              {index.variation.toFixed(2)}%
+            </span>
           ) : (
             <>
               <span className="variation-info-negative">
