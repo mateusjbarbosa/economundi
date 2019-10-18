@@ -5,6 +5,7 @@ import com.backend.economundi.consumer.ApiNewsConsumer;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -29,18 +30,16 @@ public class EconomundiApplication {
 
     @Scheduled(fixedDelay = 15 * MINUTO)
     public void reportCurrentTime() throws IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh a EEEE");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH EEEE");
         ApiNewsConsumer api = new ApiNewsConsumer();
         api.refreshNews();
-
-        Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
-        String initials = sdf.format(new Date()).split(" ")[1];
-        String week = sdf.format(new Date()).split(" ")[2];
         
-        if (((initials.equals("AM") && hour >= 10)
-                || (initials.equals("PM") && hour <= 6))
-                && ((!week.equals("Domingo") && !week.equals("Sunday")
-                && ((!week.equals("Sábado") && !week.equals("Saturday")))))) {
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+        Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
+        String week = sdf.format(new Date()).split(" ")[1];
+        
+        if ((hour >= 10 && hour <= 18) && (!week.equals("Domingo") &&
+                !week.equals("Sábado"))) {
             ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
             
             System.out.println("Coleta de índices: " + sdf.format(new Date()));
