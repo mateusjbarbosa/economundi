@@ -1,0 +1,23 @@
+.indexes-title {
+  position: absolute;
+  top: 10%;
+}
+
+.currencies-box {
+  margin-top: 15%;
+
+  width: 90vw;
+}
+
+.stocks-box {
+  width: 90vw;
+}
+
+@media screen and (min-width: 768px) {
+  .currencies-box,
+  .stocks-box {
+    display: flex;
+
+    width: 90vw;
+  }
+}
