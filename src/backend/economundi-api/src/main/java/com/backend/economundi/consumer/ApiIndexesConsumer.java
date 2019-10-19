@@ -35,7 +35,7 @@ public class ApiIndexesConsumer {
             Gson g = new Gson();
 
             currencies = g.fromJson(jsonObj.get("currencies").toString(), Currencies.class);
-            service.createQuote(currencies);
+            service.createCurrencies(currencies);
         } catch (JSONException ex) {
             Logger.getLogger(ApiIndexesConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -53,7 +53,7 @@ public class ApiIndexesConsumer {
             Gson g = new Gson();
             
             marketShares = g.fromJson(jsonObj.get("stocks").toString(), MarketShares.class);
-            service.createStocks(marketShares);
+            service.createMarketShares(marketShares);
         } catch (JSONException ex) {
             Logger.getLogger(ApiIndexesConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
