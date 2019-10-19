@@ -1,5 +1,6 @@
 package com.backend.economundi.controller;
 
+import com.backend.economundi.database.dao.entity.UserDTO;
 import com.backend.economundi.database.dao.entity.UserEntity;
 import com.backend.economundi.error.ResourceNotFoundException;
 import com.backend.economundi.payload.EmailTemplates;
@@ -42,7 +43,7 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
 
     @Autowired
     private EmailService emailService;
-    
+
     @Autowired
     private ValidateUserService userService;
 
@@ -164,11 +165,25 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
 
     @PutMapping(path = "protected/update")
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public ResponseEntity update(@RequestBody UserEntity user) {
-        verifyIfUserExists(user.getId());
-        userDao.save(user);
+    public ResponseEntity update(@RequestBody UserDTO newUser) {
+        verifyIfUserExists(newUser.getId());
 
-        return new ResponseEntity(user, HttpStatus.OK);
+        Optional<UserEntity> users = userDao.findById(newUser.getId());
+
+        if (users.isPresent()) {
+            users.ifPresent(user -> {
+                user.setDate_birth(newUser.getDate_birth());
+                user.setFirst_name(newUser.getFirst_name());
+                user.setLast_name(newUser.getLast_name());
+                user.setId(newUser.getId());
+
+                userDao.save(user);
+            });
+        } else {
+            return new ResponseEntity("Usuario Não Encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity("Usuario Atualizado Com Sucesso", HttpStatus.OK);
     }
 
     private void verifyIfUserExists(Long id) {
@@ -177,7 +192,5 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
             throw new ResourceNotFoundException("User Not Found for id = " + id);
         }
     }
-
-    
 
 }

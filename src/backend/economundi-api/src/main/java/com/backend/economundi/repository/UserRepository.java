@@ -9,8 +9,9 @@ import com.backend.economundi.database.dao.entity.UserEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
-   
-    UserEntity findByEmail(String email); 
-    
+
+    UserEntity findByEmail(String email);
+
     UserEntity findByEmailVerificationToken(String token);
+    
 }
