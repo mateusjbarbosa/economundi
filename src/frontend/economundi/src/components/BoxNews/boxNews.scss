@@ -42,6 +42,25 @@
 
     text-align: justify;
   }
+
+  &-link {
+    width: 80%;
+    margin-left: 8%;
+    margin-bottom: 5%;
+
+    padding: 2%;
+
+    border-radius: 1em;
+
+    text-align: center;
+
+    font-size: 0.8em;
+    text-transform: uppercase;
+
+    background: $color-primary;
+
+    color: $color-text-primary;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -83,9 +102,8 @@
 
     &-source {
       position: absolute;
-      top: 5%;
+      bottom: 40%;
 
-      margin-top: 5%;
       padding-left: 2%;
       padding-right: 2%;
 
@@ -95,13 +113,37 @@
 
     &-description {
       position: absolute;
-      top: 20%;
+      top: 60%;
 
       margin-top: 5%;
       padding-left: 2%;
+      overflow: hidden;
 
       color: $color-text-primary;
       text-shadow: 2px 2px 4px $color-text-secundary;
+    }
+
+    &-link {
+      position: absolute;
+      top: 85%;
+      // width: 80%;
+      // margin-left: 8%;
+      // margin-bottom: 5%;
+
+      // padding: 2%;
+
+      // border-radius: 1em;
+
+      // text-align: center;
+
+      // font-size: 0.8em;
+      // text-transform: uppercase;
+
+      // background: $color-primary;
+
+      // & a {
+      //   color: $color-text-primary;
+      // }
     }
   }
 }

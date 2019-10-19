@@ -86,7 +86,7 @@ class News extends Component {
   };
 
   decreasePage = () => {
-    const { currentNews, currentPage, amountPage } = this.state;
+    const { currentNews, currentPage } = this.state;
 
     let listNews;
 
