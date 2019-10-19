@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao.entity.stocks;
 
-public class StockEntity {
+public class MarketSharesEntity {
 
     private Long id;
     private String name;

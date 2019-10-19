@@ -2,7 +2,7 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.IStockDao;
-import com.backend.economundi.database.dao.entity.stocks.StockEntity;
+import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +12,9 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SotckDao implements IStockDao {
+public class MarketSharesDao implements IStockDao {
 
-    private static final String ENTITY = "stock";
+    private static final String ENTITY = "market_shares";
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String POINTS = "points";
@@ -23,7 +23,7 @@ public class SotckDao implements IStockDao {
     private Connection conn;
 
     @Override
-    public void create(StockEntity entity) {
+    public void create(MarketSharesEntity entity) {
         String sql = "INSERT INTO " + ENTITY + "(" + POINTS + ", "
                 + VARIATION + ", " + NAME + ") VALUES "
                 + "(?, ?, ?)";
@@ -65,12 +65,12 @@ public class SotckDao implements IStockDao {
     }
 
     @Override
-    public StockEntity read(Long id) {
+    public MarketSharesEntity read(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(StockEntity entity) {
+    public void update(MarketSharesEntity entity) {
         String sql = "UPDATE " + ENTITY + " SET " + POINTS + "= ?" + ", "
                 + VARIATION + "= ? WHERE " + ID + "= ?";
 
@@ -113,15 +113,15 @@ public class SotckDao implements IStockDao {
     }
 
     @Override
-    public void delete(StockEntity entity) {
+    public void delete(MarketSharesEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public StockEntity readByName(String name) {
+    public MarketSharesEntity readByName(String name) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'"
                 + name + "'";
-        StockEntity stock = null;
+        MarketSharesEntity stock = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -132,7 +132,7 @@ public class SotckDao implements IStockDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                stock = new StockEntity();
+                stock = new MarketSharesEntity();
 
                 stock.setId(rs.getLong(ID));
                 stock.setName(rs.getString(NAME));

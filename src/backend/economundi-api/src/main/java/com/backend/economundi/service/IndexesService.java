@@ -5,11 +5,11 @@ import com.backend.economundi.database.dao.IQuoteDao;
 import com.backend.economundi.database.dao.IStockDao;
 import com.backend.economundi.database.dao.entity.coin.Currencies;
 import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
-import com.backend.economundi.database.dao.entity.stocks.StockEntity;
-import com.backend.economundi.database.dao.entity.stocks.Stocks;
+import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
+import com.backend.economundi.database.dao.entity.stocks.MarketShares;
 import com.backend.economundi.database.dao.impl.CurrencyDao;
 import com.backend.economundi.database.dao.impl.QuoteDao;
-import com.backend.economundi.database.dao.impl.SotckDao;
+import com.backend.economundi.database.dao.impl.MarketSharesDao;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class IndexesService {
 
     private final ICurrencyDao currrecyDao = new CurrencyDao();
     private final IQuoteDao quoteDao = new QuoteDao();
-    private final IStockDao stockDao = new SotckDao();
+    private final IStockDao stockDao = new MarketSharesDao();
 
     /**
      * Realiza a persistência das cotações das moedas.
@@ -70,9 +70,9 @@ public class IndexesService {
      *
      * @param stocks Estrutura que contém os valores a serem inseridos.
      */
-    public void createStocks(Stocks stocks) {
+    public void createStocks(MarketShares stocks) {
         String name = stocks.getIBOVESPA().getName();
-        StockEntity stock = stockDao.readByName(name);
+        MarketSharesEntity stock = stockDao.readByName(name);
 
         // IBOVESPA.
         if (stocks.getIBOVESPA().getPoints() == null) {
@@ -141,7 +141,7 @@ public class IndexesService {
         Map<String, Object> indexes = new HashMap<>();
 
         indexes.put("currencies", quoteDao.readQuote());
-        indexes.put("stocks", stockDao.readStocks());
+        indexes.put("market_shares", stockDao.readStocks());
 
         return indexes;
     }

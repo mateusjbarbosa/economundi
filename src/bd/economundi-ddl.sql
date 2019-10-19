@@ -103,7 +103,7 @@ create table quote (
     unique(currency_id, data_hour)
 );
 
-create table stock (
+create table market_shares (
     id serial primary key,
     name character varying (50) unique NOT NULL,
     points double precision default(0.00),
