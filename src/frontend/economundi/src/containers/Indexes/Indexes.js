@@ -15,7 +15,7 @@ class Indexes extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: true, currencies: {}, stocks: {} };
+    this.state = { loading: true, currencies: {}, marketShares: {} };
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class Indexes extends Component {
       this.setState(
         {
           currencies: response.data.currencies,
-          stocks: response.data.stocks
+          marketShares: response.data.market_shares
         },
         () => {
           this.setState({ loading: false });
@@ -53,17 +53,17 @@ class Indexes extends Component {
   };
 
   render() {
-    const { currencies, loading, stocks } = this.state;
+    const { currencies, loading, marketShares } = this.state;
 
     const currenciesTitle = Object.keys(currencies);
     let newsCurrenciesList = this.copyObject(currencies);
     delete newsCurrenciesList.Dollar;
     delete newsCurrenciesList.Euro;
 
-    let stocksTitle = Object.keys(stocks);
-    let newStocksList = this.copyObject(stocks);
-    stocksTitle = stocksTitle.sort();
-    delete newStocksList[stocksTitle[0]];
+    let marketSharesTitle = Object.keys(marketShares);
+    let marketSharesList = this.copyObject(marketShares);
+    marketSharesTitle = marketSharesTitle.sort();
+    delete marketSharesList[marketSharesTitle[0]];
 
     return (
       <>
@@ -88,8 +88,11 @@ class Indexes extends Component {
             </div>
 
             <div className="stocks-box">
-              <BoxStock title={stocksTitle[0]} stock={stocks[stocksTitle[0]]} />
-              <BoxStocksList stocks={newStocksList} />
+              <BoxStock
+                title={marketSharesTitle[0]}
+                stock={marketShares[marketSharesTitle[0]]}
+              />
+              <BoxStocksList stocks={marketSharesList} />
             </div>
           </>
         )}

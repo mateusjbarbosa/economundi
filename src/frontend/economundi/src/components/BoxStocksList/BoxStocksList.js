@@ -41,7 +41,9 @@ class BoxStocksList extends Component {
               </span>
             ) : (
               <span key={stock} className="variation-stock-item-positive">
-                {stocks[stock].points.toLocaleString("pt-BR")} pontos
+                {stocks[stock].points > 0
+                  ? stocks[stock].points.toLocaleString("pt-BR") + " pontos"
+                  : "Pontuação não enviada"}
               </span>
             )
           ) : !isInfo ? (
@@ -50,7 +52,9 @@ class BoxStocksList extends Component {
             </span>
           ) : (
             <span key={stock} className="variation-stock-item-negative">
-              {stocks[stock].points.toLocaleString("pt-BR")} pontos
+              {stocks[stock].points > 0
+                ? stocks[stock].points.toLocaleString("pt-BR") + " pontos"
+                : "Pontuação não enviada"}
             </span>
           )
         )}
