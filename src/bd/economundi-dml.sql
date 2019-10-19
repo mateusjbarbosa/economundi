@@ -8,6 +8,13 @@ INSERT INTO news_black_list (name, id) VALUES ('QUINA', nextval('news_black_list
 INSERT INTO news_black_list (name, id) VALUES ('LOTOFÁCIL', nextval('news_black_list_id_seq'));
 INSERT INTO news_black_list (name, id) VALUES ('DUPLA SENA', nextval('news_black_list_id_seq'));
 
+-- Inserindo ações.
+INSERT INTO stocks (symbol, name) VALUES ('BIDI4', 'Banco Inter S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('PETR4', 'Petróleo Brasileiro S.A. - Petrobras');
+INSERT INTO stocks (symbol, name) VALUES ('EMBR3', 'Embraer S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('VALE3', 'Vale S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('AZUL4', 'Azul S.A.');
+
 -- Inserindo palavras no dicionário.
 INSERT INTO word (name, description) VALUES ('AÇÃO COLETIVA', 'Ação intencional, de um ou vários grupos, que tem por objetivo intervir na área econômica, política, ou social.');
 INSERT INTO word (name, description) VALUES ('AÇÃO CONJUNTURAL', 'Medida, ocasional e de curta duração, assumida com o fim de manter ou recuperar um determinado nível de atividade econômica.');
