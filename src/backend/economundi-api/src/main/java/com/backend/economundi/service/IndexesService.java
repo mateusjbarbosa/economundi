@@ -4,6 +4,9 @@ import com.backend.economundi.database.dao.ICurrencyDao;
 import com.backend.economundi.database.dao.ICurrencyQuoteDao;
 import com.backend.economundi.database.dao.IMarketSharesDao;
 import com.backend.economundi.database.dao.IMarketSharesQuoteDao;
+import com.backend.economundi.database.dao.IStocksDao;
+import com.backend.economundi.database.dao.IStocksQuoteDao;
+import com.backend.economundi.database.dao.entity.StockEntity;
 import com.backend.economundi.database.dao.entity.coin.Currencies;
 import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
 import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
@@ -12,7 +15,10 @@ import com.backend.economundi.database.dao.impl.CurrencyDao;
 import com.backend.economundi.database.dao.impl.CurrencyQuoteDao;
 import com.backend.economundi.database.dao.impl.MarketSharesDao;
 import com.backend.economundi.database.dao.impl.MarketSharesQuoteDao;
+import com.backend.economundi.database.dao.impl.StocksDao;
+import com.backend.economundi.database.dao.impl.StocksQuoteDao;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class IndexesService {
@@ -21,6 +27,9 @@ public class IndexesService {
     private final ICurrencyQuoteDao currencyQuoteDao = new CurrencyQuoteDao();
     private final IMarketSharesDao marketSharesDao = new MarketSharesDao();
     private final IMarketSharesQuoteDao marketSharesQuoteDao = new MarketSharesQuoteDao();
+    private final IStocksDao stockDao = new StocksDao();
+    private final IStocksQuoteDao stockQuoteDao = new StocksQuoteDao();
+    
 
     /**
      * Realiza a persistência das cotações das moedas.
@@ -102,6 +111,10 @@ public class IndexesService {
         marketSharesE.setId(marketShares.getNIKKEI().getId());
         marketSharesQuoteDao.create(marketSharesE);
     }
+    
+    public void createStock(StockEntity stock) {
+        stockQuoteDao.create(stock);
+    }
 
     /**
      * Coleta os índices econômicos: câmbio, bolsa e ações.
@@ -113,8 +126,19 @@ public class IndexesService {
 
         indexes.put("currencies", currencyQuoteDao.readQuote());
         indexes.put("market_shares", marketSharesQuoteDao.readQuote());
+        indexes.put("stocks", stockQuoteDao.readQuote());
 
         return indexes;
+    }
+    
+    /**
+     * Coleta todas as ações que estão cadastradas.
+     * @return Lista com as ações.
+     */
+    public List<StockEntity> getStocks() {
+        List<StockEntity> symbolList = stockDao.readAll();
+        
+        return symbolList;
     }
 
     /**

@@ -44,7 +44,7 @@ public class EconomundiApplication {
             ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
             apiIdx.getCurrencies();
             apiIdx.getMarketShares();
-
+            apiIdx.getStocks();
             System.out.println("Coleta de índices: " + sdf.format(new Date()));
         } else {
             System.out.println("Fora do horário: " + sdf.format(new Date()));

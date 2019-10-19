@@ -1,8 +1,8 @@
 package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
-import com.backend.economundi.database.dao.IMarketSharesQuoteDao;
-import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
+import com.backend.economundi.database.dao.IStocksQuoteDao;
+import com.backend.economundi.database.dao.entity.StockEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,22 +10,24 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
-public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
+@Component
+public class StocksQuoteDao implements IStocksQuoteDao {
 
-    private static final String ENTITY = "market_shares_quote";
-    private static final String POINTS = "points";
-    private static final String VARIATION = "variation";
+    private static final String ENTITY = "stocks_quote";
+    private static final String PRICE = "price";
+    private static final String VARIATION = "change_percent";
     private static final String DATA_HOUR = "data_hour";
-    private static final String ENTITY_MARKET_SHARES = "market_shares";
-    private static final String MARKET_SHARES_ID = "market_shares_id";
+    private static final String ENTITY_STOCKS = "stocks";
+    private static final String STOCKS_ID = "stocks_id";
 
     private Connection conn;
 
     @Override
-    public void create(MarketSharesEntity entity) {
-        String sql = "INSERT INTO " + ENTITY + "(" + POINTS + ", "
-                + VARIATION + ", " + MARKET_SHARES_ID + ") VALUES "
+    public void create(StockEntity entity) {
+        String sql = "INSERT INTO " + ENTITY + "(" + PRICE + ", "
+                + VARIATION + ", " + STOCKS_ID + ") VALUES "
                 + "(?, ?, ?)";
 
         PreparedStatement stmt = null;
@@ -35,8 +37,8 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
-            stmt.setDouble(1, entity.getPoints());
-            stmt.setDouble(2, entity.getVariation());
+            stmt.setDouble(1, entity.getPrice());
+            stmt.setDouble(2, entity.getChangePercent());
             stmt.setLong(3, entity.getId());
             stmt.execute();
 
@@ -65,27 +67,27 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
     }
 
     @Override
-    public MarketSharesEntity read(Long id) {
+    public StockEntity read(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(MarketSharesEntity entity) {
+    public void update(StockEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(MarketSharesEntity entity) {
+    public void delete(StockEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Map<String, Map<String, Object>> readQuote() {
-        String sql = "SELECT * FROM " + ENTITY + " WHERE " + MARKET_SHARES_ID +
-                "= ? ORDER BY " + DATA_HOUR + " DESC LIMIT 1";
-        MarketSharesDao marketSharesDao = new MarketSharesDao();
-        List<MarketSharesEntity> marketSharesList = marketSharesDao.readAll();
-        Map<String, Map<String, Object>> currenciesMap = new HashMap<>();
+        String sql = "SELECT * FROM " + ENTITY + " WHERE " + STOCKS_ID
+                + "= ? ORDER BY " + DATA_HOUR + " DESC LIMIT 1";
+        StocksDao stocksDao = new StocksDao();
+        List<StockEntity> marketSharesList = stocksDao.readAll();
+        Map<String, Map<String, Object>> stocksMap = new HashMap<>();
 
         marketSharesList.stream().forEach((marketShares) -> {
             try {
@@ -98,11 +100,11 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
                 rs = stmt.executeQuery();
 
                 if (rs.next()) {
-                    Map<String, Object> currencyMap = new HashMap<>();
+                    Map<String, Object> stockMap = new HashMap<>();
 
-                    currencyMap.put(POINTS, rs.getDouble(POINTS));
-                    currencyMap.put(VARIATION, rs.getDouble(VARIATION));
-                    currenciesMap.put(marketShares.getName(), currencyMap);
+                    stockMap.put(PRICE, rs.getDouble(PRICE));
+                    stockMap.put(VARIATION, rs.getDouble(VARIATION));
+                    stocksMap.put(marketShares.getName(), stockMap);
                 }
             } catch (SQLException ex) {
 
@@ -117,6 +119,6 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
             }
         });
 
-        return currenciesMap;
+        return stocksMap;
     }
 }
