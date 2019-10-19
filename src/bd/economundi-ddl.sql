@@ -95,7 +95,7 @@ create table currency (
 
 create table quote (
     id serial primary key,
-    data_hour timestamp without time zone unique NOT NULL default now(),
+    data_hour timestamp without time zone NOT NULL default now(),
     buy money check (buy >= 0::money) NOT NULL,
     sell money check (sell >= 0::money),
     variation double precision NOT NULL,
