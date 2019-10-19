@@ -15,7 +15,12 @@ const BoxNews = ({ news }) => {
         <p>{news.title}</p>
       </div>
       <div>
-        <a className="box-news-link" href={news.url} target="_blank">
+        <a
+          className="box-news-link"
+          href={news.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Ver notícia >>
         </a>
       </div>
