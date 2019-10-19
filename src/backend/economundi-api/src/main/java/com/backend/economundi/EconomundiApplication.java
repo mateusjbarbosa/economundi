@@ -49,6 +49,5 @@ public class EconomundiApplication {
         } else {
             System.out.println("Fora do horário: " + sdf.format(new Date()));
         }
-
     }
 }
