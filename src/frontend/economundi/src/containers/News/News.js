@@ -102,8 +102,6 @@ class News extends Component {
           listNews = await this.getNewsWorld();
         }
 
-        console.log(amountPage + " " + currentPage);
-
         if (currentPage <= 1) {
           this.setState(
             {
