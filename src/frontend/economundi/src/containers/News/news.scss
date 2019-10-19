@@ -1,4 +1,5 @@
 @import "../../styles/color-pallete.scss";
+@import "../../styles/keyframes.scss";
 
 h1 {
   color: $color-text-primary;
@@ -40,6 +41,12 @@ h1 {
   width: 80%;
 
   margin-top: 50%;
+
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  -ms-animation: fadein 1.5s; /* Internet Explorer */
+  -o-animation: fadein 1.5s; /* Opera < 12.1 */
+  animation: fadein 1.5s;
 }
 
 @media screen and (min-width: 375px) {
