@@ -1,8 +1,8 @@
 package com.backend.economundi.database.dao;
 
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
 import java.util.Map;
 
-public interface IQuoteDao extends IBaseDao<CurrencyGeneric>{
+public interface IQuoteDao extends IBaseDao<CurrencyEntity>{
     public Map<String, Map<String, Object>> readQuote();
 }

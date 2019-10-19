@@ -4,7 +4,7 @@ import com.backend.economundi.database.dao.ICurrencyDao;
 import com.backend.economundi.database.dao.IQuoteDao;
 import com.backend.economundi.database.dao.IStockDao;
 import com.backend.economundi.database.dao.entity.coin.Currencies;
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
 import com.backend.economundi.database.dao.entity.stocks.StockEntity;
 import com.backend.economundi.database.dao.entity.stocks.Stocks;
 import com.backend.economundi.database.dao.impl.CurrencyDao;
@@ -25,7 +25,7 @@ public class IndexesService {
      * @param currencies Cotações das moedas.
      */
     public void createQuote(Currencies currencies) {
-        CurrencyGeneric currency = new CurrencyGeneric();
+        CurrencyEntity currency = new CurrencyEntity();
 
         checkExistenceCurrencies(currencies);
 
@@ -155,12 +155,12 @@ public class IndexesService {
 
         // Peso argentino.
         String name = currencies.getARS().getName();
-        CurrencyGeneric currency = currrecyDao.readByName(name);
+        CurrencyEntity currency = currrecyDao.readByName(name);
 
         if (currency != null) {
             currencies.getARS().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -178,7 +178,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getBTC().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -196,7 +196,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getEUR().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -214,7 +214,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getGBP().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -232,7 +232,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getUSD().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);

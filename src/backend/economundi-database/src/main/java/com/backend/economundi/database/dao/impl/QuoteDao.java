@@ -2,7 +2,7 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.IQuoteDao;
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ public class QuoteDao implements IQuoteDao {
     private Connection conn;
 
     @Override
-    public void create(CurrencyGeneric entity) {
+    public void create(CurrencyEntity entity) {
         String sql = "INSERT INTO " + ENTITY + "(" + BUY + ", " + SELL
                 + "," + VARIATION + ", " + CURRENCY_ID + ") VALUES "
                 + "(?::NUMERIC::MONEY, ?::NUMERIC::MONEY, ?, ?)";
@@ -69,17 +69,17 @@ public class QuoteDao implements IQuoteDao {
     }
 
     @Override
-    public CurrencyGeneric read(Long id) {
+    public CurrencyEntity read(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(CurrencyGeneric entity) {
+    public void update(CurrencyEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(CurrencyGeneric entity) {
+    public void delete(CurrencyEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -88,7 +88,7 @@ public class QuoteDao implements IQuoteDao {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + CURRENCY_ID + "= ?"
                 + " ORDER BY " + DATA_HOUR + " DESC LIMIT 1";
         CurrencyDao currencyDao = new CurrencyDao();
-        List<CurrencyGeneric> currencyList = currencyDao.readAll();
+        List<CurrencyEntity> currencyList = currencyDao.readAll();
         Map<String, Map<String, Object>> currenciesMap = new HashMap<>();
 
         currencyList.stream().forEach((currency) -> {
