@@ -6,7 +6,7 @@ public class MarketSharesEntity {
     private String name;
     private String location;
     private Double points;
-    private Double variation;
+    private Float variation;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class MarketSharesEntity {
         this.points = points;
     }
 
-    public Double getVariation() {
+    public Float getVariation() {
         return variation;
     }
 
-    public void setVariation(Double variation) {
+    public void setVariation(Float variation) {
         this.variation = variation;
     }
 }

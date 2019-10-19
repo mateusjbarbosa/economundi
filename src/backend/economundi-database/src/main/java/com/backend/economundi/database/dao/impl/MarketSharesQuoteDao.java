@@ -36,7 +36,7 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
             stmt = conn.prepareStatement(sql);
 
             stmt.setDouble(1, entity.getPoints());
-            stmt.setDouble(2, entity.getVariation());
+            stmt.setFloat(2, entity.getVariation());
             stmt.setLong(3, entity.getId());
             stmt.execute();
 
@@ -101,7 +101,7 @@ public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
                     Map<String, Object> currencyMap = new HashMap<>();
 
                     currencyMap.put(POINTS, rs.getDouble(POINTS));
-                    currencyMap.put(VARIATION, rs.getDouble(VARIATION));
+                    currencyMap.put(VARIATION, rs.getFloat(VARIATION));
                     currenciesMap.put(marketShares.getName(), currencyMap);
                 }
             } catch (SQLException ex) {
