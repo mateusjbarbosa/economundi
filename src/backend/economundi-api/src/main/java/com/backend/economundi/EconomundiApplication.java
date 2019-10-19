@@ -28,26 +28,27 @@ public class EconomundiApplication {
 
     }
 
-    @Scheduled(fixedDelay = 15 * MINUTO)
+    @Scheduled(fixedDelay = 30 * MINUTO)
     public void reportCurrentTime() throws IOException {
         SimpleDateFormat sdf = new SimpleDateFormat("HH EEEE");
         ApiNewsConsumer api = new ApiNewsConsumer();
         api.refreshNews();
-        
+
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
         Integer hour = Integer.parseInt(sdf.format(new Date()).split(" ")[0]);
         String week = sdf.format(new Date()).split(" ")[1];
-        
+
         if ((hour >= 10 && hour <= 18)
                 && ((!week.equals("Domingo") && !week.equals("Sunday"))
                 && ((!week.equals("Sábado") && !week.equals("Saturday"))))) {
             ApiIndexesConsumer apiIdx = new ApiIndexesConsumer();
-            
-            System.out.println("Coleta de índices: " + sdf.format(new Date()));
             apiIdx.getCurrencies();
-            apiIdx.getStocks();
+            apiIdx.getMarketShares();
+
+            System.out.println("Coleta de índices: " + sdf.format(new Date()));
         } else {
             System.out.println("Fora do horário: " + sdf.format(new Date()));
         }
+
     }
 }

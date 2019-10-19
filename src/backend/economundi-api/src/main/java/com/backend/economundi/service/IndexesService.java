@@ -1,31 +1,34 @@
 package com.backend.economundi.service;
 
 import com.backend.economundi.database.dao.ICurrencyDao;
-import com.backend.economundi.database.dao.IQuoteDao;
-import com.backend.economundi.database.dao.IStockDao;
+import com.backend.economundi.database.dao.ICurrencyQuoteDao;
+import com.backend.economundi.database.dao.IMarketSharesDao;
+import com.backend.economundi.database.dao.IMarketSharesQuoteDao;
 import com.backend.economundi.database.dao.entity.coin.Currencies;
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
-import com.backend.economundi.database.dao.entity.stocks.StockEntity;
-import com.backend.economundi.database.dao.entity.stocks.Stocks;
+import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
+import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
+import com.backend.economundi.database.dao.entity.stocks.MarketShares;
 import com.backend.economundi.database.dao.impl.CurrencyDao;
-import com.backend.economundi.database.dao.impl.QuoteDao;
-import com.backend.economundi.database.dao.impl.SotckDao;
+import com.backend.economundi.database.dao.impl.CurrencyQuoteDao;
+import com.backend.economundi.database.dao.impl.MarketSharesDao;
+import com.backend.economundi.database.dao.impl.MarketSharesQuoteDao;
 import java.util.HashMap;
 import java.util.Map;
 
 public class IndexesService {
 
     private final ICurrencyDao currrecyDao = new CurrencyDao();
-    private final IQuoteDao quoteDao = new QuoteDao();
-    private final IStockDao stockDao = new SotckDao();
+    private final ICurrencyQuoteDao currencyQuoteDao = new CurrencyQuoteDao();
+    private final IMarketSharesDao marketSharesDao = new MarketSharesDao();
+    private final IMarketSharesQuoteDao marketSharesQuoteDao = new MarketSharesQuoteDao();
 
     /**
      * Realiza a persistência das cotações das moedas.
      *
      * @param currencies Cotações das moedas.
      */
-    public void createQuote(Currencies currencies) {
-        CurrencyGeneric currency = new CurrencyGeneric();
+    public void createCurrencies(Currencies currencies) {
+        CurrencyEntity currency = new CurrencyEntity();
 
         checkExistenceCurrencies(currencies);
 
@@ -34,102 +37,70 @@ public class IndexesService {
         currency.setSell(currencies.getARS().getSell());
         currency.setVariation(currencies.getARS().getVariation());
         currency.setId(currencies.getARS().getId());
-        quoteDao.create(currency);
+        currencyQuoteDao.create(currency);
 
         // Bitcoin.
         currency.setBuy(currencies.getBTC().getBuy());
         currency.setSell(currencies.getBTC().getSell());
         currency.setVariation(currencies.getBTC().getVariation());
         currency.setId(currencies.getBTC().getId());
-        quoteDao.create(currency);
+        currencyQuoteDao.create(currency);
 
         // Euro.
         currency.setBuy(currencies.getEUR().getBuy());
         currency.setSell(currencies.getEUR().getSell());
         currency.setVariation(currencies.getEUR().getVariation());
         currency.setId(currencies.getEUR().getId());
-        quoteDao.create(currency);
+        currencyQuoteDao.create(currency);
 
         // Libra Esterlina.
         currency.setBuy(currencies.getGBP().getBuy());
         currency.setSell(currencies.getGBP().getSell());
         currency.setVariation(currencies.getGBP().getVariation());
         currency.setId(currencies.getGBP().getId());
-        quoteDao.create(currency);
+        currencyQuoteDao.create(currency);
 
         // Dólar.
         currency.setBuy(currencies.getUSD().getBuy());
         currency.setSell(currencies.getUSD().getSell());
         currency.setVariation(currencies.getUSD().getVariation());
         currency.setId(currencies.getUSD().getId());
-        quoteDao.create(currency);
+        currencyQuoteDao.create(currency);
     }
 
     /**
      * Cria ou atualiza os índices das bolsas.
      *
-     * @param stocks Estrutura que contém os valores a serem inseridos.
+     * @param marketShares Estrutura que contém os valores a serem inseridos.
      */
-    public void createStocks(Stocks stocks) {
-        String name = stocks.getIBOVESPA().getName();
-        StockEntity stock = stockDao.readByName(name);
+    public void createMarketShares(MarketShares marketShares) {
+        MarketSharesEntity marketSharesE = new MarketSharesEntity();
 
-        // IBOVESPA.
-        if (stocks.getIBOVESPA().getPoints() == null) {
-            stocks.getIBOVESPA().setPoints(0D);
-        }
+        checkExistenceMarketShares(marketShares);
 
-        if (stock == null) {
-            stockDao.create(stocks.getIBOVESPA());
-        } else {
-            stocks.getIBOVESPA().setId(stock.getId());
-            stockDao.update(stocks.getIBOVESPA());
-        }
+        // França.
+        marketSharesE.setVariation(marketShares.getCAC().getVariation());
+        marketSharesE.setPoints(marketShares.getCAC().getPoints());
+        marketSharesE.setId(marketShares.getCAC().getId());
+        marketSharesQuoteDao.create(marketSharesE);
 
-        // NASDAQ.
-        if (stocks.getNASDAQ().getPoints() == null) {
-            stocks.getNASDAQ().setPoints(0D);
-        }
+        // Brasil.
+        marketSharesE.setVariation(marketShares.getIBOVESPA().getVariation());
+        marketSharesE.setPoints(marketShares.getIBOVESPA().getPoints());
+        marketSharesE.setId(marketShares.getIBOVESPA().getId());
+        marketSharesQuoteDao.create(marketSharesE);
 
-        name = stocks.getNASDAQ().getName();
-        stock = stockDao.readByName(name);
+        // EUA.
+        marketSharesE.setVariation(marketShares.getNASDAQ().getVariation());
+        marketSharesE.setPoints(marketShares.getNASDAQ().getPoints());
+        marketSharesE.setId(marketShares.getNASDAQ().getId());
+        marketSharesQuoteDao.create(marketSharesE);
 
-        if (stock == null) {
-            stockDao.create(stocks.getNASDAQ());
-        } else {
-            stocks.getNASDAQ().setId(stock.getId());
-            stockDao.update(stocks.getNASDAQ());
-        }
-
-        // CAC.
-        if (stocks.getCAC().getPoints() == null) {
-            stocks.getCAC().setPoints(0D);
-        }
-
-        name = stocks.getCAC().getName();
-        stock = stockDao.readByName(name);
-
-        if (stock == null) {
-            stockDao.create(stocks.getCAC());
-        } else {
-            stocks.getCAC().setId(stock.getId());
-            stockDao.update(stocks.getCAC());
-        }
-
-        // NIKKEI.
-        if (stocks.getNIKKEI().getPoints() == null) {
-            stocks.getNIKKEI().setPoints(0D);
-        }
-
-        name = stocks.getNIKKEI().getName();
-        stock = stockDao.readByName(name);
-
-        if (stock == null) {
-            stockDao.create(stocks.getNIKKEI());
-        } else {
-            stocks.getNIKKEI().setId(stock.getId());
-            stockDao.update(stocks.getNIKKEI());
-        }
+        // EUA.
+        marketSharesE.setVariation(marketShares.getNIKKEI().getVariation());
+        marketSharesE.setPoints(marketShares.getNIKKEI().getPoints());
+        marketSharesE.setId(marketShares.getNIKKEI().getId());
+        marketSharesQuoteDao.create(marketSharesE);
     }
 
     /**
@@ -140,8 +111,8 @@ public class IndexesService {
     public Map<String, Object> getIndexes() {
         Map<String, Object> indexes = new HashMap<>();
 
-        indexes.put("currencies", quoteDao.readQuote());
-        indexes.put("stocks", stockDao.readStocks());
+        indexes.put("currencies", currencyQuoteDao.readQuote());
+        indexes.put("market_shares", marketSharesQuoteDao.readQuote());
 
         return indexes;
     }
@@ -155,12 +126,12 @@ public class IndexesService {
 
         // Peso argentino.
         String name = currencies.getARS().getName();
-        CurrencyGeneric currency = currrecyDao.readByName(name);
+        CurrencyEntity currency = currrecyDao.readByName(name);
 
         if (currency != null) {
             currencies.getARS().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -178,7 +149,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getBTC().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -196,7 +167,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getEUR().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -214,7 +185,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getGBP().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -232,7 +203,7 @@ public class IndexesService {
         if (currency != null) {
             currencies.getUSD().setId(currency.getId());
         } else {
-            currency = new CurrencyGeneric();
+            currency = new CurrencyEntity();
 
             currency.setName(name);
             currrecyDao.create(currency);
@@ -243,4 +214,83 @@ public class IndexesService {
             currencies.getUSD().setSell(0F);
         }
     }
+
+    void checkExistenceMarketShares(MarketShares marketShares) {
+        String name = marketShares.getCAC().getName();
+        MarketSharesEntity marketSharesE = marketSharesDao.readByName(name);
+
+        // Paris.
+        if (marketSharesE != null) {
+            marketShares.getCAC().setId(marketSharesE.getId());
+        } else {
+            marketSharesE = new MarketSharesEntity();
+
+            marketSharesE.setName(marketShares.getCAC().getName());
+            marketSharesE.setLocation(marketShares.getCAC().getLocation());
+            marketSharesDao.create(marketSharesE);
+            marketShares.getCAC().setId(marketSharesE.getId());
+        }
+
+        if (marketShares.getCAC().getPoints() == null) {
+            marketShares.getCAC().setPoints(0D);
+        }
+
+        // Brasil.
+        name = marketShares.getIBOVESPA().getName();
+        marketSharesE = marketSharesDao.readByName(name);
+
+        if (marketSharesE != null) {
+            marketShares.getIBOVESPA().setId(marketSharesE.getId());
+        } else {
+            marketSharesE = new MarketSharesEntity();
+
+            marketSharesE.setName(marketShares.getIBOVESPA().getName());
+            marketSharesE.setLocation(marketShares.getIBOVESPA().getLocation());
+            marketSharesDao.create(marketSharesE);
+            marketShares.getIBOVESPA().setId(marketSharesE.getId());
+        }
+
+        if (marketShares.getIBOVESPA().getPoints() == null) {
+            marketShares.getIBOVESPA().setPoints(0D);
+        }
+
+        // EUA.
+        name = marketShares.getNASDAQ().getName();
+        marketSharesE = marketSharesDao.readByName(name);
+
+        if (marketSharesE != null) {
+            marketShares.getNASDAQ().setId(marketSharesE.getId());
+        } else {
+            marketSharesE = new MarketSharesEntity();
+
+            marketSharesE.setName(marketShares.getNASDAQ().getName());
+            marketSharesE.setLocation(marketShares.getNASDAQ().getLocation());
+            marketSharesDao.create(marketSharesE);
+            marketShares.getNASDAQ().setId(marketSharesE.getId());
+        }
+
+        if (marketShares.getNASDAQ().getPoints() == null) {
+            marketShares.getNASDAQ().setPoints(0D);
+        }
+
+        // Japão.
+        name = marketShares.getNIKKEI().getName();
+        marketSharesE = marketSharesDao.readByName(name);
+
+        if (marketSharesE != null) {
+            marketShares.getNIKKEI().setId(marketSharesE.getId());
+        } else {
+            marketSharesE = new MarketSharesEntity();
+
+            marketSharesE.setName(marketShares.getNIKKEI().getName());
+            marketSharesE.setLocation(marketShares.getNIKKEI().getLocation());
+            marketSharesDao.create(marketSharesE);
+            marketShares.getNIKKEI().setId(marketSharesE.getId());
+        }
+
+        if (marketShares.getNIKKEI().getPoints() == null) {
+            marketShares.getNIKKEI().setPoints(0D);
+        }
+    }
+
 }

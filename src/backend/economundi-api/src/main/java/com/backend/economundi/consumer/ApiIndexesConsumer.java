@@ -1,7 +1,7 @@
 package com.backend.economundi.consumer;
 
 import com.backend.economundi.database.dao.entity.coin.Currencies;
-import com.backend.economundi.database.dao.entity.stocks.Stocks;
+import com.backend.economundi.database.dao.entity.stocks.MarketShares;
 import com.backend.economundi.service.IndexesService;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -35,25 +35,25 @@ public class ApiIndexesConsumer {
             Gson g = new Gson();
 
             currencies = g.fromJson(jsonObj.get("currencies").toString(), Currencies.class);
-            service.createQuote(currencies);
+            service.createCurrencies(currencies);
         } catch (JSONException ex) {
             Logger.getLogger(ApiIndexesConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void getStocks() throws IOException {
+    public void getMarketShares() throws IOException {
         URLConnection connection = new URL("https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,stocks&key=d590478c").openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
         connection.connect();
-        Stocks stocks;
+        MarketShares marketShares;
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charset.forName("UTF-8")));
 
         try {
             JSONObject jsonObj = new JSONObject(reader.readLine());
             Gson g = new Gson();
             
-            stocks = g.fromJson(jsonObj.get("stocks").toString(), Stocks.class);
-            service.createStocks(stocks);
+            marketShares = g.fromJson(jsonObj.get("stocks").toString(), MarketShares.class);
+            service.createMarketShares(marketShares);
         } catch (JSONException ex) {
             Logger.getLogger(ApiIndexesConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
