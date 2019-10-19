@@ -1,3 +1,8 @@
+drop database economundi;
+create database economundi encoding 'utf-8';
+
+\c economundi;
+
 begin;
 
 create table _user (
@@ -114,6 +119,20 @@ create table market_shares_quote (
     variation double precision NOT NULL,
     market_shares_id integer references market_shares(id) on update cascade,
     primary key(market_shares_id, data_hour)
+);
+
+create table stocks (
+    id serial primary key,
+    symbol  character varying (7) unique NOT NULL,
+    name text unique NOT NULL
+);
+
+create table stocks_quote (
+    data_hour timestamp without time zone NOT NULL default now(),
+    price double precision NOT NULL,
+    change_percent double precision NOT NULL,
+    stocks_id integer references stocks(id) on update cascade,
+    primary key (stocks_id, data_hour)
 );
 
 create table simulation (
