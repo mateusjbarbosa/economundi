@@ -3,7 +3,6 @@ import React from "react";
 import "./boxNews.scss";
 
 const BoxNews = ({ news }) => {
-  console.log(news);
   return (
     <div className="box-news">
       <img src={news.urlToImage} alt="Portal EconoMundi" />
@@ -14,13 +13,8 @@ const BoxNews = ({ news }) => {
       <div className="box-news-description">
         <p>{news.title}</p>
       </div>
-      <div>
-        <a
-          className="box-news-link"
-          href={news.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      <div className="box-news-link">
+        <a href={news.url} target="_blank" rel="noopener noreferrer">
           Ver notícia >>
         </a>
       </div>

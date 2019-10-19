@@ -59,7 +59,9 @@
 
     background: $color-primary;
 
-    color: $color-text-primary;
+    & a {
+      color: $color-text-primary;
+    }
   }
 }
 
