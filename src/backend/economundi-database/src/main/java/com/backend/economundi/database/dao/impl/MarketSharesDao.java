@@ -1,8 +1,8 @@
 package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
-import com.backend.economundi.database.dao.ICurrencyDao;
-import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
+import com.backend.economundi.database.dao.IMarketSharesDao;
+import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,21 +12,20 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CurrencyDao implements ICurrencyDao {
+public class MarketSharesDao implements IMarketSharesDao {
 
-    private static final String ENTITY = "currency";
+    private static final String ENTITY = "market_shares";
     private static final String ID = "id";
     private static final String NAME = "name";
+    private static final String LOCATION = "location";
 
     private Connection conn;
 
     @Override
-    public void create(CurrencyEntity entity) {
-        String sql = "INSERT INTO " + ENTITY + "(" + NAME + ") VALUES "
-                + "(?) RETURNING " + ID;
-
+    public void create(MarketSharesEntity entity) {
+        String sql = "INSERT INTO " + ENTITY + "(" + NAME + ", " + LOCATION
+                + ") VALUES (?, ?)";
         PreparedStatement stmt = null;
-        ResultSet rs;
 
         try {
             conn = ConnectionFactory.getConnection();
@@ -34,11 +33,8 @@ public class CurrencyDao implements ICurrencyDao {
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, entity.getName());
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                entity.setId(rs.getLong(ID));
-            }
+            stmt.setString(2, entity.getLocation());
+            stmt.execute();
 
             conn.commit();
         } catch (SQLException ex) {
@@ -65,61 +61,14 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public CurrencyEntity read(Long id) {
-        String sql = "SELECT * FROM " + ENTITY + " WHERE " + ID + "= ?";
-        CurrencyEntity currency = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(sql);
-
-            stmt.setLong(1, id);
-
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                currency = new CurrencyEntity();
-
-                currency.setName(rs.getString(NAME));
-            }
-        } catch (SQLException ex) {
-
-        } finally {
-            try {
-                if (stmt != null && !stmt.isClosed()) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-        }
-
-        return currency;
+    public MarketSharesEntity read(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(CurrencyEntity entity) {
-        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?"
-                + " WHERE " + ID + "= ?";
-
+    public void update(MarketSharesEntity entity) {
+        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?" + ", "
+                + LOCATION + "= ? WHERE " + ID + "= ?";
         PreparedStatement stmt = null;
 
         try {
@@ -128,7 +77,8 @@ public class CurrencyDao implements ICurrencyDao {
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, entity.getName());
-            stmt.setLong(2, entity.getId());
+            stmt.setString(2, entity.getLocation());
+            stmt.setLong(3, entity.getId());
             stmt.execute();
 
             conn.commit();
@@ -158,15 +108,15 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public void delete(CurrencyEntity entity) {
-
+    public void delete(MarketSharesEntity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public CurrencyEntity readByName(String name) {
+    public MarketSharesEntity readByName(String name) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'"
                 + name + "'";
-        CurrencyEntity currency = null;
+        MarketSharesEntity marketShares = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -177,10 +127,11 @@ public class CurrencyDao implements ICurrencyDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                currency = new CurrencyEntity();
+                marketShares = new MarketSharesEntity();
 
-                currency.setId(rs.getLong(ID));
-                currency.setName(rs.getString(NAME));
+                marketShares.setId(rs.getLong(ID));
+                marketShares.setName(rs.getString(NAME));
+                marketShares.setLocation(rs.getString(LOCATION));
             }
         } catch (SQLException ex) {
 
@@ -210,16 +161,16 @@ public class CurrencyDao implements ICurrencyDao {
             }
         }
 
-        return currency;
+        return marketShares;
     }
 
     @Override
-    public List<CurrencyEntity> readAll() {
+    public List<MarketSharesEntity> readAll() {
         String sql = "SELECT * FROM " + ENTITY;
-        List<CurrencyEntity> currencyList = new ArrayList<>();
+        List<MarketSharesEntity> marketSharesList = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         try {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -227,11 +178,11 @@ public class CurrencyDao implements ICurrencyDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                CurrencyEntity currency = new CurrencyEntity();
+                MarketSharesEntity marketShares = new MarketSharesEntity();
 
-                currency.setId(rs.getLong(ID));
-                currency.setName(rs.getString(NAME));
-                currencyList.add(currency);
+                marketShares.setId(rs.getLong(ID));
+                marketShares.setName(rs.getString(NAME));
+                marketSharesList.add(marketShares);
             }
         } catch (SQLException ex) {
 
@@ -260,8 +211,7 @@ public class CurrencyDao implements ICurrencyDao {
 
             }
         }
-        
-        return currencyList;
-    }
 
+        return marketSharesList;
+    }
 }

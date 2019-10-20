@@ -94,21 +94,41 @@ create table currency (
     name character varying (50) unique NOT NULL
 );
 
-create table quote (
-    id serial primary key,
-    data_hour timestamp without time zone unique NOT NULL default now(),
+create table currency_quote (
+    data_hour timestamp without time zone NOT NULL default now(),
     buy money check (buy >= 0::money) NOT NULL,
     sell money check (sell >= 0::money),
     variation double precision NOT NULL,
     currency_id integer references currency(id) on update cascade,
-    unique(currency_id, data_hour)
+    primary key(currency_id, data_hour)
 );
 
-create table stock (
+create table market_shares (
     id serial primary key,
     name character varying (50) unique NOT NULL,
+    location character varying (50) NOT NULL
+);
+
+create table market_shares_quote (
+    data_hour timestamp without time zone NOT NULL default now(),
     points double precision default(0.00),
-    variation double precision NOT NULL
+    variation double precision NOT NULL,
+    market_shares_id integer references market_shares(id) on update cascade,
+    primary key(market_shares_id, data_hour)
+);
+
+create table stocks (
+    id serial primary key,
+    symbol  character varying (7) unique NOT NULL,
+    name text unique NOT NULL
+);
+
+create table stocks_quote (
+    data_hour timestamp without time zone NOT NULL default now(),
+    price double precision NOT NULL,
+    change_percent double precision NOT NULL,
+    stocks_id integer references stocks(id) on update cascade,
+    primary key (stocks_id, data_hour)
 );
 
 create table simulation (

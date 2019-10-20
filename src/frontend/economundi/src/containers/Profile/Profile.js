@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import api from "../../services/api";
 
 import AvatarIcon from "../../img/avatar-default.png";
+import Exit from "../../img/exit.png";
 
 import "./profile.scss";
 
@@ -39,6 +40,11 @@ class Profile extends Component {
     }
   };
 
+  onExit = () => {
+    localStorage.removeItem("tokenUser");
+    document.location.reload(true);
+  };
+
   render() {
     const { greeting, userLogged } = this.state;
     return (
@@ -49,6 +55,12 @@ class Profile extends Component {
 
         {userLogged ? (
           <>
+            <img
+              className="exit-button"
+              src={Exit}
+              alt="Deseja sair do seu perfil?"
+              onClick={this.onExit}
+            />
             <div className="profile-photo">
               <img src={AvatarIcon} alt="Sua foto de perfil" />
             </div>

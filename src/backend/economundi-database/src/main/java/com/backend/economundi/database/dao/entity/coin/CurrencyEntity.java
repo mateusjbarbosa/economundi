@@ -1,6 +1,6 @@
 package com.backend.economundi.database.dao.entity.coin;
 
-public abstract class CurrencyEntity {
+public class CurrencyEntity {
 
     private Long id;
     private String name;

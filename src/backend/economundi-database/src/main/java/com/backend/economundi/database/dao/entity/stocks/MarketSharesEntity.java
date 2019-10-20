@@ -1,11 +1,12 @@
 package com.backend.economundi.database.dao.entity.stocks;
 
-public class StockEntity {
+public class MarketSharesEntity {
 
     private Long id;
     private String name;
+    private String location;
     private Double points;
-    private Float variation;
+    private Double variation;
 
     public Long getId() {
         return id;
@@ -17,6 +18,14 @@ public class StockEntity {
 
     public String getName() {
         return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setName(String name) {
@@ -31,11 +40,11 @@ public class StockEntity {
         this.points = points;
     }
 
-    public Float getVariation() {
+    public Double getVariation() {
         return variation;
     }
 
-    public void setVariation(Float variation) {
+    public void setVariation(Double variation) {
         this.variation = variation;
     }
 }

@@ -9,6 +9,16 @@
   top: 10%;
 }
 
+.exit-button {
+  position: absolute;
+  top: 18%;
+  right: 10%;
+
+  width: 12%;
+
+  cursor: pointer;
+}
+
 .profile-box-login {
   width: 80vw;
   height: 30vh;
@@ -98,7 +108,30 @@
   cursor: pointer;
 }
 
+@media screen and (min-width: 375px) {
+  .exit-button {
+    right: 16%;
+
+    width: 10%;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .exit-button {
+    right: 20%;
+
+    width: 10%;
+  }
+}
+
 @media screen and (min-width: 768px) {
+  .exit-button {
+    top: 8%;
+    right: 5%;
+
+    width: 8%;
+  }
+
   .profile-cards {
     width: 70vw;
     height: 30vh;
@@ -133,6 +166,13 @@
 }
 
 @media screen and (min-width: 1024px) {
+  .exit-button {
+    top: 8%;
+    right: 5%;
+
+    width: 5%;
+  }
+
   .profile-cards {
     width: 70vw;
     height: 20vh;

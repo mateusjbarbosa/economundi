@@ -1,33 +1,30 @@
 package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
-import com.backend.economundi.database.dao.IStockDao;
-import com.backend.economundi.database.dao.entity.stocks.StockEntity;
+import com.backend.economundi.database.dao.IStocksDao;
+import com.backend.economundi.database.dao.entity.StockEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SotckDao implements IStockDao {
+public class StocksDao implements IStocksDao {
 
-    private static final String ENTITY = "stock";
+    private static final String ENTITY = "stocks";
     private static final String ID = "id";
+    private static final String SYMBOL = "symbol";
     private static final String NAME = "name";
-    private static final String POINTS = "points";
-    private static final String VARIATION = "variation";
 
     private Connection conn;
 
     @Override
     public void create(StockEntity entity) {
-        String sql = "INSERT INTO " + ENTITY + "(" + POINTS + ", "
-                + VARIATION + ", " + NAME + ") VALUES "
-                + "(?, ?, ?)";
-
+        String sql = "INSERT INTO " + ENTITY + "(" + NAME + ", "
+                + SYMBOL + ") VALUES (?, ?)";
         PreparedStatement stmt = null;
 
         try {
@@ -35,9 +32,8 @@ public class SotckDao implements IStockDao {
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
-            stmt.setDouble(1, entity.getPoints());
-            stmt.setDouble(2, entity.getVariation());
-            stmt.setString(3, entity.getName());
+            stmt.setString(1, entity.getName());
+            stmt.setString(2, entity.getSymbol());
             stmt.execute();
 
             conn.commit();
@@ -71,9 +67,8 @@ public class SotckDao implements IStockDao {
 
     @Override
     public void update(StockEntity entity) {
-        String sql = "UPDATE " + ENTITY + " SET " + POINTS + "= ?" + ", "
-                + VARIATION + "= ? WHERE " + ID + "= ?";
-
+        String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?" + ", "
+                + SYMBOL + "= ? WHERE " + ID + "= ?";
         PreparedStatement stmt = null;
 
         try {
@@ -81,8 +76,8 @@ public class SotckDao implements IStockDao {
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
-            stmt.setDouble(1, entity.getPoints());
-            stmt.setDouble(2, entity.getVariation());
+            stmt.setString(1, entity.getName());
+            stmt.setString(2, entity.getSymbol());
             stmt.setLong(3, entity.getId());
             stmt.execute();
 
@@ -118,10 +113,9 @@ public class SotckDao implements IStockDao {
     }
 
     @Override
-    public StockEntity readByName(String name) {
-        String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'"
-                + name + "'";
-        StockEntity stock = null;
+    public List<StockEntity> readAll() {
+        String sql = "SELECT * FROM " + ENTITY;
+        List<StockEntity> symbolList = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -131,11 +125,14 @@ public class SotckDao implements IStockDao {
 
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                stock = new StockEntity();
-
-                stock.setId(rs.getLong(ID));
+            while (rs.next()) {
+                StockEntity stock = new StockEntity();
+                
+                stock.setSymbol(rs.getString(SYMBOL));
                 stock.setName(rs.getString(NAME));
+                stock.setId(rs.getLong(ID));
+                
+                symbolList.add(stock);
             }
         } catch (SQLException ex) {
 
@@ -165,40 +162,6 @@ public class SotckDao implements IStockDao {
             }
         }
 
-        return stock;
-    }
-
-    @Override
-    public Map<String, Map<String, Object>> readStocks() {
-        String sql = "SELECT * FROM " + ENTITY;
-        Map<String, Map<String, Object>> stockMap = new HashMap<>();
-        PreparedStatement stmt;
-        ResultSet rs;
-
-        try {
-            conn = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Map<String, Object> currencyMap = new HashMap<>();
-
-                currencyMap.put(POINTS, rs.getDouble(POINTS));
-                currencyMap.put(VARIATION, rs.getDouble(VARIATION));
-                stockMap.put(rs.getString(NAME), currencyMap);
-            }
-        } catch (SQLException ex) {
-
-        } finally {
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-
-            }
-        }
-
-        return stockMap;
+        return symbolList;
     }
 }

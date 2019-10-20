@@ -1,8 +1,8 @@
 package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
-import com.backend.economundi.database.dao.IQuoteDao;
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.IMarketSharesQuoteDao;
+import com.backend.economundi.database.dao.entity.stocks.MarketSharesEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,26 +10,23 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.stereotype.Component;
 
-@Component
-public class QuoteDao implements IQuoteDao {
+public class MarketSharesQuoteDao implements IMarketSharesQuoteDao {
 
-    private static final String ENTITY = "quote";
-    private static final String ID = "id";
-    private static final String DATA_HOUR = "data_hour";
-    private static final String BUY = "buy";
-    private static final String SELL = "sell";
+    private static final String ENTITY = "market_shares_quote";
+    private static final String POINTS = "points";
     private static final String VARIATION = "variation";
-    private static final String CURRENCY_ID = "currency_id";
+    private static final String DATA_HOUR = "data_hour";
+    private static final String ENTITY_MARKET_SHARES = "market_shares";
+    private static final String MARKET_SHARES_ID = "market_shares_id";
 
     private Connection conn;
 
     @Override
-    public void create(CurrencyGeneric entity) {
-        String sql = "INSERT INTO " + ENTITY + "(" + BUY + ", " + SELL
-                + "," + VARIATION + ", " + CURRENCY_ID + ") VALUES "
-                + "(?::NUMERIC::MONEY, ?::NUMERIC::MONEY, ?, ?)";
+    public void create(MarketSharesEntity entity) {
+        String sql = "INSERT INTO " + ENTITY + "(" + POINTS + ", "
+                + VARIATION + ", " + MARKET_SHARES_ID + ") VALUES "
+                + "(?, ?, ?)";
 
         PreparedStatement stmt = null;
 
@@ -38,10 +35,9 @@ public class QuoteDao implements IQuoteDao {
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql);
 
-            stmt.setFloat(1, entity.getBuy());
-            stmt.setFloat(2, entity.getSell());
-            stmt.setDouble(3, entity.getVariation());
-            stmt.setLong(4, entity.getId());
+            stmt.setDouble(1, entity.getPoints());
+            stmt.setDouble(2, entity.getVariation());
+            stmt.setLong(3, entity.getId());
             stmt.execute();
 
             conn.commit();
@@ -69,45 +65,44 @@ public class QuoteDao implements IQuoteDao {
     }
 
     @Override
-    public CurrencyGeneric read(Long id) {
+    public MarketSharesEntity read(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(CurrencyGeneric entity) {
+    public void update(MarketSharesEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(CurrencyGeneric entity) {
+    public void delete(MarketSharesEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Map<String, Map<String, Object>> readQuote() {
-        String sql = "SELECT * FROM " + ENTITY + " WHERE " + CURRENCY_ID + "= ?"
-                + " ORDER BY " + DATA_HOUR + " DESC LIMIT 1";
-        CurrencyDao currencyDao = new CurrencyDao();
-        List<CurrencyGeneric> currencyList = currencyDao.readAll();
+        String sql = "SELECT * FROM " + ENTITY + " WHERE " + MARKET_SHARES_ID +
+                "= ? ORDER BY " + DATA_HOUR + " DESC LIMIT 1";
+        MarketSharesDao marketSharesDao = new MarketSharesDao();
+        List<MarketSharesEntity> marketSharesList = marketSharesDao.readAll();
         Map<String, Map<String, Object>> currenciesMap = new HashMap<>();
 
-        currencyList.stream().forEach((currency) -> {
+        marketSharesList.stream().forEach((marketShares) -> {
             try {
                 PreparedStatement stmt;
                 ResultSet rs;
                 conn = ConnectionFactory.getConnection();
                 stmt = conn.prepareStatement(sql);
-                
-                stmt.setLong(1, currency.getId());
+
+                stmt.setLong(1, marketShares.getId());
                 rs = stmt.executeQuery();
 
                 if (rs.next()) {
                     Map<String, Object> currencyMap = new HashMap<>();
 
-                    currencyMap.put(BUY, rs.getString(BUY));
-                    currencyMap.put(SELL, rs.getString(SELL));
+                    currencyMap.put(POINTS, rs.getDouble(POINTS));
                     currencyMap.put(VARIATION, rs.getDouble(VARIATION));
-                    currenciesMap.put(currency.getName(), currencyMap);
+                    currenciesMap.put(marketShares.getName(), currencyMap);
                 }
             } catch (SQLException ex) {
 
@@ -121,8 +116,7 @@ public class QuoteDao implements IQuoteDao {
                 }
             }
         });
-        
+
         return currenciesMap;
     }
-
 }
