@@ -76,7 +76,7 @@ public class ValidateUserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Gson gson = new Gson();
-        String json = null;
+        String json;
         //Cria um Objeto JSON
         JSONObject jsonObject = new JSONObject();
 
