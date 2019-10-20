@@ -255,7 +255,8 @@ public class NewsDao implements INewsDao {
 
     @Override
     public List<NewsEntity> readByPage(Long pageBegin, Integer size, String locality) {
-        List<NewsEntity> newsList = new ArrayList<>();
+        List<NewsEntity> newsList = new ArrayList<>();    
+        
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + LOCALITY + " = ?"
                 + " ORDER BY " + RELEVANCE + " DESC, " + TITLE
                 + " LIMIT ? OFFSET ?";
