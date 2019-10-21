@@ -106,7 +106,7 @@ public class NewsLetterDao implements INewsLetterDao {
         List<WordEntity> wordList = new ArrayList<>();
 
         String sql = "SELECT id, name, description\n"
-                + "FROM public.word ORDER BY random() limit 3;";
+                + "FROM public.word ORDER BY random() limit 4;";
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
