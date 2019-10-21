@@ -8,6 +8,8 @@ INSERT INTO news_black_list (name) VALUES ('QUINA');
 INSERT INTO news_black_list (name) VALUES ('LOTOFÁCIL');
 INSERT INTO news_black_list (name) VALUES ('DUPLA SENA');
 INSERT INTO news_black_list (name) VALUES ('TELE SENA');
+INSERT INTO news_black_list (name) VALUES ('APOSTA');
+INSERT INTO news_black_list (name) VALUES ('LGBT');
 
 -- Inserindo ações.
 INSERT INTO stocks (symbol, name) VALUES ('BIDI4', 'Banco Inter S.A.');
