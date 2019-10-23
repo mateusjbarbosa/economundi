@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/v1")
-@CrossOrigin(origins = "https://economundi-frontend.herokuapp.com", maxAge = 3600)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {/*EndPoint e ponto final onde os usuarios vao acessar nossa api  */
 
     @Autowired
