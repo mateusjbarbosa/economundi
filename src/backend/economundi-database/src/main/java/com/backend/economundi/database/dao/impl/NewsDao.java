@@ -33,9 +33,9 @@ public class NewsDao implements INewsDao {
 
     @Override
     public void create(NewsEntity news) {
-        String sql = "INSERT INTO " + ENTITY + "(" + ID + "," + TITLE + "," + DESCRIPTION + "," + CONTENT + "," + SOURCE
+        String sql = "INSERT INTO " + ENTITY + "(" + TITLE + "," + DESCRIPTION + "," + CONTENT + "," + SOURCE
                 + "," + URL_IMAGE + "," + URL + "," + LOCALITY + "," + RELEVANCE
-                + ") VALUES (nextval('news_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?)";
+                + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = null;
 

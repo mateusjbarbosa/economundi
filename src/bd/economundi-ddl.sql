@@ -11,7 +11,7 @@ create table _user (
     permission character varying(30) check(permission in ('ADMIN','USER')) NOT NULL,
     economic_profile character varying (20) check (economic_profile in ('Conservative', 'Moderate', 'Moderate-Aggressive', 'Aggressive','None')) default 'None',
     date_hour_register timestamp without time zone default now() NOT NULL,
-    news_letter_active boolean not null set default true	
+    news_letter_active boolean not null default true	
 );
 
 create table news (
