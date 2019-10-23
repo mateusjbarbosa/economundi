@@ -47,7 +47,7 @@ public class NewsLetterDao implements INewsLetterDao {
     public List<NewsLetterDto> getNewsletterEmail(String locality) {
         List<NewsLetterDto> newsLetterList = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + ENTITY + " where " + LOCALITY + " = ? order by " + RELEVANCE + " limit 6 ;";
+        String sql = "SELECT * FROM " + ENTITY + " where " + LOCALITY + " = ? order by " + RELEVANCE + " desc limit 6 ;";
 
         PreparedStatement stmt = null;
         ResultSet rs = null;

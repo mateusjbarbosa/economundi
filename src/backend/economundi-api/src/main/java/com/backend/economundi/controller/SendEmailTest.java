@@ -28,29 +28,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1")
 public class SendEmailTest {
-  
 
     @Autowired
     EmailService sendEmail;
-    
+
     @Autowired
     NewsLetterService newsLetterService;
 
     @GetMapping(path = "public/send")
     public ResponseEntity sendEmail() throws MessagingException {
-        
-        List<EmailNewsLetterDto> emailList = new ArrayList<>();
-        String template = "";
-        
-        template = newsLetterService.getTemplateNewsLetter();
-        
-        emailList = newsLetterService.getListEmailNewsLetter();
-        
-        for(EmailNewsLetterDto item : emailList){
-             sendEmail.sendMail(item.getEmail(), "News Letter EconoMundi", template);
-	}     
 
-        return new ResponseEntity("Email Enviado Com Sucesso", HttpStatus.OK);
+        if (newsLetterService.sendEmailNewsLetter()) {
+            return new ResponseEntity("Email Enviado Com Sucesso", HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Erro Ao Enviar o Email", HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }

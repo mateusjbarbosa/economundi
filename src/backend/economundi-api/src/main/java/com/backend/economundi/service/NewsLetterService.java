@@ -75,7 +75,7 @@ public class NewsLetterService {
         return emailList;
     }
 
-    public Boolean sendEmail() throws MessagingException {
+    public boolean sendEmailNewsLetter() throws MessagingException {
 
         List<EmailNewsLetterDto> emailList = new ArrayList<>();
         String template = "";
@@ -87,7 +87,7 @@ public class NewsLetterService {
         for (EmailNewsLetterDto item : emailList) {
             sendEmail.sendMail(item.getEmail(), "News Letter EconoMundi", template);
         }
-
+    
         return true;
     }
 }

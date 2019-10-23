@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/v1")
-@CrossOrigin
+@CrossOrigin(origins = "https://economundi-frontend.herokuapp.com", maxAge = 3600)
 public class UserController {/*EndPoint e ponto final onde os usuarios vao acessar nossa api  */
 
     @Autowired
@@ -163,7 +163,8 @@ public class UserController {/*EndPoint e ponto final onde os usuarios vao acess
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PutMapping(path = "protected/update")
+    @CrossOrigin(origins = "https://economundi-frontend.herokuapp.com")
+    @PutMapping(path = "protected/update",headers = "Accept=application/json;charset=UTF-8")
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity update(@RequestBody UserDTO newUser) {
         verifyIfUserExists(newUser.getId());
