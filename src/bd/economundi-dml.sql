@@ -14,6 +14,7 @@ INSERT INTO news_black_list (name) VALUES ('RENAULT');
 INSERT INTO news_black_list (name) VALUES ('HONDA');
 INSERT INTO news_black_list (name) VALUES ('CHEVROLET');
 INSERT INTO news_black_list (name) VALUES ('TOYOTA');
+INSERT INTO news_black_list (name) VALUES ('GOLF');
 
 -- Inserindo ações.
 INSERT INTO stocks (symbol, name) VALUES ('BIDI4', 'Banco Inter S.A.');
