@@ -26,14 +26,9 @@ public class NewsLetterService {
 
     private final INewsLetterDao newsLetterDao = new NewsLetterDao();
 
-    @Autowired
-    NewsLetterService newsLetterService;
+    EmailTemplates emailTemplate = new EmailTemplates();
 
-    @Autowired
-    EmailTemplates email;
-
-    @Autowired
-    EmailService sendEmail;
+    EmailService sendEmail = new EmailService();
 
     public List<NewsLetterDto> getNewsForNewsLetter(String locality) {
 
@@ -55,13 +50,13 @@ public class NewsLetterService {
 
     public String getTemplateNewsLetter() {
 
-        List<NewsLetterDto> newsLetterBrazilList = newsLetterService.getNewsForNewsLetter("Brazil");
+        List<NewsLetterDto> newsLetterBrazilList = getNewsForNewsLetter("Brazil");
 
-        List<NewsLetterDto> newsLetterWorldList = newsLetterService.getNewsForNewsLetter("World");
+        List<NewsLetterDto> newsLetterWorldList = getNewsForNewsLetter("World");
 
-        List<WordEntity> wordList = newsLetterService.getWordForNewsLetter();
+        List<WordEntity> wordList = getWordForNewsLetter();
 
-        String template = email.getNewsLetterTemplate(newsLetterBrazilList, newsLetterWorldList, wordList);
+        String template = emailTemplate.getNewsLetterTemplate(newsLetterBrazilList, newsLetterWorldList, wordList);
 
         return template;
     }
@@ -80,9 +75,9 @@ public class NewsLetterService {
         List<EmailNewsLetterDto> emailList = new ArrayList<>();
         String template = "";
 
-        template = newsLetterService.getTemplateNewsLetter();
+        template = getTemplateNewsLetter();
 
-        emailList = newsLetterService.getListEmailNewsLetter();
+        emailList = getListEmailNewsLetter();
 
         for (EmailNewsLetterDto item : emailList) {
             sendEmail.sendMail(item.getEmail(), "News Letter EconoMundi", template);
