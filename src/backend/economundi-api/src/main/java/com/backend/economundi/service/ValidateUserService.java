@@ -67,6 +67,8 @@ public class ValidateUserService {
         newUser.setEmailVerificationToken(utils.generatedEmailToken(60));
 
         newUser.setEconomic_profile("None");
+        
+        newUser.setNews_letter_active(true);
 
         return newUser;
     }

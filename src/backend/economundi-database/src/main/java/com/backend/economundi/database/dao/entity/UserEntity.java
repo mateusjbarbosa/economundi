@@ -54,7 +54,17 @@ public class UserEntity {
     private Timestamp date_hour_register;
     
     private String profile_picture;
+    
+    private boolean news_letter_active;
 
+    public boolean isNews_letter_active() {
+        return news_letter_active;
+    }
+
+    public void setNews_letter_active(boolean news_letter_active) {
+        this.news_letter_active = news_letter_active;
+    }
+    
     public Long getId() {
         return id;
     }
