@@ -1,5 +1,6 @@
 package com.backend.economundi.service;
 
+import com.backend.economundi.database.dao.entity.EmailNewsLetterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmailService {
@@ -27,19 +29,21 @@ public class EmailService {
         helper.setFrom(fromAddress);
         helper.setTo(toEmail);
         helper.setSubject(subject);
-        helper.setText(message,true);
+        helper.setText(message, true);
 
-        if(file != null){
+        if (file != null) {
             helper.addAttachment(file.getName(), file);
         }
         javaMailSender.send(mimeMessage);
     }
 
     public void sendMail(String toEmail, String subject, String message) throws MessagingException {
-       sendMailMultipart(toEmail, subject, message, null);
+        sendMailMultipart(toEmail, subject, message, null);
     }
 
     public void sendMail(String toEmail, String subject, String message, File file) throws MessagingException {
         sendMailMultipart(toEmail, subject, message, file);
     }
+
+    
 }

@@ -1,0 +1,124 @@
+@import "../../styles/color-pallete.scss";
+
+.box-indexes {
+  width: 100%;
+  height: 30vh;
+
+  margin-top: 5%;
+  padding-top: 2%;
+
+  border-radius: 1em;
+
+  background: $color-component-primary;
+}
+
+.variation-positive,
+.variation-negative {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+
+  margin-top: 18%;
+  margin-left: 5%;
+  padding: 5%;
+
+  border-radius: 1em;
+
+  font-weight: 700;
+
+  color: $color-text-primary;
+
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+.variation-positive,
+.variation-info-positive {
+  background: #008000;
+}
+
+.variation-negative,
+.variation-info-negative {
+  background: #ff0000;
+}
+
+.variation-info-positive,
+.variation-info-negative {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+
+  margin-top: 7%;
+  margin-left: 5%;
+  padding: 5%;
+
+  border-radius: 1em;
+
+  font-weight: 700;
+
+  color: $color-text-primary;
+
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 375px) {
+  .variation-positive,
+  .variation-negative {
+    margin-top: 15%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 5%;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .variation-positive,
+  .variation-negative {
+    margin-top: 12%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 3%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .box-indexes {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+
+  .variation-positive,
+  .variation-negative {
+    margin-top: 35%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 20%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .box-indexes {
+    margin-top: -4%;
+    height: 35vh;
+  }
+
+  .variation-positive,
+  .variation-negative {
+    margin-top: 18%;
+  }
+
+  .variation-info-positive,
+  .variation-info-negative {
+    margin-top: 8%;
+  }
+}

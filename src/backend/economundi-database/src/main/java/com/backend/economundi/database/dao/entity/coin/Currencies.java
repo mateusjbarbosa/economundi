@@ -2,11 +2,11 @@ package com.backend.economundi.database.dao.entity.coin;
 
 public class Currencies {
     private String source;
-    private USD USD;
-    private EUR EUR;
-    private GBP GBP;
-    private ARS ARS;
-    private BTC BTC;
+    private CurrencyEntity USD;
+    private CurrencyEntity EUR;
+    private CurrencyEntity GBP;
+    private CurrencyEntity ARS;
+    private CurrencyEntity BTC;
 
     public String getSource() {
         return source;
@@ -16,43 +16,43 @@ public class Currencies {
         this.source = source;
     }
 
-    public USD getUSD() {
+    public CurrencyEntity getUSD() {
         return USD;
     }
 
-    public void setUSD(USD USD) {
+    public void setUSD(CurrencyEntity USD) {
         this.USD = USD;
     }
 
-    public EUR getEUR() {
+    public CurrencyEntity getEUR() {
         return EUR;
     }
 
-    public void setEUR(EUR EUR) {
+    public void setEUR(CurrencyEntity EUR) {
         this.EUR = EUR;
     }
 
-    public GBP getGBP() {
+    public CurrencyEntity getGBP() {
         return GBP;
     }
 
-    public void setGBP(GBP GBP) {
+    public void setGBP(CurrencyEntity GBP) {
         this.GBP = GBP;
     }
 
-    public ARS getARS() {
+    public CurrencyEntity getARS() {
         return ARS;
     }
 
-    public void setARS(ARS ARS) {
+    public void setARS(CurrencyEntity ARS) {
         this.ARS = ARS;
     }
 
-    public BTC getBTC() {
+    public CurrencyEntity getBTC() {
         return BTC;
     }
 
-    public void setBTC(BTC BTC) {
+    public void setBTC(CurrencyEntity BTC) {
         this.BTC = BTC;
     }
 }

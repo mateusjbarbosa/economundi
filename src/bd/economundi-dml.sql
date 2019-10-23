@@ -1,11 +1,26 @@
 BEGIN;
 
 -- Inserindo black list.
-INSERT INTO news_black_list (name, id) VALUES ('CONCURSO', nextval('news_black_list_id_seq'));
-INSERT INTO news_black_list (name, id) VALUES ('LOTERIA FEDERAL', nextval('news_black_list_id_seq'));
-INSERT INTO news_black_list (name, id) VALUES ('MEGA-SENA', nextval('news_black_list_id_seq'));
-INSERT INTO news_black_list (name, id) VALUES ('QUINA', nextval('news_black_list_id_seq'));
-INSERT INTO news_black_list (name, id) VALUES ('LOTOFÁCIL', nextval('news_black_list_id_seq'));
+INSERT INTO news_black_list (name) VALUES ('CONCURSO');
+INSERT INTO news_black_list (name) VALUES ('LOTERIA FEDERAL');
+INSERT INTO news_black_list (name) VALUES ('MEGA-SENA');
+INSERT INTO news_black_list (name) VALUES ('QUINA');
+INSERT INTO news_black_list (name) VALUES ('LOTOFÁCIL');
+INSERT INTO news_black_list (name) VALUES ('DUPLA SENA');
+INSERT INTO news_black_list (name) VALUES ('TELE SENA');
+INSERT INTO news_black_list (name) VALUES ('APOSTA');
+INSERT INTO news_black_list (name) VALUES ('LGBT');
+INSERT INTO news_black_list (name) VALUES ('RENAULT');
+INSERT INTO news_black_list (name) VALUES ('HONDA');
+INSERT INTO news_black_list (name) VALUES ('CHEVROLET');
+INSERT INTO news_black_list (name) VALUES ('TOYOTA');
+
+-- Inserindo ações.
+INSERT INTO stocks (symbol, name) VALUES ('BIDI4', 'Banco Inter S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('PETR4', 'Petróleo Brasileiro S.A. - Petrobras');
+INSERT INTO stocks (symbol, name) VALUES ('EMBR3', 'Embraer S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('VALE3', 'Vale S.A.');
+INSERT INTO stocks (symbol, name) VALUES ('AZUL4', 'Azul S.A.');
 
 -- Inserindo palavras no dicionário.
 INSERT INTO word (name, description) VALUES ('AÇÃO COLETIVA', 'Ação intencional, de um ou vários grupos, que tem por objetivo intervir na área econômica, política, ou social.');
@@ -132,6 +147,26 @@ INSERT INTO word (name, description) VALUES ('JUSTO PREÇO', 'Conceito que supõ
 INSERT INTO word (name, description) VALUES ('JUSTA', 'Fibra têxtil vegetal contida entre a casca e o talo da planta, produzida em zonas tropicais e subtropicais de climas húmidos e quentes, utilizada como principal matéria-prima dos sacos para embalagens.');
 INSERT INTO word (name, description) VALUES ('KNOW-HOW', 'Termo de origem inglesa que significa o conjunto de conhecimentos técnicos práticos, adquiridos com a experiência, necessários para se realizar eficazmente um processo produtivo e obter o máximo rendimento.');
 INSERT INTO word (name, description) VALUES ('KONZERN', 'Termo de origem alemã que significa o conjunto de empresas juridicamente independentes, mas ligadas entre si pelo facto de uma delas controlar e dominar as restantes.');
+INSERT INTO word (name, description) VALUES ('ATIVO', 'Termo que determina propriedades ou itens de valor possuídos por uma empresa ou pessoa. No caso das empresas, representa todos os itens (caixa, estoques, créditos, imóveis, equipamentos, investimentos etc.) que a empresa possui e que estão contabilizados em seu balanço patrimonial. Em geral, os ativos de uma empresa são alocados em três categorias, de acordo com a sua liquidez e duração (ativo circulante, realizável no longo prazo e permanente). O total de ativos de uma empresa equivale à soma dos seus passivos e de seu patrimônio líquido. Também usado para denominar o nome fantasia pelo qual a empresa e suas ações são conhecidas na BOVESPA.');
+INSERT INTO word (name, description) VALUES ('ATIVO CIRCULANTE', 'Um dos componentes do balanço patrimonial das empresas. O ativo circulante reflete a soma de todos os ativos de uma empresa que podem, no curto prazo (até 365 dias), ser convertidos em liquidez, ou seja, vendidos de forma a aumentar o caixa da empresa. Em geral, o ativo circulante inclui contas como disponibilidades, créditos, estoques etc. Contabilmente, somente são incluídos no ativo circulante de uma empresa os bens e direitos que a empresa deve realizar em um prazo inferior a 365 dias da data do último exercício social.');
+INSERT INTO word (name, description) VALUES ('ATIVO IMOBILIZADO', 'Um dos componentes do balanço patrimonial das empresas. O ativo imobilizado é composto da soma dos bens tangíveis utilizados nas atividades operacionais da empresa e que não devem ser convertidos em dinheiro, ou consumidos no curso das atividades da empresa (ex. imóveis, maquinário, equipamento, terrenos etc.).');
+INSERT INTO word (name, description) VALUES ('ATIVO PERMANENTE', 'Um dos componentes do balanço patrimonial das empresas. O ativo permanente reflete a soma dos ativos imobilizados (imóveis, maquinário etc.) e dos investimentos de longo prazo (participações em empresas coligadas etc.) de uma empresa.');
+INSERT INTO word (name, description) VALUES ('ATIVO RENTÁVEL', 'O conceito de Ativo Rentável é utilizado somente para instituições financeiras e reflete a soma de todos os ativos que geram um retorno financeiro para a instituição. O retorno total desses ativos está incluído na receita bruta de intermediação financeira da instituição.');
+INSERT INTO word (name, description) VALUES ('ATIVO INTANGÍVEIS', 'Termo que define os ativos de uma empresa, que não têm representação física imediata. Fazem parte dos ativos intangíveis de uma empresa as patentes, franquias, nomes e marcas etc.');
+INSERT INTO word (name, description) VALUES ('APORTE INICIAL', 'O termo “aporte” é usado para definir a primeira contribuição feita quando o investidor adere a um plano de previdência. Já o termo “aplicação” é usado para se referir à primeira aplicação feita por um investidor em um fundo de investimento.');
+INSERT INTO word (name, description) VALUES ('AMORTIZAÇÃO', 'Termo utilizado em financiamentos, que consiste na parcela da prestação paga periodicamente (em geral mensalmente) referente à redução do saldo devedor do financiamento. Através da amortização, o valor total da dívida cai, de forma que ao longo do financiamento as prestações tendem a diminuir, pois a parcela referente à amortização do saldo devedor diminui. No mercado brasileiro são utilizadas três metodologias distintas de amortização do saldo devedor dos financiamentos: o SAC (Sistema de Amortização Constante), a TP (Tabela price) e, mais recentemente, o SACRE (introduzido pela Caixa Econômica Federal).');
+INSERT INTO word (name, description) VALUES ('OPERAÇÃO DE CÂMBIO', 'É a troca da moeda de um país pela moeda de outro país');
+INSERT INTO word (name, description) VALUES ('MERCADO DE CÂMBIO', 'Onde pessoas física e jurídicas compram e vendem moeda estrangeira obrigatoriamente por meio de instituições autorizadas.');
+INSERT INTO word (name, description) VALUES ('TAXA DE CÂMBIO', 'É o preço, em moeda nacional, de uma unidade de moeda estrangeira');
+INSERT INTO word (name, description) VALUES ('DIVIDENDO', 'É uma distribuição de parcela de lucros de uma empresa a um grupo de acionistas. Os dividendos podem ser distribuídos de diversas formas diferentes, podendo ser na forma de dinheiro, de ações e também de propriedade, o que é mais raro.');
+INSERT INTO word (name, description) VALUES ('INFLAÇÃO', 'É o aumento dos preços de bens e serviços. Ela implica diminuição do poder de compra da moeda. A inflação é medida pelos índices de preços. O Brasil tem vários índices de preços. O Índice Nacional de Preços ao Consumidor Amplo (IPCA) é o índice utilizado no sistema de metas para a inflação.');
+INSERT INTO word (name, description) VALUES ('IPCA', 'É um índice criado para medir a variação de preços do mercado para o consumidor final, e representa o índice oficial da inflação no Brasil. IPCA significa Índice de Preços ao Consumidor e é medido mês a mês pelo IBGE.');
+INSERT INTO word (name, description) VALUES ('CDI', 'É a sigla para Certificados de Depósito Interbancário. Eles são títulos emitidos por instituições financeiras, com o objetivo de transferir recursos de uma instituição para outra, por um curto período de tempo. Funciona como um empréstimo entre instituições financeiras, e também serve de referencial para o rendimento de investimentos de renda fixa, como o CDB, LCI e LCA.');
+INSERT INTO word (name, description) VALUES ('CDB', 'É a sigla para Certificado de Depósito Bancário, e é um título de renda fixa emitido por bancos para captar recursos.');
+INSERT INTO word (name, description) VALUES ('ACORDO DE BASILEIA', 'O Acordo de Basileia é um tratado para regular o funcionamento dos bancos e instituições financeiras. Ratificado por mais de 100 países em 1988 durante a Convenção de Basileia, na Suíça, o acordo definiu uma série de critérios e regras para dar mais segurança e preservar a solidez do sistema bancário mundial.');
+INSERT INTO word (name, description) VALUES ('LCI', 'Letras de Crédito Imobiliário são títulos de crédito emitidos por instituições financeiras com a seguinte finalidade: financiar empreendimentos do setor imobiliário.');
+INSERT INTO word (name, description) VALUES ('LCA', 'Letras de Crédito do Agronegócio são títulos de crédito emitidos por instituições financeiras com a seguinte finalidade: financiar atividades agropecuárias de terceiros.');
+
 
 COMMIT;
 

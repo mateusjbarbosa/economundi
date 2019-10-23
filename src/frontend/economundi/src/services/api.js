@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/economundi/"
+  baseURL: "https://economundi-api.herokuapp.com/economundi"
+  //baseURL: "http://localhost:5000/economundi/"
 });
 
 export default api;

@@ -2,7 +2,7 @@ package com.backend.economundi.database.dao.impl;
 
 import com.backend.economundi.database.connection.ConnectionFactory;
 import com.backend.economundi.database.dao.ICurrencyDao;
-import com.backend.economundi.database.dao.entity.coin.CurrencyGeneric;
+import com.backend.economundi.database.dao.entity.coin.CurrencyEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class CurrencyDao implements ICurrencyDao {
     private Connection conn;
 
     @Override
-    public void create(CurrencyGeneric entity) {
+    public void create(CurrencyEntity entity) {
         String sql = "INSERT INTO " + ENTITY + "(" + NAME + ") VALUES "
                 + "(?) RETURNING " + ID;
 
@@ -65,9 +65,9 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public CurrencyGeneric read(Long id) {
+    public CurrencyEntity read(Long id) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + ID + "= ?";
-        CurrencyGeneric currency = null;
+        CurrencyEntity currency = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -80,7 +80,7 @@ public class CurrencyDao implements ICurrencyDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                currency = new CurrencyGeneric();
+                currency = new CurrencyEntity();
 
                 currency.setName(rs.getString(NAME));
             }
@@ -116,7 +116,7 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public void update(CurrencyGeneric entity) {
+    public void update(CurrencyEntity entity) {
         String sql = "UPDATE " + ENTITY + " SET " + NAME + "= ?"
                 + " WHERE " + ID + "= ?";
 
@@ -158,15 +158,15 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public void delete(CurrencyGeneric entity) {
+    public void delete(CurrencyEntity entity) {
 
     }
 
     @Override
-    public CurrencyGeneric readByName(String name) {
+    public CurrencyEntity readByName(String name) {
         String sql = "SELECT * FROM " + ENTITY + " WHERE " + NAME + " = " + "'"
                 + name + "'";
-        CurrencyGeneric currency = null;
+        CurrencyEntity currency = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -177,7 +177,7 @@ public class CurrencyDao implements ICurrencyDao {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                currency = new CurrencyGeneric();
+                currency = new CurrencyEntity();
 
                 currency.setId(rs.getLong(ID));
                 currency.setName(rs.getString(NAME));
@@ -214,9 +214,9 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
     @Override
-    public List<CurrencyGeneric> readAll() {
+    public List<CurrencyEntity> readAll() {
         String sql = "SELECT * FROM " + ENTITY;
-        List<CurrencyGeneric> currencyList = new ArrayList<>();
+        List<CurrencyEntity> currencyList = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
@@ -227,7 +227,7 @@ public class CurrencyDao implements ICurrencyDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                CurrencyGeneric currency = new CurrencyGeneric();
+                CurrencyEntity currency = new CurrencyEntity();
 
                 currency.setId(rs.getLong(ID));
                 currency.setName(rs.getString(NAME));
